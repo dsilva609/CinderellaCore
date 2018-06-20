@@ -1,14 +1,21 @@
 ﻿using CinderellaCore.Model.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cinderella.Core.Data.Context
+namespace CinderellaCore.Data.Context
 {
-	public class CinderellaCoreContext : DbContext
-	{
-		public CinderellaCoreContext(DbContextOptions<CinderellaCoreContext> options) : base(options)
-		{
-		}
+    public class CinderellaCoreContext : DbContext
+    {
+        private readonly GlobalSettings _settings;
+        public DbSet<TestObj> Tests { get; set; }
 
-		public DbSet<TestObj> Tests { get; set; }
-	}
+        public CinderellaCoreContext(DbContextOptions<CinderellaCoreContext> options, GlobalSettings settings) : base(options)
+        {
+            _settings = settings;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_settings.SQLConnectionString);
+        }
+    }
 }

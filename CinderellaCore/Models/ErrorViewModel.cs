@@ -1,6 +1,4 @@
-using System;
-
-namespace CinderellaCore.Models
+namespace CinderellaCore.Web.Models
 {
     public class ErrorViewModel
     {

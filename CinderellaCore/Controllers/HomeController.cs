@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CinderellaCore.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using CinderellaCore.Models;
+using System.Diagnostics;
+using CinderellaCore.Services.Services.Interfaces;
 
-namespace CinderellaCore.Controllers
+namespace CinderellaCore.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ITestService _testService;
+
+        public HomeController(ITestService testService)
+        {
+            _testService = testService;
+        }
+
         public IActionResult Index()
         {
+            var things = _testService.GetAll();
+
             return View();
         }
 

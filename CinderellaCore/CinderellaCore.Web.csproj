@@ -8,6 +8,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cinderella.Core.Data\Cinderella.Core.Data.csproj" />
+    <ProjectReference Include="..\Cinderella.Core.Data\CinderellaCore.Data.csproj" />
+    <ProjectReference Include="..\CinderellaCore.Services\CinderellaCore.Services.csproj" />
   </ItemGroup>
 
 </Project>

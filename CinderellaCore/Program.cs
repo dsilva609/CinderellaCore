@@ -1,39 +1,39 @@
-﻿using Cinderella.Core.Data.Context;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using CinderellaCore.Data.Context;
 
-namespace CinderellaCore
+namespace CinderellaCore.Web
 {
-	public class Program
-	{
-		public static void Main(string[] args)
-		{
-			var host = BuildWebHost(args);
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var host = BuildWebHost(args);
 
-			using (var scope = host.Services.CreateScope())
-			{
-				var services = scope.ServiceProvider;
-				try
-				{
-					var context = services.GetRequiredService<CinderellaCoreContext>();
-					DBInitializer.Initialize(context);
-				}
-				catch (Exception ex)
-				{
-					var logger = services.GetRequiredService<ILogger<Program>>();
-					logger.LogError(ex, "An error occurred while seeding the database.");
-				}
-			}
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<CinderellaCoreContext>();
+                    DBInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                }
+            }
 
-			host.Run();
-		}
+            host.Run();
+        }
 
-		public static IWebHost BuildWebHost(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>()
-				.Build();
-	}
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .Build();
+    }
 }
