@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Cinderella.Core.Data.Migrations
+namespace CinderellaCore.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class addedtestmodel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,8 +10,8 @@ namespace Cinderella.Core.Data.Migrations
                 name: "Tests",
                 columns: table => new
                 {
-                    ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ID = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore;
+﻿using CinderellaCore.Data.Context;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using CinderellaCore.Data.Context;
 
 namespace CinderellaCore.Web
 {

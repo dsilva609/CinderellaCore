@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cinderella.Core.Data\CinderellaCore.Data.csproj" />
+    <ProjectReference Include="..\CinderellaCore.Data\CinderellaCore.Data.csproj" />
     <ProjectReference Include="..\CinderellaCore.Model\CinderellaCore.Model.csproj" />
   </ItemGroup>
 
