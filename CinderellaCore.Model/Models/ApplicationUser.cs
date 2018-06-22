@@ -1,14 +1,8 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace CinderellaCore.Model.Models
 {
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
-        public ClaimsPrincipal Current { get; set; }
-
-        public ApplicationUser(ClaimsPrincipal principal)
-        {
-            Current = principal;
-        }
     }
 }

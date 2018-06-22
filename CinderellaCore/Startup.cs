@@ -16,7 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
-using System.Security.Claims;
+using System;
 
 namespace CinderellaCore.Web
 {
@@ -43,8 +43,13 @@ namespace CinderellaCore.Web
             });
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+            //     services.AddScoped<UserManager<IdentityUser>>();
 
+            //services.AddScoped<IUserStore<ApplicationUser>>(provider => new UserStore<ApplicationUser>(_container.GetInstance<ApplicationDbContext>()));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             IntegrateSimpleInjector(services);
         }
@@ -52,7 +57,6 @@ namespace CinderellaCore.Web
         private void IntegrateSimpleInjector(IServiceCollection services)
         {
             _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
             services.AddSingleton<IViewComponentActivator>(new SimpleInjectorViewComponentActivator(_container));
@@ -97,8 +101,9 @@ namespace CinderellaCore.Web
             _container.RegisterMvcControllers(app);
             _container.RegisterMvcViewComponents(app);
 
-            _container.Register<ApplicationUser>(GetCurrentUser, Lifestyle.Scoped);
-
+            _container.Register(GetAspNetServiceProvider<UserManager<ApplicationUser>>(app), Lifestyle.Scoped);
+            _container.Register(GetAspNetServiceProvider<SignInManager<ApplicationUser>>(app), Lifestyle.Scoped);
+            //_container.Register(GetAspNetServiceProvider<UserManager<IdentityUser>>(app), Lifestyle.Scoped);
             // Add application services. For instance:
             _container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Singleton);
             _container.Register<ITestService>(() => new TestService(_container.GetInstance<IUnitOfWork>()), Lifestyle.Scoped);
@@ -107,10 +112,24 @@ namespace CinderellaCore.Web
             _container.AutoCrossWireAspNetComponents(app);
         }
 
-        private ApplicationUser GetCurrentUser()
+        private Func<T> GetAspNetServiceProvider<T>(IApplicationBuilder app)
         {
-            var currentUser = _container.GetInstance<IHttpContextAccessor>()?.HttpContext?.User?.Clone();
-            return currentUser != null ? new ApplicationUser(currentUser) : new ApplicationUser(new ClaimsPrincipal());
+            var appServices = app.ApplicationServices;
+            var accessor = appServices.GetRequiredService<IHttpContextAccessor>();
+            return () =>
+            {
+                var services = accessor.HttpContext != null
+                    ? accessor.HttpContext.RequestServices
+                    : _container.IsVerifying ? appServices : null;
+                if (services == null) throw new InvalidOperationException("No HttpContext");
+                return services.GetRequiredService<T>();
+            };
         }
+
+        //private ApplicationUser GetCurrentUser()
+        //{
+        //    var currentUser = _container.GetInstance<IHttpContextAccessor>()?.HttpContext?.User?.Clone();
+        //    return currentUser != null ? new ApplicationUser(currentUser) : new ApplicationUser(new ClaimsPrincipal());
+        //}
     }
 }
