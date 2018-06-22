@@ -1,0 +1,15 @@
+﻿@page
+@using CinderellaCore.Web.Views.Account
+@model CinderellaCore.Web.Views.Account.LoginModel
+
+@using (Html.BeginForm("Signin", "Account", FormMethod.Post))
+{
+
+    @Html.LabelFor(x => x.Email)
+    @Html.TextBoxFor(x => x.Email)
+
+    @Html.LabelFor(x => x.Password)
+    @Html.TextBoxFor(x => x.Password, new { type = "password" })
+
+    <button type="submit" value="Login">Login</button>
+}
