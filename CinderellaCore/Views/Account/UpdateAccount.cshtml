@@ -1,0 +1,12 @@
+﻿@page
+@using CinderellaCore.Web.Views.Account
+@model CinderellaCore.Web.Views.Account.UpdateAccountModel
+
+
+@using (Html.BeginForm("UpdateAccount", "Account", FormMethod.Post))
+{
+    @Html.LabelFor(x => x.UserNum)
+    @Html.TextBoxFor(x => x.UserNum)
+
+    <button type="submit">Save</button>
+}

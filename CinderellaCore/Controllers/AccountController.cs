@@ -8,11 +8,15 @@ namespace CinderellaCore.Web.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly ApplicationUser _user;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager)
+        public AccountController(ApplicationUser user, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
+            _user = user;
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -35,6 +39,19 @@ namespace CinderellaCore.Web.Controllers
             await _signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateAccount() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAccount(UpdateAccountModel update)
+        {
+            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            user.UserNum = update.UserNum;
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("UpdateAccount", "Account");
         }
     }
 }

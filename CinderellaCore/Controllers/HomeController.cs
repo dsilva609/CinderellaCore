@@ -1,28 +1,26 @@
 ﻿using CinderellaCore.Model.Models;
 using CinderellaCore.Services.Services.Interfaces;
 using CinderellaCore.Web.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace CinderellaCore.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : CinderellaCoreBaseController
     {
-        private ApplicationUser _user;
         private readonly ITestService _testService;
 
-        public HomeController(ApplicationUser user, ITestService testService)
+        public HomeController(ITestService testService, UserManager<ApplicationUser> userManager) : base(userManager)
         {
-            _user = user;
-            var us = User?.Identity?.Name;
+            var us = GetCurrentUser();
             _testService = testService;
         }
 
         public IActionResult Index()
         {
-            //   _user = _userManager.FindByNameAsync(User.Identity.Name).Result;
-            //   _user.EmailConfirmed = true;
-            //   _userManager.UpdateAsync(_user);
+            var email = _user.Email;
+
             var things = _testService.GetAll();
             return View();
         }
