@@ -10,4 +10,12 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\BoardGameGeek\" />
+    <Folder Include="Models\ComicVine\" />
+    <Folder Include="Models\Discogs\" />
+    <Folder Include="Models\GiantBomb\" />
+    <Folder Include="Models\Statistics\" />
+    <Folder Include="Models\TheMovieDatabase\" />
+  </ItemGroup>
 </Project>
