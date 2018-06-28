@@ -9,4 +9,8 @@
     <ProjectReference Include="..\CinderellaCore.Model\CinderellaCore.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+    <Folder Include="Services\Statistics\" />
+  </ItemGroup>
 </Project>
