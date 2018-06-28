@@ -1,9 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using CinderellaCore.Data.Components.Crud;
+using CinderellaCore.Data.Repositories;
+using CinderellaCore.Model.Models;
+using CinderellaCore.Model.Models.Discogs;
+using CinderellaCore.Services.Services.Interfaces;
+
 namespace CinderellaCore.Services.Services
 {
     public class AlbumService : IAlbumService
     {
-        private readonly IUserContext _user;
+        private readonly ApplicationUser _user;
         private readonly IRepository<Album> _repository;
         private readonly IRepository<Tracklist> _tracksRepository;
         private readonly GetEntityListComponent _getEntityListComponent;
@@ -13,7 +21,7 @@ namespace CinderellaCore.Services.Services
         private readonly EditEntityListComponent _editEntityListComponent;
         private readonly DeleteEntityComponent _deleteEntityComponent;
 
-        public AlbumService(IUnitOfWork uow, IUserContext user)
+        public AlbumService(IUnitOfWork uow, ApplicationUser user)
         {
             _user = user;
             _repository = uow.GetRepository<Album>();

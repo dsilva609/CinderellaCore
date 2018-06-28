@@ -1,4 +1,11 @@
 ﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using CinderellaCore.Model.Models;
+using CinderellaCore.Model.Models.GiantBomb;
+using CinderellaCore.Services.Services.Interfaces;
+using Newtonsoft.Json;
+
 namespace CinderellaCore.Services.Services
 {
     public class GiantBombService : IGiantBombService

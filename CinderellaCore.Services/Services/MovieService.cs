@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using CinderellaCore.Data.Components.Crud;
+using CinderellaCore.Data.Repositories;
+using CinderellaCore.Model.Models;
+using CinderellaCore.Services.Services.Interfaces;
+
 namespace CinderellaCore.Services.Services
 {
     public class MovieService : IMovieService
     {
-        private readonly IUserContext _user;
+        private readonly ApplicationUser _user;
         private readonly IRepository<Movie> _repository;
         private readonly GetEntityListComponent _getEntityListComponent;
         private readonly AddEntityComponent _addEntityComponent;
@@ -11,7 +18,7 @@ namespace CinderellaCore.Services.Services
         private readonly EditEntityComponent _editEntityComponent;
         private readonly DeleteEntityComponent _deleteEntityComponent;
 
-        public MovieService(IUnitOfWork uow, IUserContext user)
+        public MovieService(IUnitOfWork uow, ApplicationUser user)
         {
             _user = user;
             _repository = uow.GetRepository<Movie>();

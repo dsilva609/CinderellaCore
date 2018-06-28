@@ -1,20 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using CinderellaCore.Model.Models;
+using CinderellaCore.Model.Models.TheMovieDatabase;
+using CinderellaCore.Services.Services.Interfaces;
+using Newtonsoft.Json;
+
 namespace CinderellaCore.Services.Services
 {
-    using BusinessLogic.Models;
-    using BusinessLogic.Models.TMDBModels;
-    using BusinessLogic.Properties;
-    using BusinessLogic.Services.Interfaces;
-    using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-
-    namespace BusinessLogic.Services
-    {
+    
         public class TMDBService : ITMDBService
         {
             private HttpClient _client;
@@ -121,4 +118,3 @@ namespace CinderellaCore.Services.Services
         }
     }
 
-}

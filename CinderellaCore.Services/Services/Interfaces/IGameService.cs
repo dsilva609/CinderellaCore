@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using CinderellaCore.Model.Models;
+
 namespace CinderellaCore.Services.Services.Interfaces
 {
     public interface IGameService

@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using CinderellaCore.Data.Components.Crud;
+using CinderellaCore.Data.Repositories;
+using CinderellaCore.Model.Models;
+using CinderellaCore.Services.Services.Interfaces;
+
 namespace CinderellaCore.Services.Services
 {
     public class WishService : IWishService
     {
-        private readonly IUserContext _user;
+        private readonly ApplicationUser _user;
         private readonly IRepository<Wish> _repository;
         private readonly GetEntityListComponent _getEntityListComponent;
         private readonly AddEntityComponent _addEntityComponent;
@@ -12,7 +19,7 @@ namespace CinderellaCore.Services.Services
         private readonly EditEntityListComponent _editEntityListComponent;
         private readonly DeleteEntityComponent _deleteEntityComponent;
 
-        public WishService(IUnitOfWork uow, IUserContext user)
+        public WishService(IUnitOfWork uow, ApplicationUser user)
         {
             _user = user;
             _repository = uow.GetRepository<Wish>();

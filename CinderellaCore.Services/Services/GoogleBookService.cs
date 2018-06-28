@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using CinderellaCore.Model.Models;
+using CinderellaCore.Services.Services.Interfaces;
+
 namespace CinderellaCore.Services.Services
 {
     public class GoogleBookService : IGoogleBookService
