@@ -17,5 +17,6 @@
     <Folder Include="Models\GiantBomb\" />
     <Folder Include="Models\Statistics\" />
     <Folder Include="Models\TheMovieDatabase\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
 </Project>
