@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace CinderellaCore.Services.Services.Interfaces
 {
     public interface IBookStatisticService
@@ -27,5 +29,4 @@ namespace CinderellaCore.Services.Services.Interfaces
 
         List<Tuple<int, int>> TopReleaseYears(string userID = "", int numToTake = 0);
     }
-}
 }

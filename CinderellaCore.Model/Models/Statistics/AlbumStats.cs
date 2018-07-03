@@ -1,5 +1,4 @@
-﻿using System;
-namespace CinderellaCore.Model.Models.Statistics
+﻿namespace CinderellaCore.Model.Models.Statistics
 {
     public class AlbumStats
     {

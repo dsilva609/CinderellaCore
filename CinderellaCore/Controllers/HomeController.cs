@@ -21,7 +21,7 @@ namespace CinderellaCore.Web.Controllers
         {
             var email = _user.Email;
 
-            var things = _testService.GetAll();
+            //var things = _testService.GetAll();
             return View();
         }
 

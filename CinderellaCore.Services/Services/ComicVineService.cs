@@ -1,25 +1,30 @@
-﻿using System;
-using System.Net.Http;
-using CinderellaCore.Model.Enums;
+﻿using CinderellaCore.Model.Enums;
 using CinderellaCore.Model.Models;
+using CinderellaCore.Model.Models.ComicVine;
 using CinderellaCore.Services.Services.Interfaces;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace CinderellaCore.Services.Services
 {
     public class ComicVineService : IComicVineService
     {
+        private readonly GlobalSettings _settings;
         private HttpClient _client;
 
-        public ComicVineService()
+        public ComicVineService(GlobalSettings settings)
         {
+            _settings = settings;
             CreateClient();
         }
 
         public ComicVineResult Search(string query)
         {
             var response =
-                _client.GetStringAsync($"search/?api_key={Settings.Default.ComicVineKey}&resources=issue&format=json&limit=25&query={query}");
+                _client.GetStringAsync($"search/?api_key={_settings.ComicVineKey}&resources=issue&format=json&limit=25&query={query}");
             var result = response.Result;
 
             var comicVineResults = JsonConvert.DeserializeObject<ComicVineResult>(result);
@@ -29,7 +34,7 @@ namespace CinderellaCore.Services.Services
 
         public Book SearchByID(string id)
         {
-            var response = _client.GetStringAsync($"issue/{id}/?api_key={Settings.Default.ComicVineKey}&format=json");
+            var response = _client.GetStringAsync($"issue/{id}/?api_key={_settings.ComicVineKey}&format=json");
             var result = response.Result;
 
             var comicVineResult = JsonConvert.DeserializeObject<ComicVineComic>(result);

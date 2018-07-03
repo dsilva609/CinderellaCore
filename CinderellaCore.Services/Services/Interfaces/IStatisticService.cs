@@ -1,5 +1,4 @@
-﻿using System;
-namespace CinderellaCore.Services.Services.Interfaces
+﻿namespace CinderellaCore.Services.Services.Interfaces
 {
     public interface IStatisticService
     {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CinderellaCore.Model.Enums;
+using CinderellaCore.Model.Models.Discogs;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

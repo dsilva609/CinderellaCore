@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+
 namespace CinderellaCore.Model.Models.GiantBomb
 {
     public class GiantBombGame

@@ -1,5 +1,4 @@
-﻿using System;
-namespace CinderellaCore.Model.Models.Statistics
+﻿namespace CinderellaCore.Model.Models.Statistics
 {//TODO: remove?
     public class CollectionStatistic
     {
@@ -13,6 +12,5 @@ namespace CinderellaCore.Model.Models.Statistics
         public int NumInProgress { get; set; }
         public int NumNotStarted { get; set; }
         public int NumCheckedOut { get; set; }
-    }  }
     }
 }

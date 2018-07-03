@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace CinderellaCore.Services.Services.Interfaces
 {
     public interface IAlbumStatisticService

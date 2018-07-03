@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using CinderellaCore.Data.Repositories;
+﻿using CinderellaCore.Data.Repositories;
+using System.Linq;
 
 namespace CinderellaCore.Data.Components.Crud
 {

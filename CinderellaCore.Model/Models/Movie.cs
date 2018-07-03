@@ -1,4 +1,4 @@
-﻿using System;
+﻿using CinderellaCore.Model.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace CinderellaCore.Model.Models
@@ -7,6 +7,7 @@ namespace CinderellaCore.Model.Models
     {
         [Required]
         public string Director { get; set; }
+
         public MovieMediaTypeEnum Type { get; set; }
         public string Distributor { get; set; }
         public MovieRatingEnum Rating { get; set; }

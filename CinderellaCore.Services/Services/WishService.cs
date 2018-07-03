@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CinderellaCore.Data.Components.Crud;
+﻿using CinderellaCore.Data.Components.Crud;
 using CinderellaCore.Data.Repositories;
 using CinderellaCore.Model.Models;
 using CinderellaCore.Services.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CinderellaCore.Services.Services
 {
@@ -42,7 +42,7 @@ namespace CinderellaCore.Services.Services
 
         public List<Wish> GetAll(string userID = "", string query = "", int numToTake = 0, int? pageNum = 1)
         {
-            var num = _user.GetUserNum();
+            var num = _user.UserNum;
             var wishList = _getEntityListComponent.Execute(_repository).OrderBy(x => x.Title).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(userID)) wishList = wishList.Where(x => x.UserID == userID);

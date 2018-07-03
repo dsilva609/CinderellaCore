@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using CinderellaCore.Model.Models;
+﻿using CinderellaCore.Model.Models;
 using CinderellaCore.Services.Services.Interfaces;
+using Google.Apis.Books.v1;
+using Google.Apis.Books.v1.Data;
+using Google.Apis.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CinderellaCore.Services.Services
 {
     public class GoogleBookService : IGoogleBookService
     {
-        private readonly IClientService _googleClient;
+        //private readonly IClientService _googleClient;
         private readonly VolumesResource _service;
 
         public GoogleBookService(IClientService client)

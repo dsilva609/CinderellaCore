@@ -1,6 +1,5 @@
-﻿using System;
+﻿using CinderellaCore.Model.Models;
 using System.Collections.Generic;
-using CinderellaCore.Model.Models;
 
 namespace CinderellaCore.Services.Services.Interfaces
 {
@@ -22,5 +21,4 @@ namespace CinderellaCore.Services.Services.Interfaces
 
         List<Album> GetRandomAlbums(string userID, int count);
     }
-
 }

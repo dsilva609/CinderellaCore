@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CinderellaCore.Model.Enums;
+using CinderellaCore.Model.Models;
+using CinderellaCore.Model.Models.BoardGameGeek;
+using CinderellaCore.Services.Services.Interfaces;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Xml.Serialization;
-using CinderellaCore.Model.Enums;
-using CinderellaCore.Model.Models;
-using CinderellaCore.Model.Models.BoardGameGeek;
-using CinderellaCore.Services.Services.Interfaces;
 
 namespace CinderellaCore.Services.Services
 {

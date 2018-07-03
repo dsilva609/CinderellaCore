@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CinderellaCore.Model.Models;
+using CinderellaCore.Model.Models.GiantBomb;
+
 namespace CinderellaCore.Services.Services.Interfaces
 {
     public interface IGiantBombService

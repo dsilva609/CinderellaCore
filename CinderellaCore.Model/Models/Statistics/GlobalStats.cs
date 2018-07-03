@@ -1,5 +1,4 @@
-﻿using System;
-namespace CinderellaCore.Model.Models.Statistics
+﻿namespace CinderellaCore.Model.Models.Statistics
 {
     //TODO: remove?
     public class GlobalStats : CollectionStatistic

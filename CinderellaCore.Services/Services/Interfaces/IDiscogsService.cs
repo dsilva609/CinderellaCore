@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CinderellaCore.Model.Models;
+using CinderellaCore.Model.Models.Discogs;
+using System.Collections.Generic;
+
 namespace CinderellaCore.Services.Services.Interfaces
 {
     public interface IDiscogsService

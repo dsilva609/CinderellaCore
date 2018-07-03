@@ -1,9 +1,8 @@
-﻿using System;
-namespace CinderellaCore.Model.Enums
+﻿namespace CinderellaCore.Model.Enums
 {
     public enum ItemType
     {
-       Album,
+        Album,
         Book,
         Movie,
         Game,

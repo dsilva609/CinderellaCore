@@ -1,10 +1,15 @@
-﻿using System;
+﻿using CinderellaCore.Model.Models;
+using CinderellaCore.Services.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace CinderellaCore.Services.Services.Statistics
 {
     public class PopStatisticService : IPopStatisticService
     {
         private readonly IPopService _popService;
-        private readonly List<FunkoModel> _pops;
+        private readonly List<FunkoPop> _pops;
 
         public PopStatisticService(IPopService popService)
         {
@@ -81,6 +86,6 @@ namespace CinderellaCore.Services.Services.Statistics
                     .Take(numToTake > 0 ? numToTake : _pops.Count)
                     .ToList();
 
-        private List<FunkoModel> GetPops() => _popService.GetAll();
+        private List<FunkoPop> GetPops() => _popService.GetAll();
     }
 }

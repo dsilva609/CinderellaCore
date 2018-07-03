@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace CinderellaCore.Model.Models.BoardGameGeek
@@ -116,5 +115,4 @@ namespace CinderellaCore.Model.Models.BoardGameGeek
         [XmlAttribute("value")]
         public string Val { get; set; }
     }
-
 }

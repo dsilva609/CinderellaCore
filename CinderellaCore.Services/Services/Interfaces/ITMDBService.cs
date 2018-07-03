@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CinderellaCore.Model.Models;
+using CinderellaCore.Model.Models.TheMovieDatabase;
+using System.Collections.Generic;
+
 namespace CinderellaCore.Services.Services.Interfaces
 {
     public interface ITMDBService

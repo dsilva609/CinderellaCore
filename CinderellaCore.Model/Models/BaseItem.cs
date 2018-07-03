@@ -6,11 +6,12 @@ namespace CinderellaCore.Model.Models
 {
     public class BaseItem
     {
-       [Key]
+        [Key]
         public int ID { get; set; }
 
         [Required]
         public string UserID { get; set; }
+
         [Required]
         public string Title { get; set; }
 
@@ -72,5 +73,5 @@ namespace CinderellaCore.Model.Models
 
         public bool IsQueued { get; set; }
         public int QueueRank { get; set; }
-}
+    }
 }

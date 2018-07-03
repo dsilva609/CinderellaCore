@@ -1,4 +1,9 @@
-﻿using System;
+﻿using CinderellaCore.Model;
+using CinderellaCore.Model.Models;
+using CinderellaCore.Services.Services.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace CinderellaCore.Services.Services.Statistics
 {
     public class StatisticService : IStatisticService
@@ -84,8 +89,8 @@ namespace CinderellaCore.Services.Services.Statistics
 
         public int GetNumPops(string userID = "")
             => string.IsNullOrWhiteSpace(userID)
-                ? _items.Count(x => x.GetType() == typeof(FunkoModel))
-                : _items.Count(x => x.UserID == userID && x.GetType() == typeof(FunkoModel));
+                ? _items.Count(x => x.GetType() == typeof(FunkoPop))
+                : _items.Count(x => x.UserID == userID && x.GetType() == typeof(FunkoPop));
 
         public int GetNumWishes(string userID = "")
             => string.IsNullOrWhiteSpace(userID) ? _wishService.GetAll().Count : _wishService.GetAll(userID).Count;

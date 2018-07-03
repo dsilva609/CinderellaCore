@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using CinderellaCore.Data.Repositories;
+﻿using CinderellaCore.Data.Repositories;
+using System.Collections.Generic;
 
 namespace CinderellaCore.Data.Components.Crud
 {

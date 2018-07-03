@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinderellaCore.Model.Enums;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
