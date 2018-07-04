@@ -1,7 +1,5 @@
 ﻿using CinderellaCore.Data.Repositories;
 using CinderellaCore.Model.Models;
-using CinderellaCore.Services.Services;
-using CinderellaCore.Services.Services.Interfaces;
 using CinderellaCore.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -103,11 +101,11 @@ namespace CinderellaCore.Web
 
             _container.Register(GetAspNetServiceProvider<UserManager<ApplicationUser>>(app), Lifestyle.Scoped);
             _container.Register(GetAspNetServiceProvider<SignInManager<ApplicationUser>>(app), Lifestyle.Scoped);
-            //_container.Register(GetAspNetServiceProvider<UserManager<IdentityUser>>(app), Lifestyle.Scoped);
+
             // Add application services. For instance:
             _container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Singleton);
-            _container.Register<ITestService>(() => new TestService(_container.GetInstance<IUnitOfWork>()), Lifestyle.Scoped);
             _container.Register<GlobalSettings>(() => Configuration.GetSection("GlobalSettings").Get<GlobalSettings>(), Lifestyle.Singleton);
+
             // Allow Simple Injector to resolve services from ASP.NET Core.
             _container.AutoCrossWireAspNetComponents(app);
         }

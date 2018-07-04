@@ -1,6 +1,10 @@
-﻿using CinderellaCore.Model.Models;
+﻿using CinderellaCore.Model;
+using CinderellaCore.Model.Models;
+using CinderellaCore.Web.Enums;
+using CinderellaCore.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CinderellaCore.Web.Controllers
 {
@@ -14,9 +18,23 @@ namespace CinderellaCore.Web.Controllers
             _userManager = userManager;
         }
 
-        public ApplicationUser GetCurrentUser()
+        public ApplicationUser GetCurrentUser() => HttpContext != null ? _userManager.GetUserAsync(HttpContext.User).Result : null;
+
+        public ToastMessage ShowStatusMessage(MessageTypeEnum toastType, string message, string title)
         {
-            return HttpContext != null ? _userManager.GetUserAsync(HttpContext.User).Result : null;
+            var toastr = TempData["Toastr"] as Toastr;
+            toastr = toastr ?? new Toastr();
+
+            var toastMessage = toastr.AddToastMessage(title, message, toastType);
+            TempData["Toastr"] = toastr;
+
+            return toastMessage;
+        }
+
+        public void SetTimeStamps(BaseItem model)
+        {
+            if (model.CompletionStatus == CompletionStatus.InProgress) model.DateStarted = DateTime.UtcNow;
+            else if (model.CompletionStatus == CompletionStatus.Completed) model.DateCompleted = DateTime.UtcNow;
         }
     }
 }

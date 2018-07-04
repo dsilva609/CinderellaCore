@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using CinderellaCore.Web.HTMLHelpers
+@using CinderellaCore.Web.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -15,7 +17,15 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <link rel="stylesheet" href="css/toastr.css" />
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="js/toastr.js"></script>
 </head>
+@if (TempData.ContainsKey("Toastr"))
+{
+    var toastr = TempData["Toastr"] as Toastr;
+    @Html.ShowStatusMessages(toastr);
+}
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
