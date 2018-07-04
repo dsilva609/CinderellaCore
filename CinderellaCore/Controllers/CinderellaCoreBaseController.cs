@@ -5,6 +5,7 @@ using CinderellaCore.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace CinderellaCore.Web.Controllers
 {
@@ -36,5 +37,7 @@ namespace CinderellaCore.Web.Controllers
             if (model.CompletionStatus == CompletionStatus.InProgress) model.DateStarted = DateTime.UtcNow;
             else if (model.CompletionStatus == CompletionStatus.Completed) model.DateCompleted = DateTime.UtcNow;
         }
+
+        public bool SessionValueExists(string key) => HttpContext.Session.Keys.Any(x => x == key);
     }
 }
