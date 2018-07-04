@@ -2,8 +2,10 @@
 using CinderellaCore.Model.Models;
 using CinderellaCore.Web.Enums;
 using CinderellaCore.Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 
@@ -39,5 +41,14 @@ namespace CinderellaCore.Web.Controllers
         }
 
         public bool SessionValueExists(string key) => HttpContext.Session.Keys.Any(x => x == key);
+
+        public void SetSessionString(string key, object value) => HttpContext.Session.SetString(key, JsonConvert.SerializeObject(value));
+
+        public T GetFromSession<T>(string key)
+        {
+            var value = HttpContext.Session.GetString(key);
+
+            return string.IsNullOrWhiteSpace(value) ? default(T) : JsonConvert.DeserializeObject<T>(value);
+        }
     }
 }

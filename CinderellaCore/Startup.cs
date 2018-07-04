@@ -53,6 +53,7 @@ namespace CinderellaCore.Web
 
             //services.AddScoped<IUserStore<ApplicationUser>>(provider => new UserStore<ApplicationUser>(_container.GetInstance<ApplicationDbContext>()));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSession();
             IntegrateSimpleInjector(services);
         }
 

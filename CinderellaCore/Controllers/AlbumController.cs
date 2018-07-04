@@ -100,13 +100,13 @@ namespace CinderellaCore.Web.Controllers
                     ShowStatusMessage(MessageTypeEnum.error, e.Message, "Duplicate Album");
                     return View(model);
                 }
-                Session["album-query"] = null;
+                SetSessionString("album-query", null);
 
-                if (!string.IsNullOrWhiteSpace(Session["wish"]?.ToString()))
+                if (SessionValueExists("wish"))
                 {
-                    _wishService.Delete(Convert.ToInt32(Session["wishID"].ToString()), _user.Id);
-                    Session["wish"] = null;
-                    Session["wishID"] = null;
+                    _wishService.Delete(Convert.ToInt32(GetFromSession<string>("wishID")), _user.Id);
+                    SetSessionString("wish", null);
+                    SetSessionString("wishID", null);
                     ShowStatusMessage(MessageTypeEnum.info, "Wish list has been updated", "Wish list");
                 }
                 ShowStatusMessage(MessageTypeEnum.success, "New Album Added Successfully.", "Add Successful");
@@ -220,8 +220,8 @@ namespace CinderellaCore.Web.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchModel.Artist)) searchModel.Artist = searchModel.Artist.Trim();
             if (!string.IsNullOrWhiteSpace(searchModel.AlbumName)) searchModel.AlbumName = searchModel.AlbumName.Trim();
-            if (!string.IsNullOrWhiteSpace(Session["album-query"]?.ToString())) searchModel.AlbumName = Session["album-query"].ToString();
-            if (!string.IsNullOrWhiteSpace(Session["wish"]?.ToString())) searchModel.AlbumName = Session["wish"].ToString();
+            if (SessionValueExists("album-query")) searchModel.AlbumName = GetFromSession<string>("album-query");
+            if (SessionValueExists("wish")) searchModel.AlbumName = GetFromSession<string>("wish");
 
             if (Request.Headers["Referer"].Contains("/Album/Search") && string.IsNullOrWhiteSpace(searchModel.Artist) &&
                 string.IsNullOrWhiteSpace(searchModel.AlbumName))
