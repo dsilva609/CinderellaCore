@@ -1,6 +1,10 @@
 ﻿using CinderellaCore.Data.Repositories;
 using CinderellaCore.Model.Models;
+using CinderellaCore.Services.Services;
+using CinderellaCore.Services.Services.Interfaces;
+using CinderellaCore.Services.Services.Statistics;
 using CinderellaCore.Web.Data;
+using Google.Apis.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -105,6 +109,25 @@ namespace CinderellaCore.Web
             // Add application services. For instance:
             _container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Singleton);
             _container.Register<GlobalSettings>(() => Configuration.GetSection("GlobalSettings").Get<GlobalSettings>(), Lifestyle.Singleton);
+            _container.Register<IAlbumService>(() => new AlbumService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+            _container.Register<IBookService>(() => new BookService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+            _container.Register<IMovieService>(() => new MovieService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+            _container.Register<IGameService>(() => new GameService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+            _container.Register<IPopService>(() => new PopService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+            _container.Register<IWishService>(() => new WishService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+            _container.Register<IDiscogsService, DiscogsService>(Lifestyle.Scoped);
+            _container.Register<IClientService>(() => new Google.Apis.Books.v1.BooksService(), Lifestyle.Scoped);
+            _container.Register<IGoogleBookService>(() => new GoogleBookService(_container.GetInstance<IClientService>()), Lifestyle.Scoped);
+            _container.Register<ITMDBService, TMDBService>(Lifestyle.Scoped);
+            _container.Register<IBGGService, BGGService>(Lifestyle.Scoped);
+            _container.Register<IComicVineService, ComicVineService>(Lifestyle.Scoped);
+            _container.Register<IGiantBombService, GiantBombService>(Lifestyle.Scoped);
+            _container.Register<IStatisticService>(() => new StatisticService(_container.GetInstance<IAlbumService>(), _container.GetInstance<IBookService>(), _container.GetInstance<IGameService>(), _container.GetInstance<IMovieService>(), _container.GetInstance<IPopService>(), _container.GetInstance<IWishService>()), Lifestyle.Scoped);
+            _container.Register<IAlbumStatisticService, AlbumStatisticService>(Lifestyle.Scoped);
+            _container.Register<IBookStatisticService, BookStatisticService>(Lifestyle.Scoped);
+            _container.Register<IMovieStatisticService, MovieStatisticService>(Lifestyle.Scoped);
+            _container.Register<IGameStatisticService, GameStatisticService>(Lifestyle.Scoped);
+            _container.Register<IPopStatisticService, PopStatisticService>(Lifestyle.Scoped);
 
             // Allow Simple Injector to resolve services from ASP.NET Core.
             _container.AutoCrossWireAspNetComponents(app);
