@@ -1,5 +1,4 @@
-﻿using CinderellaCore.Model;
-using CinderellaCore.Model.Models;
+﻿using CinderellaCore.Model.Models;
 using CinderellaCore.Services.Services.Interfaces;
 using CinderellaCore.Web.Enums;
 using CinderellaCore.Web.Models;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using X.PagedList;
+using CompletionStatus = CinderellaCore.Model.CompletionStatus;
 
 namespace CinderellaCore.Web.Controllers
 {

@@ -1,5 +1,4 @@
-﻿using CinderellaCore.Model;
-using CinderellaCore.Model.Models;
+﻿using CinderellaCore.Model.Models;
 using CinderellaCore.Web.Enums;
 using CinderellaCore.Web.Models;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using CompletionStatus = CinderellaCore.Model.CompletionStatus;
 
 namespace CinderellaCore.Web.Controllers
 {
