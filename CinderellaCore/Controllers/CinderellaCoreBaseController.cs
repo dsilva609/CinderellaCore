@@ -50,5 +50,8 @@ namespace CinderellaCore.Web.Controllers
 
             return string.IsNullOrWhiteSpace(value) ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
+
+        public void RemoveFromSession(string key)
+            => HttpContext.Session.Remove(key);
     }
 }

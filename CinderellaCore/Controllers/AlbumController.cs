@@ -4,10 +4,8 @@ using CinderellaCore.Services.Services.Interfaces;
 using CinderellaCore.Web.Enums;
 using CinderellaCore.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +30,11 @@ namespace CinderellaCore.Web.Controllers
         [HttpGet]
         public virtual ActionResult Index(string albumQuery, string filter, int? page)
         {
-            if (string.IsNullOrWhiteSpace(albumQuery) && !string.IsNullOrWhiteSpace(HttpContext.Session.GetString("album-query")))
+            if (string.IsNullOrWhiteSpace(albumQuery) && SessionValueExists("album-query"))
             {
-                albumQuery = HttpContext.Session.GetString("album-query");
-                HttpContext.Session.SetString("album-query", string.Empty);
+                albumQuery = GetFromSession<string>("album-query");
+                RemoveFromSession("album-query");
+                //SetSessionString("album-query", string.Empty);
             }
             ViewBag.Filter = (string.IsNullOrWhiteSpace(albumQuery) ? filter : albumQuery)?.Trim();
 
@@ -48,8 +47,6 @@ namespace CinderellaCore.Web.Controllers
                 PageSize = NUM_ALBUMS_TO_GET
             };
 
-            //ViewBag.PagedAlbums = viewModel.Albums;
-
             return View(viewModel);
         }
 
@@ -57,9 +54,9 @@ namespace CinderellaCore.Web.Controllers
         [HttpGet]
         public virtual ActionResult Create()
         {
-            var model = string.IsNullOrWhiteSpace(HttpContext.Session.GetString("albumResult")) ? new Album { UserID = _user.Id, UserNum = _user.UserNum } : JsonConvert.DeserializeObject<Album>(HttpContext.Session.GetString("albumResult"));
+            var model = SessionValueExists("albumResult") ? GetFromSession<Album>("albumResult") : new Album { UserID = _user.Id, UserNum = _user.UserNum };
             ViewBag.Title = "Create";
-            HttpContext.Session.Remove("albumResult");
+            RemoveFromSession("albumResult");
 
             return View(model);
         }
@@ -74,9 +71,7 @@ namespace CinderellaCore.Web.Controllers
             release.UserNum = _user.UserNum;
 
             ViewBag.Title = "Create";
-
-            //TODO: make helper method for get and set
-            HttpContext.Session.SetString("albumResult", JsonConvert.SerializeObject(release));
+            SetSessionString("albumResult", release);
 
             return RedirectToAction("Create", "Album");
         }
