@@ -1,0 +1,9 @@
+﻿@using CinderellaCore.Model.Models
+@model List<CinderellaCore.Model.Models.Album>
+
+<div class="container">
+    @foreach (var album in Model)
+    {
+        @Html.PartialAsync("_Album", album)
+    }
+</div>

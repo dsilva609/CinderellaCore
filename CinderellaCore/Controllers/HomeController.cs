@@ -1,7 +1,6 @@
 ﻿using CinderellaCore.Model.Enums;
 using CinderellaCore.Model.Models;
 using CinderellaCore.Services.Services.Interfaces;
-using CinderellaCore.Web.Enums;
 using CinderellaCore.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -37,9 +36,6 @@ namespace CinderellaCore.Web.Controllers
         public IActionResult Index()
         {
             //var email = _user.Email;
-
-            ShowStatusMessage(MessageTypeEnum.info, "test", "hgeader");
-            ShowStatusMessage(MessageTypeEnum.error, "test error", "err");
 
             return View();
 

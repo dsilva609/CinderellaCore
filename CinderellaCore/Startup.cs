@@ -54,6 +54,12 @@ namespace CinderellaCore.Web
             //services.AddScoped<IUserStore<ApplicationUser>>(provider => new UserStore<ApplicationUser>(_container.GetInstance<ApplicationDbContext>()));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSession();
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => false;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             IntegrateSimpleInjector(services);
         }
 
@@ -89,7 +95,7 @@ namespace CinderellaCore.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

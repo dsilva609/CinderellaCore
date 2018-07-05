@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using PagedList.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using X.PagedList;
 
 namespace CinderellaCore.Web.Controllers
 {
@@ -44,9 +44,11 @@ namespace CinderellaCore.Web.Controllers
             var viewModel = new AlbumViewModel
             {
                 ViewTitle = "Albums",
-                Albums = albums?.ToPagedList(page ?? 1, NUM_ALBUMS_TO_GET),
+                Albums = albums?.AsQueryable().ToPagedList(page ?? 1, NUM_ALBUMS_TO_GET),
                 PageSize = NUM_ALBUMS_TO_GET
             };
+
+            //ViewBag.PagedAlbums = viewModel.Albums;
 
             return View(viewModel);
         }
@@ -57,7 +59,7 @@ namespace CinderellaCore.Web.Controllers
         {
             var model = string.IsNullOrWhiteSpace(HttpContext.Session.GetString("albumResult")) ? new Album { UserID = _user.Id, UserNum = _user.UserNum } : JsonConvert.DeserializeObject<Album>(HttpContext.Session.GetString("albumResult"));
             ViewBag.Title = "Create";
-            HttpContext.Session.Set("albumResult", null);
+            HttpContext.Session.Remove("albumResult");
 
             return View(model);
         }

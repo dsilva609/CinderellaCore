@@ -1,0 +1,46 @@
+﻿@using CinderellaCore.Model.Enums
+@using CinderellaCore.Model.Models
+@using CinderellaCore.Web.Enums
+@model CinderellaCore.Model.Models.Album
+
+<div id="fh5co-board" data-columns>
+    <div class="item">
+        <div class="flip-container @Model.CompletionStatus.ToString()" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper album">
+                <div class="front">
+                    <div class="animate-box text-center img-fluid">
+                        <a href="@(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "images/Turntable.jpg" : Model.ImageUrl)" class="image-popup img-thumbnail img-fluid fh5co-board-img" title="@Model.Artist - @Model.Title (@Model.YearReleased)">
+                            <img src="@(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "images/Turntable.jpg" : Model.ImageUrl)" alt="@Model.Title">
+                        </a>
+                    </div>
+                </div>
+                <div class="back">
+                    <img src="images/Turntable.jpg" alt="Turntable" />
+                    <div class="info fh5co-desc @Model.CompletionStatus.ToString()" data-id="@Model.ID">
+                        <a href="@Url.Action(User.Identity.IsAuthenticated ? $"/Edit/{Model.ID}" : $"/Details/{Model.ID}")">
+                            @*<a href="@Url.Action(User.Identity.IsAuthenticated && Model.UserNum == User.Identity.GetUserNum() ? $"/Album/Edit/{Model.ID} : $"/Album/Details/{Model.ID}")>*@
+                            <div class="row">
+                                @Html.DisplayFor(modelItem => Model.Artist)
+                            </div>
+                            <div class="row">
+                                @Html.DisplayFor(modelItem => Model.Title)
+                            </div>
+                            <div class="row">
+                                @Html.DisplayFor(modelItem => Model.MediaType)
+                                @if (Model.MediaType == AlbumMediaTypeEnum.Vinyl)
+                                {
+                                    <span>@Model.Speed.GetDisplayName()</span>
+                                    <span>@Model.Size.GetDisplayName()</span>
+                                }
+                                <span class="@CompletionStatusHelper.GetStatusClass(Model.CompletionStatus)"></span>
+                            </div>
+                            <div class="row">
+                                @Html.DisplayFor(x => x.Notes)
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

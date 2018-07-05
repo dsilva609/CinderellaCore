@@ -1,0 +1,146 @@
+﻿@using CinderellaCore.Model.Models
+@using CinderellaCore.Web.Enums
+
+@model CinderellaCore.Model.Models.Album
+
+<script>
+    var deleteUrl = '@Url.Action("Delete", "Album")';
+    $("#main-body").removeClass("container");
+</script>
+
+<div class="container" style="padding-bottom: 1em;">
+    <h2>
+        Details
+        @if (User.IsInRole("Admin") && Model.IsShowcased)
+        {
+            @Html.ActionLink("Remove From showcase", "RemoveFromShowcase", "Album", Model.ID, new { @class = "btn btn-danger" })
+        }
+    </h2>
+    @if (Model.DateAdded != Convert.ToDateTime("1/1/1900") && Model.DateAdded != DateTime.MinValue)
+    {
+        <div>Date Added: @Html.PartialAsync("_Timespan", Model.DateAdded).Result</div>
+    }
+
+    @if (Model.LastCompleted != Convert.ToDateTime("1/1/1900") && Model.LastCompleted != DateTime.MinValue)
+    {
+        <div>Last Played: @Html.PartialAsync("_Timespan", Model.LastCompleted).Result</div>
+    }
+
+    @if (Model.DateUpdated != Convert.ToDateTime("1/1/1900") && Model.DateUpdated != DateTime.MinValue)
+    {
+        <div class="">Last Updated: @Html.PartialAsync("_Timespan", Model.DateUpdated).Result</div>
+    }
+
+    <div>
+        <a href="@Url.Action("Index", "Album")"><span class="fa fa-list"></span> Back to List</a>
+
+        @* TODO: update with model *@
+        @if (User.Identity.IsAuthenticated && Model.UserID == User.Identity.Name)
+        {
+            <span> | </span>
+            <a href="@Url.Action("Edit", "Album",Model.ID)"><span class="fa fa-pencil"></span> Edit</a>
+            <span> | </span>
+            <a href="@Url.Action("Delete","Album", Model.ID)" class="deleteBtn"><span class="fa fa-trash"></span> Delete</a>}
+    </div>
+</div>
+
+<div class="detailsContainer">
+    <div class="background-image" style="background: url('@Model.ImageUrl');"></div>
+    <div class="contentContainer">
+        <div class="container" style="padding-top: 1em;">
+
+            @Html.Partial("_DetailsInfo", Model)
+
+            @if (Model.Tracklist != null)
+            {
+                <div data-toggle="collapse" data-parent="#accordion" href="#track-list" style="padding-top: 1em;">
+                    <div class="row panel panel-primary panel-collapse">
+                        <div class="panel-heading">
+                            <h4>
+                                Track List
+                                <span class="fa fa-chevron-circle-down"></span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div id="track-list" class="collapse in">
+                    <div class="panel-body">
+                        @for (var index = 0; index < Model.Tracklist.Count; index++)
+                        {
+                            <div class="row">
+                                <div class="col-sm-1">@Html.DisplayFor(x => x.Tracklist[index].position)</div>
+                                <div class="col-sm-1">@Html.DisplayFor(x => x.Tracklist[index].duration)</div>
+                                <div class="col-sm-6">@Html.DisplayFor(x => x.Tracklist[index].title)</div>
+                            </div>}
+                    </div>
+                </div>}
+            <div class="row" style="padding-top: 1em;">
+                <div class="col-md-6">
+                    <div data-toggle="collapse" data-parent="#accordion" href="#media-info">
+                        <div class="panel panel-primary panel-collapse">
+                            <div class="panel-heading">
+                                <h4>
+                                    Media Information
+                                    <span class="fa fa-chevron-circle-down"></span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="media-info" class="collapse in">
+                        <div class="panel-body">
+                            <div>
+                                @Html.LabelFor(m => m.MediaType):
+                                @Html.DisplayFor(m => m.MediaType)
+                            </div>
+
+                            <div>
+                                @Html.LabelFor(m => m.IsPhysical):
+                                @Html.DisplayFor(m => m.IsPhysical)
+                            </div>
+
+                            <div>
+                                @Html.LabelFor(m => m.Speed):
+                                @Model.Speed.GetDisplayName()
+                            </div>
+
+                            <div>
+                                @Html.LabelFor(m => m.Size):
+                                @Model.Size.GetDisplayName()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div data-toggle="collapse" data-parent="#accordion" href="#purchase-info">
+                        <div class="panel panel-primary panel-collapse">
+                            <div class="panel-heading">
+                                <h4>
+                                    Purchase Information
+                                    <span class="fa fa-chevron-circle-down"></span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="purchase-info" class="collapse in">
+                        <div class="panel-body">
+                            <div>
+                                @Html.LabelFor(m => m.DatePurchased):
+                                @Html.DisplayFor(m => m.DatePurchased)
+                            </div>
+
+                            <div>
+                                @Html.LabelFor(m => m.LocationPurchased):
+                                @Html.DisplayFor(m => m.LocationPurchased)
+                            </div>
+
+                            <div>
+                                @Html.LabelFor(m => m.IsNew):
+                                @Html.DisplayFor(m => m.IsNew)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
