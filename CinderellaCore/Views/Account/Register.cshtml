@@ -1,0 +1,20 @@
+﻿@page
+@model CinderellaCore.Web.Views.Account.RegisterModel
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+	@Html.LabelFor(x => x.Email)
+	@Html.TextBoxFor(x => x.Email)
+
+	@Html.LabelFor(x => x.UserName)
+	@Html.TextBoxFor(x => x.UserName)
+
+	@Html.LabelFor(x => x.Password)
+	@Html.TextBoxFor(x => x.Password, new { @type = "password" })
+
+	@Html.LabelFor(x => x.PasswordConfirm)
+	@Html.TextBoxFor(x => x.PasswordConfirm, new { @type = "password" })
+
+
+	<button type="submit" value="Register">Register</button>
+}

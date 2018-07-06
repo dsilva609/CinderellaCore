@@ -1,8 +1,8 @@
 @using CinderellaCore.Model.Models
 @using Microsoft.AspNetCore.Identity
 
-@*@inject SignInManager<ApplicationUser> SignInManager
-    @inject UserManager<ApplicationUser> UserManager*@
+@inject SignInManager<ApplicationUser> SignInManager
+    @inject UserManager<ApplicationUser> UserManager
 @*@inject SignInManager<IdentityUser> SignInManager
     @inject UserManager<IdentityUser> UserManager*@
 
@@ -22,7 +22,8 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+	        @*<a asp-area="Identity" asp-page="/Account/Register">Register</a>*@
+			@Html.ActionLink("Register", "Register", "Account")
         </li>
         <li>@Html.ActionLink("Sign In", "Signin", "Account")</li>
     </ul>
