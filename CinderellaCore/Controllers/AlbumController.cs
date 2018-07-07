@@ -34,7 +34,6 @@ namespace CinderellaCore.Web.Controllers
             {
                 albumQuery = GetFromSession<string>("album-query");
                 RemoveFromSession("album-query");
-                //SetSessionString("album-query", string.Empty);
             }
             ViewBag.Filter = (string.IsNullOrWhiteSpace(albumQuery) ? filter : albumQuery)?.Trim();
 
