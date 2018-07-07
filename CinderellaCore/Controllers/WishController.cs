@@ -80,6 +80,12 @@ namespace CinderellaCore.Web.Controllers
                 }
                 catch (Exception e)
                 {
+                    model.Categories =
+                        new SelectList(
+                            _service.GetAll(_user.Id)
+                                .OrderBy(z => z.ItemType)
+                                .GroupBy(x => new { x.ItemType, x.Category })
+                                .Select(y => y.First()), "Category", "Category", string.Empty, "ItemType");
                     ShowStatusMessage(MessageTypeEnum.error, e.Message, "Duplicate Wish");
                     return View(model);
                 }

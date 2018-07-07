@@ -1,0 +1,11 @@
+﻿@using CinderellaCore.Web.Models
+@model CinderellaCore.Web.Models.WishFormModel
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Edit", "Wish", FormMethod.Post))
+{
+    Html.RenderPartial("_WishFormPartial", Model);
+}
+
+@Html.ActionLink("Back to List", "Index", "Wish")

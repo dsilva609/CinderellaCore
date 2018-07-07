@@ -1,5 +1,6 @@
 ﻿using CinderellaCore.Model.Models;
 using CinderellaCore.Web.Enums;
+using CinderellaCore.Web.HTMLHelpers;
 using CinderellaCore.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -25,11 +26,11 @@ namespace CinderellaCore.Web.Controllers
 
         public ToastMessage ShowStatusMessage(MessageTypeEnum toastType, string message, string title)
         {
-            var toastr = TempData["Toastr"] as Toastr;
+            var toastr = TempData.Get<Toastr>("Toastr");
             toastr = toastr ?? new Toastr();
 
             var toastMessage = toastr.AddToastMessage(title, message, toastType);
-            TempData["Toastr"] = toastr;
+            TempData.Add<Toastr>("Toastr", toastr);
 
             return toastMessage;
         }
