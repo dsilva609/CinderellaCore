@@ -1,0 +1,8 @@
+﻿@model List<CinderellaCore.Model.Models.FunkoPop>
+
+<div class="container">
+    @foreach (var pop in Model)
+    {
+        @Html.Partial("~/Views/Pop/_Pop.cshtml", pop)
+    }
+</div>

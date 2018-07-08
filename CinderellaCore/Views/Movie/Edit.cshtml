@@ -1,0 +1,11 @@
+﻿@using CinderellaCore.Model.Models
+@model CinderellaCore.Model.Models.Movie
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Edit", "Movie", FormMethod.Post))
+{
+    Html.RenderPartial("_MovieFormPartial", Model);
+}
+
+@Html.ActionLink("Back to List", "Index", "Movie")

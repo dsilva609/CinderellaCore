@@ -1,0 +1,10 @@
+﻿@using CinderellaCore.Model.Models
+@model CinderellaCore.Model.Models.Book
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Edit", "Book", FormMethod.Post))
+{
+    Html.RenderPartial("_BookFormPartial", Model);
+}
+@Html.ActionLink("Back to List", "Index")

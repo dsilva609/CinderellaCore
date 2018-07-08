@@ -205,7 +205,7 @@ namespace CinderellaCore.Web.Controllers
 
             book.UserID = _user.Id;
             book.UserNum = _user.UserNum;
-            RemoveFromSession("BookResult");
+            SetSessionString("BookResult", book);
 
             return RedirectToAction("Create", "Book");
         }

@@ -209,7 +209,7 @@ namespace CinderellaCore.Web.Controllers
             movie.UserNum = _user.UserNum;
             ViewBag.Title = "Create";
 
-            RemoveFromSession("movieResult");
+            SetSessionString("movieResult", movie);
 
             return RedirectToAction("Create", "Movie");
         }

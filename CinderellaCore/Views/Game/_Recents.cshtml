@@ -1,0 +1,9 @@
+﻿@using CinderellaCore.Model.Models
+@model List<CinderellaCore.Model.Models.Game>
+
+<div class="container">
+    @foreach (var game in Model)
+    {
+        @Html.Partial("~/Views/Game/_Game.cshtml", game)
+    }
+</div>

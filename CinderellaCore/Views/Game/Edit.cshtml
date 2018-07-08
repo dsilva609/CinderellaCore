@@ -1,0 +1,9 @@
+﻿@using CinderellaCore.Model.Models
+@model CinderellaCore.Model.Models.Game
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Edit", "Game", FormMethod.Post))
+{
+    Html.RenderPartial("_GameFormPartial", Model);
+}
+@Html.ActionLink("Back to List", "Index", "Game")

@@ -1,0 +1,9 @@
+﻿@using CinderellaCore.Model.Models
+@model List<CinderellaCore.Model.Models.Movie>
+
+<div class="container">
+    @foreach (var movie in Model)
+    {
+        @Html.Partial("~/Views/Movie/_Movie.cshtml", movie)
+    }
+</div>

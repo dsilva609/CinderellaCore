@@ -1,0 +1,40 @@
+﻿@using CinderellaCore.Model.Models
+@using CinderellaCore.Web.Enums
+@model CinderellaCore.Model.Models.Book
+
+<div id="fh5co-board" data-columns>
+    <div class="item">
+        <div class="flip-container @Model.CompletionStatus.ToString()" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper book">
+                <div class="front">
+                    <div class="animate-box text-center">
+                        <a href="@(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "~/images/Book.jpg" : Model.ImageUrl)" class="image-popup img-thumbnail img-fluid fh5co-board-img" title="@Model.Author - @Model.Title (@Model.YearReleased)">
+                            <img src="@(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "~/images/Book.jpg" : Model.ImageUrl)" alt="@Model.Title">
+                        </a>
+                    </div>
+                </div>
+                <div class="back">
+                    <img src="~/images/Book.jpg" alt="Book" />
+                    <div class="info fh5co-desc @Model.CompletionStatus.ToString()" data-id="@Model.ID">
+                        @*<a href="@Url.Action(User.Identity.IsAuthenticated && Model.UserNum == User.Identity.GetUserNum() ? MVC.Book.Edit(Model.ID) : MVC.Book.Details(Model.ID))">*@
+                        <a href="@(User.Identity.IsAuthenticated ? Url.Action("Edit","Book", new {id=Model.ID}) : Url.Action("Details","Book",new {id=Model.ID}) )">
+                            <div class="row">
+                                @Html.DisplayFor(modelItem => Model.Author)
+                            </div>
+                            <div class="row">
+                                @Html.DisplayFor(modelItem => Model.Title)
+                            </div>
+                            <div class="row">
+                                <span>@Model.Type</span>
+                                <span class="@CompletionStatusHelper.GetStatusClass(Model.CompletionStatus)"></span>
+                            </div>
+                            <div class="row">
+                                @Html.DisplayFor(x => x.Notes)
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -209,7 +209,7 @@ namespace CinderellaCore.Web.Controllers
 
             game.UserID = _user.Id;
             game.UserNum = _user.UserNum;
-            RemoveFromSession("gameResult");
+            SetSessionString("gameResult", game);
 
             return RedirectToAction("Create", "Game");
         }
