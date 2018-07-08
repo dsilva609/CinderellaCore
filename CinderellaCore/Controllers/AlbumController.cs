@@ -101,8 +101,8 @@ namespace CinderellaCore.Web.Controllers
                 if (SessionValueExists("wish"))
                 {
                     _wishService.Delete(Convert.ToInt32(GetFromSession<string>("wishID")), _user.Id);
-                    SetSessionString("wish", null);
-                    SetSessionString("wishID", null);
+                    RemoveFromSession("wish");
+                    RemoveFromSession("wishID");
                     ShowStatusMessage(MessageTypeEnum.info, "Wish list has been updated", "Wish list");
                 }
                 ShowStatusMessage(MessageTypeEnum.success, "New Album Added Successfully.", "Add Successful");
