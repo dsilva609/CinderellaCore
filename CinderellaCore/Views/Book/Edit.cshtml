@@ -5,6 +5,6 @@
 
 @using (Html.BeginForm("Edit", "Book", FormMethod.Post))
 {
-    Html.RenderPartial("_BookFormPartial", Model);
+    await Html.RenderPartialAsync("_BookFormPartial", Model);
 }
 @Html.ActionLink("Back to List", "Index")

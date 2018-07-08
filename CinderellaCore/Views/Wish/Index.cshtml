@@ -47,7 +47,7 @@
             @foreach (var albumWishGroup in Model.AlbumWishes)
             {
                 <div class="bold">@albumWishGroup.Key</div>
-                @Html.Partial("_WishTablePartial", albumWishGroup.Value)
+                @await Html.PartialAsync("_WishTablePartial", albumWishGroup.Value)
             }
         </div>
     </div>
@@ -70,7 +70,7 @@
             @foreach (var bookWishGroup in Model.BookWishes)
             {
                 <div class="bold">@bookWishGroup.Key</div>
-                @Html.Partial("_WishTablePartial", bookWishGroup.Value)
+                @await Html.PartialAsync("_WishTablePartial", bookWishGroup.Value)
             }
         </div>
     </div>
@@ -93,7 +93,7 @@
             @foreach (var movieWishGroup in Model.MovieWishes)
             {
                 <div class="bold">@movieWishGroup.Key</div>
-                @Html.Partial("_WishTablePartial", movieWishGroup.Value)
+                @await Html.PartialAsync("_WishTablePartial", movieWishGroup.Value)
             }
         </div>
     </div>
@@ -116,7 +116,7 @@
             @foreach (var gameWishGroup in Model.GameWishes)
             {
                 <div class="bold">@gameWishGroup.Key</div>
-                @Html.Partial("_WishTablePartial", gameWishGroup.Value)
+                @await Html.PartialAsync("_WishTablePartial", gameWishGroup.Value)
             }
         </div>
     </div>
@@ -139,7 +139,7 @@
             @foreach (var popWishGroup in @Model.PopWishes)
             {
                 <div class="bold">@popWishGroup.Key</div>
-                @Html.Partial("_WishTablePartial", popWishGroup.Value)
+                @await Html.PartialAsync("_WishTablePartial", popWishGroup.Value)
             }
         </div>
     </div>

@@ -3,7 +3,7 @@
 
 @using (Html.BeginForm("Edit", "Pop", new { id = Model.ID }, FormMethod.Post))
 {
-    Html.RenderPartial("_PopFormPartial", Model);
+    await Html.RenderPartialAsync("_PopFormPartial", Model);
 }
 
 @Html.ActionLink("Back to List", "Index", "Pop")

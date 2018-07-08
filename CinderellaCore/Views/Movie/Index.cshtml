@@ -42,11 +42,11 @@
     <div class="container" style="padding-top: 2em;">
         @foreach (var movie in Model.Movies)
         {
-            @Html.Partial("_Movie", movie)
+            @await Html.PartialAsync("_Movie", movie)
         }
     </div>
 </div>
 
 @Html.PagedListPager(Model.Movies, page => Url.Action("Index", new { movieQuery = ViewBag.query, filter = ViewBag.Filter, page }))
 
-@Html.Partial("_TMDBDisclaimer")
+@await Html.PartialAsync("_TMDBDisclaimer")

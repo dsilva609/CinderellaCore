@@ -19,7 +19,7 @@
     </div>
     <div id="albums" class="collapse in">
         <div class="panel-body">
-            @Html.Partial("~/Views/Queue/_QueueTablePartial.cshtml", Model.Albums)
+            @await Html.PartialAsync("~/Views/Queue/_QueueTablePartial.cshtml", Model.Albums)
         </div>
     </div>
 }
@@ -38,7 +38,7 @@
     </div>
     <div id="books" class="collapse in">
         <div class="panel-body">
-            @Html.Partial("~/Views/Queue/_QueueTablePartial.cshtml", Model.Books)
+            @await Html.PartialAsync("~/Views/Queue/_QueueTablePartial.cshtml", Model.Books)
         </div>
     </div>
 }
@@ -57,7 +57,7 @@
     </div>
     <div id="movies" class="collapse in">
         <div class="panel-body">
-            @Html.Partial("~/Views/Queue/_QueueTablePartial.cshtml", Model.Movies)
+            @await Html.PartialAsync("~/Views/Queue/_QueueTablePartial.cshtml", Model.Movies)
         </div>
     </div>
 }
@@ -76,7 +76,7 @@
     </div>
     <div id="games" class="collapse in">
         <div class="panel-body">
-            @Html.Partial("~/Views/Queue/_QueueTablePartial.cshtml", Model.Games)
+            @await Html.PartialAsync("~/Views/Queue/_QueueTablePartial.cshtml", Model.Games)
         </div>
     </div>
 }

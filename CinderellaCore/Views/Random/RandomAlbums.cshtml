@@ -15,7 +15,7 @@
         <div class="contentContainer">
 
             <div class="container" style="padding-top: 1em;">
-                @Html.Partial("~/Views/Album/_DetailsInfo.cshtml", album)
+                @await Html.PartialAsync("~/Views/Album/_DetailsInfo.cshtml", album)
                 @if (User.IsInRole("Admin"))
                 {
                     @(album.IsShowcased ? Html.ActionLink("Remove From showcase", "RemoveFromShowcase", "Album", new { id = album.ID }, new { @class = "btn btn-danger" }) : Html.ActionLink("Add to Showcase", "AddToShowcase", "Album", new { id = album.ID }, new { @class = "btn btn-default" }))

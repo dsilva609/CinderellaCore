@@ -42,12 +42,12 @@
     <div class="container">
         @foreach (var game in Model.Games)
         {
-            @Html.Partial("_Game", game)
+            @await Html.PartialAsync("_Game", game)
         }
     </div>
 </div>
 
 @Html.PagedListPager(Model.Games, page => Url.Action("Index", new { gameQuery = ViewBag.query, filter = ViewBag.Filter, page }))
 
-@Html.Partial("_GiantBombDisclaimer")
-@Html.Partial("_BGGDisclaimer")
+@await Html.PartialAsync("_GiantBombDisclaimer")
+@await Html.PartialAsync("_BGGDisclaimer")

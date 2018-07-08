@@ -50,4 +50,4 @@
 
 @Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { albumQuery = ViewBag?.query, filter = ViewBag?.Filter, page }))
 
-@Html.PartialAsync("_DiscogsDisclaimer").Result
+@await Html.PartialAsync("_DiscogsDisclaimer")

@@ -115,6 +115,6 @@
 
 @Html.ActionLink("Back to List", "Index", "Book")
 
-@Html.Partial("_GoogleBooksDisclaimer")
+@await Html.PartialAsync("_GoogleBooksDisclaimer")
 
-@Html.Partial("_ComicVineDisclaimer")
+@await Html.PartialAsync("_ComicVineDisclaimer")

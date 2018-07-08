@@ -82,7 +82,7 @@
         Time until <a href="http://recordstoreday.com" target="_blank">Record Store Day</a> @Model.RecordStoreDayTimer.Year
     </h2>
 
-    @Html.Partial("_TimerPartial", Model.RecordStoreDayTimer)
+    @await Html.PartialAsync("_TimerPartial", Model.RecordStoreDayTimer)
 </div>
 
 <div class="row text-center">
@@ -90,7 +90,7 @@
         Time until <a href="http://freecomicbookday.com" target="_blank">Free Comic Book Day</a> @Model.FreeComicBookDayTimer.Year
     </h2>
 
-    @Html.Partial("_TimerPartial", Model.FreeComicBookDayTimer)
+    @await Html.PartialAsync("_TimerPartial", Model.FreeComicBookDayTimer)
 </div>
 
 <div class="container">
@@ -145,10 +145,10 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="albumsRecent">
-            @Html.Partial("~/Views/Album/_Recents.cshtml", Model.Albums)
+            @await Html.PartialAsync("~/Views/Album/_Recents.cshtml", Model.Albums)
         </div>
         <div class="tab-pane" id="albumsUpdated">
-            @Html.Partial("~/Views/Album/_Recents.cshtml", Model.UpdatedAlbums)
+            @await Html.PartialAsync("~/Views/Album/_Recents.cshtml", Model.UpdatedAlbums)
         </div>
     </div>
 </div>
@@ -173,10 +173,10 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="booksRecent">
-            @Html.Partial("~/Views/Book/_Recents.cshtml", Model.Books)
+            @await Html.PartialAsync("~/Views/Book/_Recents.cshtml", Model.Books)
         </div>
         <div class="tab-pane" id="booksUpdated">
-            @Html.Partial("~/Views/Book/_Recents.cshtml", Model.UpdatedBooks)
+            @await Html.PartialAsync("~/Views/Book/_Recents.cshtml", Model.UpdatedBooks)
         </div>
     </div>
 </div>
@@ -201,10 +201,10 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="moviesRecent">
-            @Html.Partial("~/Views/Movie/_Recents.cshtml", Model.Movies)
+            @await Html.PartialAsync("~/Views/Movie/_Recents.cshtml", Model.Movies)
         </div>
         <div class="tab-pane" id="moviesUpdated">
-            @Html.Partial("~/Views/Movie/_Recents.cshtml", Model.UpdatedMovies)
+            @await Html.PartialAsync("~/Views/Movie/_Recents.cshtml", Model.UpdatedMovies)
         </div>
     </div>
 </div>
@@ -229,10 +229,10 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="gamesRecent">
-            @Html.Partial("~/Views/Game/_Recents.cshtml", Model.Games)
+            @await Html.PartialAsync("~/Views/Game/_Recents.cshtml", Model.Games)
         </div>
         <div class="tab-pane" id="gamesUpdated">
-            @Html.Partial("~/Views/Game/_Recents.cshtml", Model.UpdatedGames)
+            @await Html.PartialAsync("~/Views/Game/_Recents.cshtml", Model.UpdatedGames)
         </div>
     </div>
 </div>
@@ -257,10 +257,10 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="popsRecent">
-            @Html.Partial("~/Views/Pop/_Recents.cshtml", Model.Pops)
+            @await Html.PartialAsync("~/Views/Pop/_Recents.cshtml", Model.Pops)
         </div>
         <div class="tab-pane" id="popsUpdated">
-            @Html.Partial("~/Views/Pop/_Recents.cshtml", Model.UpdatedPops)
+            @await Html.PartialAsync("~/Views/Pop/_Recents.cshtml", Model.UpdatedPops)
         </div>
     </div>
 </div>

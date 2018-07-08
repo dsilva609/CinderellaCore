@@ -5,7 +5,7 @@
 
 @using (Html.BeginForm("Edit", "Movie", FormMethod.Post))
 {
-    Html.RenderPartial("_MovieFormPartial", Model);
+    await Html.RenderPartialAsync("_MovieFormPartial", Model);
 }
 
 @Html.ActionLink("Back to List", "Index", "Movie")

@@ -15,11 +15,11 @@
 <div class="row panel-body">
     @if (Model.Wish.DateAdded != Convert.ToDateTime("1/1/1900") && Model.Wish.DateAdded != DateTime.MinValue)
     {
-        <div>Date Added: @Html.Partial("_Timespan", Model.Wish.DateAdded)</div>
+        <div>Date Added: @await Html.PartialAsync("_Timespan", Model.Wish.DateAdded)</div>
     }
     @if (Model.Wish.DateModified != Convert.ToDateTime("1/1/1900") && Model.Wish.DateModified != DateTime.MinValue)
     {
-        <div>Last Updated: @Html.Partial("_Timespan", Model.Wish.DateModified)</div>
+        <div>Last Updated: @await Html.PartialAsync("_Timespan", Model.Wish.DateModified)</div>
     }
 </div>
 

@@ -4,7 +4,7 @@
 
 @using (Html.BeginForm("Create", "Game", FormMethod.Post))
 {
-    Html.RenderPartial("_GameFormPartial", Model);
+    await Html.RenderPartialAsync("_GameFormPartial", Model);
 }
 
 @Html.ActionLink("Back to List", "Index", "Game")

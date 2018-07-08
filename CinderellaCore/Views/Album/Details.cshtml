@@ -49,7 +49,7 @@
     <div class="contentContainer">
         <div class="container" style="padding-top: 1em;">
 
-            @Html.Partial("_DetailsInfo", Model)
+            @await Html.PartialAsync("_DetailsInfo", Model)
 
             @if (Model.Tracklist != null)
             {

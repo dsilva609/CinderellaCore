@@ -20,15 +20,15 @@
 <div class="row panel-body">
     @if (Model.DateAdded != Convert.ToDateTime("1/1/1900") && Model.DateAdded != DateTime.MinValue)
     {
-        <div>Date Added: @Html.Partial("_Timespan", Model.DateAdded)</div>
+        <div>Date Added: @await Html.PartialAsync("_Timespan", Model.DateAdded)</div>
     }
     @if (Model.LastCompleted != Convert.ToDateTime("1/1/1900") && Model.LastCompleted != DateTime.MinValue)
     {
-        <div>Last Watched: @Html.Partial("_Timespan", Model.LastCompleted)</div>
+        <div>Last Watched: @await Html.PartialAsync("_Timespan", Model.LastCompleted)</div>
     }
     @if (Model.DateUpdated != Convert.ToDateTime("1/1/1900") && Model.DateUpdated != DateTime.MinValue)
     {
-        <div>Last Updated: @Html.Partial("_Timespan", Model.DateUpdated)</div>
+        <div>Last Updated: @await Html.PartialAsync("_Timespan", Model.DateUpdated)</div>
     }
 
     <div class="col-md-6">

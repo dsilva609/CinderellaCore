@@ -5,7 +5,7 @@
 
 @using (Html.BeginForm("Edit", "Wish", FormMethod.Post))
 {
-    Html.RenderPartial("_WishFormPartial", Model);
+    await Html.RenderPartialAsync("_WishFormPartial", Model);
 }
 
 @Html.ActionLink("Back to List", "Index", "Wish")

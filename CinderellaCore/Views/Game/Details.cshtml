@@ -17,15 +17,15 @@
     </h2>
     @if (Model.DateAdded != Convert.ToDateTime("1/1/1900") && Model.DateAdded != DateTime.MinValue)
     {
-        <div>Date Added: @Html.Partial("_Timespan", Model.DateAdded)</div>
+        <div>Date Added: @await Html.PartialAsync("_Timespan", Model.DateAdded)</div>
     }
     @if (Model.LastCompleted != Convert.ToDateTime("1/1/1900") && Model.LastCompleted != DateTime.MinValue)
     {
-        <div>Last Played: @Html.Partial("_Timespan", Model.LastCompleted)</div>
+        <div>Last Played: @await Html.PartialAsync("_Timespan", Model.LastCompleted)</div>
     }
     @if (Model.DateUpdated != Convert.ToDateTime("1/1/1900") && Model.DateUpdated != DateTime.MinValue)
     {
-        <div>Last Updated: @Html.Partial("_Timespan", Model.DateUpdated)</div>
+        <div>Last Updated: @await Html.PartialAsync("_Timespan", Model.DateUpdated)</div>
     }
     <div>
         <a href="@Url.Action("Index", "Game")"><span class="fa fa-list"></span> Back to List</a>

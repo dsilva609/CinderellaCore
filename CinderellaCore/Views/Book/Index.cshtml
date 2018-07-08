@@ -42,13 +42,13 @@
     <div class="container" style="padding-top: 2em;">
         @foreach (var book in Model.Books)
         {
-            @Html.Partial("_Book", book)
+            @await Html.PartialAsync("_Book", book)
         }
     </div>
 </div>
 
 @Html.PagedListPager(Model.Books, page => Url.Action("Index", new { bookQuery = ViewBag.query, filter = ViewBag.Filter, page }))
 
-@Html.Partial("_GoogleBooksDisclaimer")
+@await Html.PartialAsync("_GoogleBooksDisclaimer")
 
-@Html.Partial("_ComicVineDisclaimer")
+@await Html.PartialAsync("_ComicVineDisclaimer")
