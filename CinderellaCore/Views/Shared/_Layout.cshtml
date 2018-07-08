@@ -53,9 +53,10 @@
         </environment>*@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="~/css/site.css" />
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
     <link rel="stylesheet" type="text/css" href="~/css/bootstrap-datepicker3.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" , href="~/css/Responsive.css" />
     <!-- Animate.css -->
     <link rel="stylesheet" href="~/css/Theme/Hydrogen/animate.css" , type="text/css" />
     <!-- Icomoon Icon Fonts-->
@@ -74,6 +75,7 @@
     <script src="~/js/livestamp.js"></script>
     <script src="~/js/flipclock.js"></script>
     <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/jquery.bcSwipe.js"></script>
     <script src="https://use.fontawesome.com/0e8ee0f596.js"></script>
     <link rel="stylesheet" href="~/css/toastr.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
@@ -114,7 +116,7 @@
             <div class="container">
                 <a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <span class="fa fa-bars"></span></a>
                 <div class="h1 fh5co-logo">
-                    @Html.ActionLink("Project Cinderella", "Index", "Home", new { @class = "navbar-brand" })
+                    @Html.ActionLink("Project Cinderella", "Index", "Home", null, new { @class = "navbar-brand" })
                 </div>
                 <div class="h4 text-center hidden-xs">
                     <a href="@Url.Action("Index", "Album")">
@@ -146,7 +148,7 @@
     <div id="fh5co-offcanvass" class="well well-lg pre-scrollable">
         <a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <span class="fa fa-bars"></span> </a>
         <h1 class="fh5co-logo">
-            @Html.ActionLink("Project Cinderella", "Index", "Home", new { @class = "navbar-brand" })
+            @Html.ActionLink("Project Cinderella", "Index", "Home", null, new { @class = "navbar-brand" })
         </h1>
         <ul id="accordion">
             <li class="panel-heading">
@@ -396,60 +398,59 @@
         <script src="~/js/Hydrogen/salvattore.min.js"></script>
         <script src="~/js/Hydrogen/main.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
-        <hr />
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <ul>
-                                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <ul>
+                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                <li>
+                                    <a href="@Url.Action("Index", "Statistics")">
+                                        <span class="fa fa-trophy"></span> Stats
+                                    </a>
+                                </li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
                                     <li>
-                                        <a href="@Url.Action("Index", "Statistics")">
-                                            <span class="fa fa-trophy"></span> Stats
+                                        <a href="@Url.Action("Index", "Wish")">
+                                            <span class="fa fa-star"></span> Wish List
                                         </a>
                                     </li>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <li>
-                                            <a href="@Url.Action("Index", "Wish")">
-                                                <span class="fa fa-star"></span> Wish List
-                                            </a>
-                                        </li>
-                                    }
+                                }
+                                <li>
+                                    @*<a href="@Url.Action(MVC.Showcase.Index(User.Identity.IsAuthenticated ? User.Identity.GetUserNum() : 1))">*@
+                                    <a href="@Url.Action("Index", "Showcase", new {id=1})">
+                                        <span class="fa fa-certificate"></span> Showcase
+                                    </a>
+                                </li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
                                     <li>
-                                        @*<a href="@Url.Action(MVC.Showcase.Index(User.Identity.IsAuthenticated ? User.Identity.GetUserNum() : 1))">*@
-                                        <a href="@Url.Action("Index", "Showcase", new {id=1}))">
-                                            <span class="fa fa-certificate"></span> Showcase
+                                        <a href="@Url.Action("Index", "Queue")">
+                                            <span class="fa fa-list"></span> Queue
                                         </a>
                                     </li>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <li>
-                                            <a href="@Url.Action("Index", "Queue")">
-                                                <span class="fa fa-list"></span> Queue
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
+                                }
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div>
-                                    <a href="https://github.com/dsilva609/CinderellaCore" class="btn btn-primary" target="_blank">View Project In GitHub &raquo;</a>
-                                </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div>
+                                <a href="https://github.com/dsilva609/CinderellaCore" class="btn btn-primary" target="_blank">View Project In GitHub &raquo;</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    &copy; 2016 - @DateTime.Now.Year - Project Cinderella - Designed By Dennis D. Silva
-                </div>
+            </div>
+            <div class="row">
+                &copy; 2016 - @DateTime.Now.Year - Project Cinderella - Designed By Dennis D. Silva
             </div>
         </div>
     </div>

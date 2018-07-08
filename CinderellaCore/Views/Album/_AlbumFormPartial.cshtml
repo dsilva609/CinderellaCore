@@ -283,7 +283,8 @@
                 }
                 else
                 {*@
-            @Html.EditorFor(m => m.DatePurchased, new { htmlattributes = new { type = "date", Value = Model.DatePurchased.ToString("yyyy-MM-dd"), @class = "form-control" } })
+            @Html.EditorFor(m => m.DatePurchased, new { htmlattributes = new { type = "text", Value = Model.DatePurchased.ToShortDateString(), @class = "form-control datepicker" } })
+            @*@Html.EditorFor(m => m.DatePurchased, new { htmlattributes = new { type = "date", Value = Model.DatePurchased.ToString("yyyy-MM-dd"), @class = "form-control" } })*@
             @* } *@
             @Html.ValidationMessageFor(m => m.DatePurchased, "", new { @class = "text-danger" })
         </div>

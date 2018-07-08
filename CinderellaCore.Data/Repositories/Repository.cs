@@ -28,6 +28,7 @@ namespace CinderellaCore.Data.Repositories
 
         public void Edit(T entity)
         {
+            _context.Entry(entity).State = EntityState.Modified;
             _context.Set<T>().Update(entity);
             _context.SaveChanges();
         }
