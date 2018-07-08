@@ -1,5 +1,6 @@
 ﻿using CinderellaCore.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,8 +29,40 @@ namespace CinderellaCore.Data.Repositories
 
         public void Edit(T entity)
         {
-            _context.Set<T>().Update(entity);
+            AddOrUpdate(entity);
             _context.SaveChanges();
+        }
+
+        public T AddOrUpdate(T entity)
+        {
+            var entityEntry = _context.Entry(entity);
+
+            var primaryKeyName = entityEntry.Context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties
+                .Select(x => x.Name).Single();
+
+            var primaryKeyField = entity.GetType().GetProperty(primaryKeyName);
+
+            var t = typeof(T);
+            if (primaryKeyField == null)
+            {
+                throw new Exception($"{t.FullName} does not have a primary key specified. Unable to exec AddOrUpdate call.");
+            }
+            var keyVal = primaryKeyField.GetValue(entity);
+            var dbVal = _dbSet.Find(keyVal);
+
+            if (dbVal != null)
+            {
+                _context.Entry(dbVal).CurrentValues.SetValues(entity);
+                _dbSet.Update(dbVal);
+
+                entity = dbVal;
+            }
+            else
+            {
+                _dbSet.Add(entity);
+            }
+
+            return entity;
         }
 
         public void Edit(List<T> entities)
