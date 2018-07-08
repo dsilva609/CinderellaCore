@@ -73,14 +73,345 @@
         </div>
     </nav>
 
-    <partial name="_CookieConsentPartial" />
+    @*<partial name="_CookieConsentPartial" />*@
+
+    <div class="row">
+        <div id="fh5co-header" role="banner">
+            <div class="container">
+                <a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <span class="fa fa-bars"></span></a>
+                <div class="h1 fh5co-logo">
+                    @Html.ActionLink("Project Cinderella", "Index", "Home", new { @class = "navbar-brand" })
+                </div>
+                <div class="h4 text-center hidden-xs">
+                    <a href="@Url.Action("Index", "Album")">
+                        <span class="fa fa-music"></span>
+                        <span>Albums</span>
+                    </a> |
+
+                    <a href="@Url.Action("Index", "Book")">
+                        <span class="fa fa-book"></span>
+                        <span>Books</span>
+                    </a> |
+
+                    <a href="@Url.Action("Index", "Movie")">
+                        <span class="fa fa-film"></span>/<span class="fa fa-television"></span>
+                        <span>Movies/TV</span>
+                    </a> |
+                    <a href="@Url.Action("Index", "Game")">
+                        <span class="fa fa-gamepad"></span>
+                        <span>Games</span>
+                    </a> |
+                    <a href="@Url.Action("Index", "Pop")">
+                        <span class="fa fa-user"></span>
+                        <span>Other Vinyl</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fh5co-offcanvass" class="well well-lg pre-scrollable">
+        <a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <span class="fa fa-bars"></span> </a>
+        <h1 class="fh5co-logo">
+            @Html.ActionLink("Project Cinderella", "Index", "Home", new { @class = "navbar-brand" })
+        </h1>
+        <ul id="accordion">
+            <li class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Menu">
+                        Menu
+                    </a>
+                </h4>
+            </li>
+            <li id="Menu" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table">
+                        <div>
+                            @Html.ActionLink("About", "About", "Home")
+                        </div>
+
+                        <div>
+                            @Html.ActionLink("Contact", "Contact", "Home")
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Albums">
+                        <span class="fa fa-music"></span> Albums
+                    </a>
+                </h4>
+            </li>
+            <li id="Albums" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table">
+                        <div>@Html.ActionLink("View Albums", "Index", "Album")</div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div>@Html.ActionLink("Add Album", "Create", "Album")</div>
+                            <div>@Html.ActionLink("Search Discogs", "Search", "Album")</div>
+                            <div>
+                                @using (Html.BeginForm("Index", "Album", FormMethod.Get, new { @style = "display:inline-flex;" }))
+                                {
+                                    @Html.TextBox("albumQuery", null, new { @class = "form-control", @placeholder = "Search" })
+                                    <button type="submit" class="btn btn-default">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <li class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Books">
+                        <span class="fa fa-book"></span> Books
+                    </a>
+                </h4>
+            </li>
+            <li id="Books" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table">
+                        <div>@Html.ActionLink("View Books", "Index", "Book")</div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div>@Html.ActionLink("Add Book", "Create", "Book")</div>
+                            <div>@Html.ActionLink("Search Google for Book", "Search", "Book")</div>
+                            <div>
+                                @using (Html.BeginForm("Index", "Book", FormMethod.Get, new { @style = "display:inline-flex;" }))
+                                {
+                                    @Html.TextBox("bookQuery", null, new { @class = "form-control", @placeholder = "Search" })
+                                    <button type="submit" class="btn btn-default">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <li class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Movies">
+                        <span class="fa fa-film"></span>/<span class="fa fa-television"></span> Movies/TV
+                    </a>
+                </h4>
+            </li>
+            <li id="Movies" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table">
+                        <div>@Html.ActionLink("View Movies/TV", "Index", "Movie")</div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div>@Html.ActionLink("Add Movie/TV", "Create", "Movie")</div>
+                            <div>@Html.ActionLink("Search TMDB", "Search", "Movie")</div>
+                            <div>
+                                @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @style = "display:inline-flex;" }))
+                                {
+                                    @Html.TextBox("movieQuery", null, new { @class = "form-control", @placeholder = "Search" })
+                                    <button type="submit" class="btn btn-default">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <li class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Games">
+                        <span class="fa fa-gamepad"></span> Games
+                    </a>
+                </h4>
+            </li>
+            <li id="Games" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table">
+                        <div>@Html.ActionLink("View Games", "Index", "Game")</div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div>@Html.ActionLink("Add Game", "Create", "Game")</div>
+                            <div>@Html.ActionLink("Search Giant Bomb/BGG", "Search", "Game")</div>
+                            <div>
+                                @using (Html.BeginForm("Index", "Game", FormMethod.Get, new { @style = "display:inline-flex;" }))
+                                {
+                                    @Html.TextBox("gameQuery", null, new { @class = "form-control", @placeholder = "Search" })
+                                    <button type="submit" class="btn btn-default">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <li class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Pops">
+                        <span class="fa fa-user"></span> Other Vinyl
+                    </a>
+                </h4>
+            </li>
+            <li id="Pops" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table">
+                        <div>@Html.ActionLink("View Pops", "Index", "Pop")</div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div>@Html.ActionLink("Add Pop", "Create", "Pop")</div>
+                            <div>
+                                @using (Html.BeginForm("Index", "Pop", FormMethod.Get, new { @style = "display:inline-flex;" }))
+                                {
+                                    @Html.TextBox("popQuery", null, new { @class = "form-control", @placeholder = "Search" })
+                                    <button type="submit" class="btn btn-default">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <li id="Stats" class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="@Url.Action("Statistics", "Index")">
+                        <span class="fa fa-trophy"></span> Stats
+                    </a>
+                </h4>
+            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li id="Wishlist" class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="@Url.Action("Index", "Wish")">
+                            <span class="fa fa-star"></span> Wish List
+                        </a>
+                    </h4>
+                </li>
+            }
+            <li id="Showcase" class="panel-heading">
+                <h4 class="panel-title">
+                    @*<a href="@Url.Action(MVC.Showcase.Index(User.Identity.IsAuthenticated ? User.Identity.GetUserNum() : 1))">*@
+                    <a href="@Url.Action("Index", "Showcase", new {id=1})">
+                        <span class="fa fa-certificate"></span> Showcase
+                    </a>
+                </h4>
+            </li>
+            <li class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Pops">
+                        <span class="fa fa-user"></span> Other Vinyl
+                    </a>
+                </h4>
+            </li>
+
+            <li class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Random">
+                        <span class="fa fa-random"></span> Random
+                    </a>
+                </h4>
+            </li>
+            <li id="Random" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="table">
+                        <div>@Html.ActionLink("Albums", "RandomizeAlbums", "Random", new { count = 4 })</div>
+                    </div>
+                </div>
+            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li id="Queue" class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="@Url.Action("Index", "Queue")">
+                            <span class="fa fa-list"></span> Queue
+                        </a>
+                    </h4>
+                </li>
+            }
+            @*@if (User.IsInRole("Admin"))
+                {
+                    <li id="Elmah" class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="@Url.Action(MVC.Elmah.Index())">
+                                <span class="fa fa-warning"></span> Error Log
+                            </a>
+                        </h4>
+                    </li>
+                }*@
+        </ul>
+
+        <ul>
+            <li>@Html.Partial("_LoginPartial")</li>
+        </ul>
+    </div>
 
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - CinderellaCore</p>
-        </footer>
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <ul>
+                                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Statistics")">
+                                            <span class="fa fa-trophy"></span> Stats
+                                        </a>
+                                    </li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Index", "Wish")">
+                                                <span class="fa fa-star"></span> Wish List
+                                            </a>
+                                        </li>
+                                    }
+                                    <li>
+                                        @*<a href="@Url.Action(MVC.Showcase.Index(User.Identity.IsAuthenticated ? User.Identity.GetUserNum() : 1))">*@
+                                        <a href="@Url.Action("Index", "Showcase", new {id=1}))">
+                                            <span class="fa fa-certificate"></span> Showcase
+                                        </a>
+                                    </li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Index", "Queue")">
+                                                <span class="fa fa-list"></span> Queue
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div>
+                                    <a href="https://github.com/dsilva609/CinderellaCore" class="btn btn-primary" target="_blank">View Project In GitHub &raquo;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    &copy; 2016 - @DateTime.Now.Year - Project Cinderella - Designed By Dennis D. Silva
+                </div>
+            </div>
+        </div>
     </div>
 
     @RenderSection("Scripts", required: false)
