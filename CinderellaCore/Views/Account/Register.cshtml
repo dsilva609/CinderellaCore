@@ -3,18 +3,27 @@
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post))
 {
-	@Html.LabelFor(x => x.Email)
-	@Html.TextBoxFor(x => x.Email)
+	<div class="row">
+		@Html.LabelFor(x => x.Email)
+		@Html.TextBoxFor(x => x.Email, new {@class="form-control"})
+	</div>
 
-	@Html.LabelFor(x => x.UserName)
-	@Html.TextBoxFor(x => x.UserName)
+	<div class="row">
+		@Html.LabelFor(x => x.UserName)
+		@Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
+	</div>
 
-	@Html.LabelFor(x => x.Password)
-	@Html.TextBoxFor(x => x.Password, new { @type = "password" })
+	<div class="row">
+		@Html.LabelFor(x => x.Password)
+		@Html.TextBoxFor(x => x.Password, new {@class="form-control", @type = "password" })
+	</div>
 
+	<div class="row">
 	@Html.LabelFor(x => x.PasswordConfirm)
-	@Html.TextBoxFor(x => x.PasswordConfirm, new { @type = "password" })
+	@Html.TextBoxFor(x => x.PasswordConfirm, new {@class="form-control", @type = "password" })
+	</div>
 
-
-	<button type="submit" value="Register">Register</button>
+	<div class="row" style="padding-top: 2rem;"> 
+		<button class="btn btn-default" type="submit" value="Register">Register</button>
+	</div>
 }

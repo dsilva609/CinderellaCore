@@ -60,13 +60,23 @@ namespace CinderellaCore.Web.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult UpdateAccount() => View();
+		public IActionResult UpdateAccount()
+		{
+			var model = new UpdateAccountModel
+			{
+				UserNum = _user.UserNum,
+				EnableImport = _user.EnableImport
+			};
+
+			return View(model);
+		}
 
 		[HttpPost]
 		public async Task<IActionResult> UpdateAccount(UpdateAccountModel update)
 		{
 			var user = await _userManager.FindByEmailAsync(User.Identity.Name);
 			user.UserNum = update.UserNum;
+			user.EnableImport = update.EnableImport;
 			await _userManager.UpdateAsync(user);
 
 			return RedirectToAction("UpdateAccount", "Account");

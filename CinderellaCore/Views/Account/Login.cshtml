@@ -4,12 +4,18 @@
 
 @using (Html.BeginForm("Signin", "Account", FormMethod.Post))
 {
+	<div class="row">
+			@Html.LabelFor(x => x.Email)
+			@Html.TextBoxFor(x => x.Email, new {@class="form-control"})
+		</div>
 
-    @Html.LabelFor(x => x.Email)
-    @Html.TextBoxFor(x => x.Email)
-
-    @Html.LabelFor(x => x.Password)
-    @Html.TextBoxFor(x => x.Password, new { type = "password" })
-
-    <button type="submit" value="Login">Login</button>
+		<div clas="row">
+			@Html.LabelFor(x => x.Password)
+			@Html.TextBoxFor(x => x.Password, new { @class="form-control", type = "password" })
+		</div>
+    
+		<div class="row" style="padding-top: 2rem;">
+			<button class="btn btn-block" type="submit" value="Login">Login</button>
+		</div>
+	
 }

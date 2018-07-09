@@ -20,7 +20,7 @@
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <div class="hidden-xs hidden-sm" style="padding-top: 0;">
-                            @Html.ActionLink("Login", "Login", "Account", new { @class = "btn btn-default" })
+                            @Html.ActionLink("Login", "SignIn", "Account", new { @class = "btn btn-default" })
                         </div>
                     }
                 </div>

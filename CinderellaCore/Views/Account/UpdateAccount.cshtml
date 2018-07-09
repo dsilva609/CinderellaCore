@@ -4,8 +4,17 @@
 
 @using (Html.BeginForm("UpdateAccount", "Account", FormMethod.Post))
 {
-    @Html.LabelFor(x => x.UserNum)
-    @Html.TextBoxFor(x => x.UserNum)
+	<div class="row">
+		@Html.LabelFor(x => x.UserNum)
+		@Html.TextBoxFor(x => x.UserNum, new { @class = "form-control" })
+	</div>
 
-    <button type="submit">Save</button>
+	<div class="row">
+		@Html.LabelFor(x => x.EnableImport)
+		@Html.CheckBoxFor(x => x.EnableImport)
+	</div>
+
+	<div class="row" style="padding-top: 2rem;">
+		<button class="btn btn-primary" type="submit">Save</button>
+	</div>
 }
