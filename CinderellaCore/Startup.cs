@@ -3,8 +3,10 @@ using CinderellaCore.Model.Models;
 using CinderellaCore.Services.Services;
 using CinderellaCore.Services.Services.Interfaces;
 using CinderellaCore.Services.Services.Statistics;
+using CinderellaCore.Web.Authorization;
 using CinderellaCore.Web.Data;
 using Google.Apis.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -61,6 +63,7 @@ namespace CinderellaCore.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             IntegrateSimpleInjector(services);
+            services.AddAuthorization(x => x.AddPolicy("Import", policy => policy.Requirements.Add(new ImportRequirement())));
         }
 
         private void IntegrateSimpleInjector(IServiceCollection services)
@@ -69,7 +72,7 @@ namespace CinderellaCore.Web
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
             services.AddSingleton<IViewComponentActivator>(new SimpleInjectorViewComponentActivator(_container));
-
+            services.AddSingleton<IAuthorizationHandler>(new ImportAuthorizationHandler(Configuration.GetSection("GlobalSettings").Get<GlobalSettings>()));
             services.EnableSimpleInjectorCrossWiring(_container);
             services.UseSimpleInjectorAspNetRequestScoping(_container);
         }
@@ -114,8 +117,8 @@ namespace CinderellaCore.Web
             _container.Register(GetAspNetServiceProvider<SignInManager<ApplicationUser>>(app), Lifestyle.Scoped);
 
             // Add application services. For instance:
-            _container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Singleton);
             _container.Register<GlobalSettings>(() => Configuration.GetSection("GlobalSettings").Get<GlobalSettings>(), Lifestyle.Singleton);
+            _container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Singleton);
             _container.Register<IAlbumService>(() => new AlbumService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
             _container.Register<IBookService>(() => new BookService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
             _container.Register<IMovieService>(() => new MovieService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
@@ -153,11 +156,5 @@ namespace CinderellaCore.Web
                 return services.GetRequiredService<T>();
             };
         }
-
-        //private ApplicationUser GetCurrentUser()
-        //{
-        //    var currentUser = _container.GetInstance<IHttpContextAccessor>()?.HttpContext?.User?.Clone();
-        //    return currentUser != null ? new ApplicationUser(currentUser) : new ApplicationUser(new ClaimsPrincipal());
-        //}
     }
 }

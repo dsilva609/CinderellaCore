@@ -38,8 +38,6 @@ namespace CinderellaCore.Web.Controllers
 
         public IActionResult Index()
         {
-            //var email = _user.Email;
-
             //TODO: needs refactor to take asc/desc
             var albums = _albumService.GetAll(string.Empty, string.Empty).OrderByDescending(x => x.DateAdded).Take(NUM_ALBUMS_TO_GET).ToList();
             var updatedAlbums =
