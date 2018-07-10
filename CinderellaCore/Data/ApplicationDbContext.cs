@@ -23,6 +23,7 @@ namespace CinderellaCore.Web.Data
             {
                 var settings = new GlobalSettings
                 {
+                    //prod string
                     SQLConnectionString = "Server=.\\SQLEXPRESS;Database=CinderellaCore;Trusted_Connection=True;MultipleActiveResultSets=true"
                 };
                 var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();

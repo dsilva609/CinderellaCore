@@ -246,7 +246,7 @@ namespace CinderellaCore.Web.Controllers
             _service.Edit(album);
 
             ShowStatusMessage(MessageTypeEnum.info, "Album added to showcase", "Showcase");
-            return RedirectToAction("Index", "Showcase", _user.UserNum);
+            return RedirectToAction("Index", "Showcase", new { id = _user.UserNum });
         }
 
         [Authorize(Roles = "Admin")]
@@ -259,7 +259,7 @@ namespace CinderellaCore.Web.Controllers
             _service.Edit(album);
 
             ShowStatusMessage(MessageTypeEnum.info, "Album removed from showcase", "Showcase");
-            return RedirectToAction("Index", "Showcase", _user.Id);
+            return RedirectToAction("Index", "Showcase", new { id = _user.UserNum });
         }
 
         [Authorize]

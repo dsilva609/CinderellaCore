@@ -225,7 +225,7 @@ namespace CinderellaCore.Web.Controllers
 
             ShowStatusMessage(MessageTypeEnum.info, "Title added to showcase", "Showcase");
 
-            return RedirectToAction("Index", "Showcase", _user.UserNum);
+            return RedirectToAction("Index", "Showcase", new { id = _user.UserNum });
         }
 
         [Authorize(Roles = "Admin")]
@@ -239,7 +239,7 @@ namespace CinderellaCore.Web.Controllers
 
             ShowStatusMessage(MessageTypeEnum.info, "Title removed from showcase", "Showcase");
 
-            return RedirectToAction("Index", "Showcase", _user.UserNum);
+            return RedirectToAction("Index", "Showcase", new { id = _user.UserNum });
         }
 
         [Authorize]

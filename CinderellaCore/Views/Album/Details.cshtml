@@ -14,7 +14,7 @@
         Details
         @if (User.IsInRole("Admin") && Model.IsShowcased)
         {
-            @Html.ActionLink("Remove From showcase", "RemoveFromShowcase", "Album", Model.ID, new { @class = "btn btn-danger" })
+            @Html.ActionLink("Remove From showcase", "RemoveFromShowcase", "Album", new { id = Model.ID }, new { @class = "btn btn-danger" })
         }
     </h2>
     @if (Model.DateAdded != Convert.ToDateTime("1/1/1900") && Model.DateAdded != DateTime.MinValue)

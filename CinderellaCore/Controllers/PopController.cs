@@ -160,7 +160,7 @@ namespace CinderellaCore.Web.Controllers
             {
                 ShowStatusMessage(MessageTypeEnum.warning, "This pop cannot be edited by another user.", "Edit Failure");
 
-                return RedirectToAction("Index", "Showcase", _user.UserNum);
+                return RedirectToAction("Index", "Showcase", new { id = _user.UserNum });
             }
 
             pop.IsShowcased = true;
@@ -170,7 +170,7 @@ namespace CinderellaCore.Web.Controllers
 
             ShowStatusMessage(MessageTypeEnum.info, "Pop added to showcase", "Showcase");
 
-            return RedirectToAction("Index", "Showcase", _user.UserNum);
+            return RedirectToAction("Index", "Showcase", new { id = _user.UserNum });
         }
 
         [Authorize(Roles = "Admin")]
