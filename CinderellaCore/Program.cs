@@ -1,4 +1,5 @@
 ﻿using CinderellaCore.Data.Context;
+using CinderellaCore.Web.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,8 @@ namespace CinderellaCore.Web
                 {
                     var context = services.GetRequiredService<CinderellaCoreContext>();
                     DBInitializer.Initialize(context);
+
+                    var userContext = services.GetRequiredService<ApplicationDbContext>();
                 }
                 catch (Exception ex)
                 {

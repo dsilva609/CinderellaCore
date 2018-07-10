@@ -78,7 +78,7 @@ namespace CinderellaCore.Services.Services
                 Style = release.StylesString,
                 DiscogsID = release.id,
                 ImageUrl = release.images?.First().uri,
-                Tracklist = release.tracklist,
+                //   Tracklist = release.tracklist,
                 CountryOfOrigin = release.country
             };
 

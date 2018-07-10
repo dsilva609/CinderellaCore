@@ -38,9 +38,9 @@
         @if (User.Identity.IsAuthenticated && Model.UserNum == (await UserManager.GetUserAsync(User)).UserNum)
         {
             <span> | </span>
-            <a href="@Url.Action("Edit", "Album",Model.ID)"><span class="fa fa-pencil"></span> Edit</a>
+            <a href="@Url.Action("Edit", "Album",new {id=Model.ID})"><span class="fa fa-pencil"></span> Edit</a>
             <span> | </span>
-            <a href="@Url.Action("Delete","Album", Model.ID)" class="deleteBtn"><span class="fa fa-trash"></span> Delete</a>}
+            <a href="@Url.Action("Delete","Album",new{id= Model.ID})" class="deleteBtn"><span class="fa fa-trash"></span> Delete</a>}
     </div>
 </div>
 
@@ -51,29 +51,29 @@
 
             @await Html.PartialAsync("_DetailsInfo", Model)
 
-            @if (Model.Tracklist != null)
-            {
-                <div data-toggle="collapse" data-parent="#accordion" href="#track-list" style="padding-top: 1em;">
-                    <div class="row panel panel-primary panel-collapse">
-                        <div class="panel-heading">
-                            <h4>
-                                Track List
-                                <span class="fa fa-chevron-circle-down"></span>
-                            </h4>
+            @*@if (Model.Tracklist != null)
+                {
+                    <div data-toggle="collapse" data-parent="#accordion" href="#track-list" style="padding-top: 1em;">
+                        <div class="row panel panel-primary panel-collapse">
+                            <div class="panel-heading">
+                                <h4>
+                                    Track List
+                                    <span class="fa fa-chevron-circle-down"></span>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="track-list" class="collapse in">
-                    <div class="panel-body">
-                        @for (var index = 0; index < Model.Tracklist.Count; index++)
-                        {
-                            <div class="row">
-                                <div class="col-sm-1">@Html.DisplayFor(x => x.Tracklist[index].position)</div>
-                                <div class="col-sm-1">@Html.DisplayFor(x => x.Tracklist[index].duration)</div>
-                                <div class="col-sm-6">@Html.DisplayFor(x => x.Tracklist[index].title)</div>
-                            </div>}
-                    </div>
-                </div>}
+                    <div id="track-list" class="collapse in">
+                        <div class="panel-body">
+                            @for (var index = 0; index < Model.Tracklist.Count; index++)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-1">@Html.DisplayFor(x => x.Tracklist[index].position)</div>
+                                    <div class="col-sm-1">@Html.DisplayFor(x => x.Tracklist[index].duration)</div>
+                                    <div class="col-sm-6">@Html.DisplayFor(x => x.Tracklist[index].title)</div>
+                                </div>}
+                        </div>
+                    </div>}*@
             <div class="row" style="padding-top: 1em;">
                 <div class="col-md-6">
                     <div data-toggle="collapse" data-parent="#accordion" href="#media-info">

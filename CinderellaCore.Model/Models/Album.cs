@@ -1,6 +1,4 @@
 ﻿using CinderellaCore.Model.Enums;
-using CinderellaCore.Model.Models.Discogs;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,6 +26,6 @@ namespace CinderellaCore.Model.Models
 
         public int DiscogsID { get; set; }
 
-        public List<Tracklist> Tracklist { get; set; } = new List<Tracklist>();
+        //public List<Tracklist> Tracklist { get; set; } = new List<Tracklist>();
     }
 }
