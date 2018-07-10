@@ -136,6 +136,7 @@ namespace CinderellaCore.Web
             _container.Register<IMovieStatisticService, MovieStatisticService>(Lifestyle.Scoped);
             _container.Register<IGameStatisticService, GameStatisticService>(Lifestyle.Scoped);
             _container.Register<IPopStatisticService, PopStatisticService>(Lifestyle.Scoped);
+            _container.Register<IImportService, ImportService>(Lifestyle.Scoped);
 
             // Allow Simple Injector to resolve services from ASP.NET Core.
             _container.AutoCrossWireAspNetComponents(app);
