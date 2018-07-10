@@ -4,6 +4,7 @@
 @using CinderellaCore.Web.HTMLHelpers
 @using Microsoft.AspNetCore.Http
 @using Microsoft.Net.Http.Headers
+@using Wangkanai.Detection
 @model CinderellaCore.Model.Models.Album
 
 <script>
@@ -276,16 +277,7 @@
     <div class="panel-body">
         <div class="col-md-6">
             @Html.LabelFor(m => m.DatePurchased)
-            @* TODO: move to model *@
-            @*@if (Request.Headers[HeaderNames.UserAgent] == "IE" )//|| !Request.Browser.IsMobileDevice)
-                {
-                    @Html.EditorFor(m => m.DatePurchased, new { htmlattributes = new { type = "text", Value = Model.DatePurchased.ToShortDateString(), @class = "form-control datepicker" } })
-                }
-                else
-                {*@
-            @Html.EditorFor(m => m.DatePurchased, new { htmlattributes = new { type = "text", Value = Model.DatePurchased.ToShortDateString(), @class = "form-control datepicker" } })
-            @*@Html.EditorFor(m => m.DatePurchased, new { htmlattributes = new { type = "date", Value = Model.DatePurchased.ToString("yyyy-MM-dd"), @class = "form-control" } })*@
-            @* } *@
+            @(Context.Request.Device().Type == DeviceType.Desktop ? Html.EditorFor(m => m.DatePurchased, new { htmlattributes = new { type = "text", Value = Model.DatePurchased.ToShortDateString(), @class = "form-control datepicker" } }) : Html.EditorFor(m => m.DatePurchased, new { htmlattributes = new { type = "date", Value = Model.DatePurchased.ToString("yyyy-MM-dd"), @class = "form-control" } }))
             @Html.ValidationMessageFor(m => m.DatePurchased, "", new { @class = "text-danger" })
         </div>
         <div class="col-md-4">

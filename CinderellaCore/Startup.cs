@@ -47,13 +47,11 @@ namespace CinderellaCore.Web
             });
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            //     services.AddScoped<UserManager<IdentityUser>>();
 
-            //services.AddScoped<IUserStore<ApplicationUser>>(provider => new UserStore<ApplicationUser>(_container.GetInstance<ApplicationDbContext>()));
+            services.AddDetection();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSession();
             services.Configure<CookiePolicyOptions>(options =>

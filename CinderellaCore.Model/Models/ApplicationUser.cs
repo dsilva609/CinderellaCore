@@ -6,5 +6,6 @@ namespace CinderellaCore.Model.Models
     {
         public int UserNum { get; set; }
         public bool EnableImport { get; set; }
+        public string DisplayName { get; set; }
     }
 }
