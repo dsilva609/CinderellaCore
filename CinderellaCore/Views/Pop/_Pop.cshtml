@@ -1,6 +1,8 @@
 ﻿@using CinderellaCore.Model.Models
+@using Microsoft.AspNetCore.Identity
 
 @model CinderellaCore.Model.Models.FunkoPop
+@inject UserManager<ApplicationUser> UserManager
 
 <div id="fh5co-board" data-columns>
     <div class="item">
@@ -16,8 +18,7 @@
                 <div class="back">
                     <img src="~/images/action-figures.jpg" alt="Action Figures" />
                     <div class="info fh5co-desc @Model.CompletionStatus.ToString()" data-id="@Model.ID">
-                        <a href="@(User.Identity.IsAuthenticated?Url.Action("Edit", "Pop",new {id=Model.ID}) :Url.Action("Details","Pop",new{id=Model.ID}))">
-                            @*<a href="@Url.Action(User.Identity.IsAuthenticated && Model.UserNum == User.Identity.GetUserNum() ? "/Pop/Edit/"MVC.Pop.Edit(Model.ID) : MVC.Pop.Details(Model.ID))">*@
+                        <a href="@(User.Identity.IsAuthenticated&& Model.UserNum == (await UserManager.GetUserAsync(User)).UserNum ?Url.Action("Edit", "Pop",new {id=Model.ID}) :Url.Action("Details","Pop",new{id=Model.ID}))">
                             <div class="row">
                                 @Html.DisplayFor(modelItem => Model.Title)
                             </div>

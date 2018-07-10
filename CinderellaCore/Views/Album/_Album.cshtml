@@ -1,8 +1,10 @@
 ﻿@using CinderellaCore.Model.Enums
 @using CinderellaCore.Model.Models
 @using CinderellaCore.Web.Enums
+@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Rewrite.Internal
 @model CinderellaCore.Model.Models.Album
+@inject UserManager<ApplicationUser> UserManager
 
 <div id="fh5co-board" data-columns>
     <div class="item">
@@ -18,8 +20,7 @@
                 <div class="back">
                     <img src="~/images/Turntable.jpg" alt="Turntable" />
                     <div class="info fh5co-desc @Model.CompletionStatus.ToString()" data-id="@Model.ID">
-                        <a href="@(User.Identity.IsAuthenticated? Url.Action("Edit", "Album",new{id=Model.ID}) :Url.Action("Details", "Album" ,new {id=Model.ID}))">
-                            @*<a href="@Url.Action(User.Identity.IsAuthenticated && Model.UserNum == User.Identity.GetUserNum() ? $"/Album/Edit/{Model.ID} : $"/Album/Details/{Model.ID}")>*@
+                        <a href="@(User.Identity.IsAuthenticated && Model.UserNum == (await UserManager.GetUserAsync(User)).UserNum ? Url.Action("Edit", "Album",new{id=Model.ID}) :Url.Action("Details", "Album" ,new {id=Model.ID}))">
                             <div class="row">
                                 @Html.DisplayFor(modelItem => Model.Artist)
                             </div>

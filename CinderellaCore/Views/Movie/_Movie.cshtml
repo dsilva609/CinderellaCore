@@ -1,6 +1,8 @@
 ﻿@model CinderellaCore.Model.Models.Movie
 @using CinderellaCore.Model.Models
 @using CinderellaCore.Web.Enums
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
 
 <div id="fh5co-board" data-columns>
     <div class="item">
@@ -16,8 +18,7 @@
                 <div class="back">
                     <img src="~/images/Reel.jpg" alt="Reel" />
                     <div class="info fh5co-desc @Model.CompletionStatus.ToString()" data-id="@Model.ID">
-                        @*<a href="@Url.Action(User.Identity.IsAuthenticated && Model.UserNum == User.Identity.GetUserNum() ? MVC.Movie.Edit(Model.ID) : MVC.Movie.Details(Model.ID))">*@
-                        <a href="@(User.Identity.IsAuthenticated?Url.Action("Edit", "Movie",new {id=Model.ID}) :Url.Action("Details", "Movie", new {id=Model.ID}))">
+                        <a href="@(User.Identity.IsAuthenticated && Model.UserNum == UserManager.GetUserAsync(User).Result.UserNum ? Url.Action("Edit", "Movie", new { id = Model.ID }) : Url.Action("Details", "Movie", new { id = Model.ID }))">
                             <div class="row">
                                 @Html.DisplayFor(modelItem => Model.Title)
                             </div>

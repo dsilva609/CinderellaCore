@@ -1,5 +1,9 @@
-﻿@using CinderellaCore.Web.HTMLHelpers
+﻿@using CinderellaCore.Model.Models
+@using CinderellaCore.Web.HTMLHelpers
 @using CinderellaCore.Web.Models
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,8 +112,6 @@
             </div>
         </div>
     </nav>
-
-    @*<partial name="_CookieConsentPartial" />*@
 
     <div class="row">
         <div id="fh5co-header" role="banner">
@@ -335,8 +337,7 @@
             }
             <li id="Showcase" class="panel-heading">
                 <h4 class="panel-title">
-                    @*<a href="@Url.Action(MVC.Showcase.Index(User.Identity.IsAuthenticated ? User.Identity.GetUserNum() : 1))">*@
-                    <a href="@Url.Action("Index", "Showcase", new {id=1})">
+                    <a href="@Url.Action("Index", "Showcase", new {id= User.Identity.IsAuthenticated ? (await UserManager.GetUserAsync(User)).UserNum: 1})">
                         <span class="fa fa-certificate"></span> Showcase
                     </a>
                 </h4>
@@ -422,8 +423,7 @@
                                     </li>
                                 }
                                 <li>
-                                    @*<a href="@Url.Action(MVC.Showcase.Index(User.Identity.IsAuthenticated ? User.Identity.GetUserNum() : 1))">*@
-                                    <a href="@Url.Action("Index", "Showcase", new {id=1})">
+                                    <a href="@Url.Action("Index", "Showcase", new {id= User.Identity.IsAuthenticated ?(await UserManager.GetUserAsync(User)).UserNum : 1})">
                                         <span class="fa fa-certificate"></span> Showcase
                                     </a>
                                 </li>

@@ -1,7 +1,10 @@
 ﻿@using CinderellaCore.Model.Enums
+@using CinderellaCore.Model.Models
 @using CinderellaCore.Web.Enums
 @using CinderellaCore.Web.Models
+@using Microsoft.AspNetCore.Identity
 @model CinderellaCore.Web.Models.HomeViewModel
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewBag.Title = "Home Page";
@@ -115,8 +118,7 @@
                 </ul>
             }
             <ul class="col-sm-6">
-                @*<li class="h3">View the <a href="@Url.Action(MVC.Showcase.Index(User.Identity.IsAuthenticated ? User.Identity.GetUserNum() : 1))"><span class="fa fa-certificate"></span> Showcase</a></li>*@
-                <li class="h3">View the <a href="@Url.Action("Index", "Showcase", new {id=1})"><span class="fa fa-certificate"></span> Showcase</a></li>
+                <li class="h3">View the <a href="@Url.Action("Index", "Showcase", new {id=User.Identity.IsAuthenticated ?(await UserManager.GetUserAsync(User)).UserNum :  1})"><span class="fa fa-certificate"></span> Showcase</a></li>
             </ul>
             <ul class="col-sm-6">
                 <li class="h3">View the <a href="@Url.Action("Index", "Queue")"><span class="fa fa-list"></span> Queue</a></li>

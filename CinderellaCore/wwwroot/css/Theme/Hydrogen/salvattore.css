@@ -25,7 +25,6 @@
     width: 50%;
 }
 
-
 #fh5co-board[data-columns]::before {
     content: '4 .column.size-1of4';
 }
@@ -54,4 +53,3 @@
         content: '4 .column.size-1of4';
     }
 }
-

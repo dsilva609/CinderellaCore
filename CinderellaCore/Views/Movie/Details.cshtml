@@ -1,6 +1,8 @@
 ﻿@using CinderellaCore.Model.Models
 @using CinderellaCore.Web.Enums
+@using Microsoft.AspNetCore.Identity
 @model CinderellaCore.Model.Models.Movie
+@inject UserManager<ApplicationUser> UserManager
 
 <script>
     var deleteUrl = '@Url.Action("Delete", "Movie")';
@@ -31,8 +33,7 @@
     <div>
         <a href="@Url.Action("Index", "Movie")"><span class="fa fa-list"></span> Back to List</a>
 
-        @*@if (User.Identity.IsAuthenticated && Model.UserID == User.Identity.GetUserId())*@
-        @if (User.Identity.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated && Model.UserNum == (await UserManager.GetUserAsync(User)).UserNum)
         {
             <span> | </span>
             <a href="@Url.Action("Edit","Movie", new{id=Model.ID})"><span class="fa fa-pencil"></span> Edit</a>
