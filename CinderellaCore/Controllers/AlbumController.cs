@@ -28,7 +28,7 @@ namespace CinderellaCore.Web.Controllers
         }
 
         [HttpGet]
-        public virtual ActionResult Index(string albumQuery, string filter, int? page)
+        public IActionResult Index(string albumQuery, string filter, int? page)
         {
             if (string.IsNullOrWhiteSpace(albumQuery) && SessionValueExists("album-query"))
             {
@@ -51,7 +51,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public virtual ActionResult Create()
+        public IActionResult Create()
         {
             var model = SessionValueExists("albumResult") ? GetFromSession<Album>("albumResult") : new Album { UserID = _user.Id, UserNum = _user.UserNum };
             ViewBag.Title = "Create";
@@ -62,7 +62,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public virtual ActionResult CreateFromSearchResult(int releaseID)
+        public IActionResult CreateFromSearchResult(int releaseID)
         {
             var release = _discogsService.GetRelease(releaseID);
 
@@ -78,7 +78,7 @@ namespace CinderellaCore.Web.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult Create(Album model)
+        public IActionResult Create(Album model)
         {
             //TODO: need to do user checks
             if (ModelState.IsValid)
@@ -113,9 +113,10 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public virtual ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var model = _service.GetByID(id, _user.Id);
+
             ViewBag.Title = $"Edit - {model.Title}";
             if (model.UserID != _user.Id) return RedirectToAction("Details", "Album", model.ID);
 
@@ -124,7 +125,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public virtual ActionResult Update(int id)
+        public IActionResult Update(int id)
         {
             var model = _service.GetByID(id, _user.Id);
             if (model.UserID != _user.Id) return RedirectToAction("Details", "Album", model.ID);
@@ -153,7 +154,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public virtual ActionResult Edit(Album model)
+        public IActionResult Edit(Album model)
         {
             if (!ModelState.IsValid) return View(model);
             var existingAlbums = _service.GetAll(_user.Id);
@@ -185,7 +186,7 @@ namespace CinderellaCore.Web.Controllers
         }
 
         [HttpGet]
-        public virtual ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             var model = _service.GetByID(id, _user.Id);
             ViewBag.Title = $"Details - {model.Title}";
@@ -194,7 +195,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public virtual ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var model = _service.GetByID(id, _user.Id);
             if (model.UserID != _user.Id)
@@ -212,7 +213,7 @@ namespace CinderellaCore.Web.Controllers
         //TODO: add tests and validation
         [Authorize]
         [HttpGet]
-        public virtual ActionResult Search(DiscogsSearchModel searchModel)
+        public IActionResult Search(DiscogsSearchModel searchModel)
         {
             if (!string.IsNullOrWhiteSpace(searchModel.Artist)) searchModel.Artist = searchModel.Artist.Trim();
             if (!string.IsNullOrWhiteSpace(searchModel.AlbumName)) searchModel.AlbumName = searchModel.AlbumName.Trim();
@@ -237,7 +238,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public virtual ActionResult AddToShowcase(int id)
+        public IActionResult AddToShowcase(int id)
         {
             var album = _service.GetByID(id, _user.Id);
             album.IsShowcased = true;
@@ -250,7 +251,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public virtual ActionResult RemoveFromShowcase(int id)
+        public IActionResult RemoveFromShowcase(int id)
         {
             var album = _service.GetByID(id, _user.Id);
             album.IsShowcased = false;
@@ -263,7 +264,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public virtual ActionResult IncreaseCompletionCount(int id)
+        public IActionResult IncreaseCompletionCount(int id)
         {
             var album = _service.GetByID(id, _user.Id);
 
@@ -285,7 +286,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public virtual ActionResult DecreaseCompletionCount(int id)
+        public IActionResult DecreaseCompletionCount(int id)
         {
             var album = _service.GetByID(id, _user.Id);
 
@@ -307,7 +308,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public virtual ActionResult AddToQueue(int id)
+        public IActionResult AddToQueue(int id)
         {
             var album = _service.GetByID(id, _user.Id);
 
@@ -335,7 +336,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public virtual ActionResult RemoveFromQueue(int id)
+        public IActionResult RemoveFromQueue(int id)
         {
             var album = _service.GetByID(id, _user.Id);
 

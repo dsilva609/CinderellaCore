@@ -2,6 +2,7 @@
 using CinderellaCore.Model.Models.Import;
 using CinderellaCore.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Threading.Tasks;
 
 namespace CinderellaCore.Services.Services
@@ -9,10 +10,12 @@ namespace CinderellaCore.Services.Services
     public class ImportService : IImportService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IAlbumService _albumService;
 
-        public ImportService(UserManager<ApplicationUser> userManager)
+        public ImportService(UserManager<ApplicationUser> userManager, IAlbumService albumService)
         {
             _userManager = userManager;
+            _albumService = albumService;
         }
 
         public async Task<ImportResponse> ImportAlbumAsync(AlbumImportRequest request)
@@ -20,8 +23,23 @@ namespace CinderellaCore.Services.Services
             ImportResponse response = await CheckRequest(request);
             if (!response.Successful) return response;
 
+            var user = await _userManager.FindByIdAsync(request.UserID);
+            foreach (var album in request.Albums)
+            {
+                try
+                {
+                    album.UserID = request.UserID;
+                    album.UserNum = user.UserNum;
+                    _albumService.Add(album);
+                    response.Imported++;
+                }
+                catch (Exception ex)
+                {
+                    response.Failed++;
+                }
+            }
+
             response.Successful = true;
-            response.Imported = request.Albums.Count;
 
             return response;
         }

@@ -8,13 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using CompletionStatus = CinderellaCore.Model.CompletionStatus;
 
 namespace CinderellaCore.Web.Controllers
 {
     public class CinderellaCoreBaseController : Controller
     {
-        protected ApplicationUser _user => GetCurrentUser();
+        protected ApplicationUser _user => GetCurrentUser().Result;
+
         protected readonly UserManager<ApplicationUser> _userManager;
 
         public CinderellaCoreBaseController(UserManager<ApplicationUser> userManager)
@@ -22,7 +24,7 @@ namespace CinderellaCore.Web.Controllers
             _userManager = userManager;
         }
 
-        public ApplicationUser GetCurrentUser() => HttpContext != null ? _userManager.GetUserAsync(HttpContext.User).Result : null;
+        public async Task<ApplicationUser> GetCurrentUser() => HttpContext != null ? await _userManager.GetUserAsync(HttpContext.User) : null;
 
         public ToastMessage ShowStatusMessage(MessageTypeEnum toastType, string message, string title)
         {
