@@ -372,3 +372,9 @@ a:hover {
 		background-color: $body-color;
 	}
 }
+
+.centered {
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+}

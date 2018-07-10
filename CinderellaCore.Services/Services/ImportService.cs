@@ -7,68 +7,96 @@ using System.Threading.Tasks;
 
 namespace CinderellaCore.Services.Services
 {
-    public class ImportService : IImportService
-    {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IAlbumService _albumService;
+	public class ImportService : IImportService
+	{
+		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IAlbumService _albumService;
+		private readonly IBookService _bookService;
 
-        public ImportService(UserManager<ApplicationUser> userManager, IAlbumService albumService)
-        {
-            _userManager = userManager;
-            _albumService = albumService;
-        }
+		public ImportService(UserManager<ApplicationUser> userManager, IAlbumService albumService, IBookService bookService)
+		{
+			_userManager = userManager;
+			_albumService = albumService;
+			_bookService = bookService;
+		}
 
-        public async Task<ImportResponse> ImportAlbumAsync(AlbumImportRequest request)
-        {
-            ImportResponse response = await CheckRequest(request);
-            if (!response.Successful) return response;
+		public async Task<ImportResponse> ImportAlbumsAsync(AlbumImportRequest request)
+		{
+			ImportResponse response = await CheckRequest(request.UserID, request.Albums.Count);
+			if (!response.Successful) return response;
 
-            var user = await _userManager.FindByIdAsync(request.UserID);
-            foreach (var album in request.Albums)
-            {
-                try
-                {
-                    album.UserID = request.UserID;
-                    album.UserNum = user.UserNum;
-                    _albumService.Add(album);
-                    response.Imported++;
-                }
-                catch (Exception ex)
-                {
-                    response.Failed++;
-                }
-            }
+			var user = await _userManager.FindByIdAsync(request.UserID);
+			foreach (var album in request.Albums)
+			{
+				try
+				{
+					album.UserID = request.UserID;
+					album.UserNum = user.UserNum;
+					_albumService.Add(album);
+					response.Imported++;
+				}
+				catch (Exception ex)
+				{
+					response.Failed++;
+				}
+			}
 
-            response.Successful = true;
+			response.Successful = true;
 
-            return response;
-        }
+			return response;
+		}
 
-        private async Task<ImportResponse> CheckRequest(AlbumImportRequest request)
-        {
-            var response = new ImportResponse
-            {
-                NumRequested = request.Albums.Count
-            };
-            if (string.IsNullOrWhiteSpace(request.UserID))
-            {
-                response.Failed = request.Albums.Count;
-                response.Message = "User ID Missing";
+		public async Task<ImportResponse> ImportBooksAsync(BookImportRequest request)
+		{
+			ImportResponse response = await CheckRequest(request.UserID, request.Books.Count);
+			if (!response.Successful) return response;
 
-                return response;
-            }
+			var user = await _userManager.FindByIdAsync(request.UserID);
+			foreach (var book in request.Books)
+			{
+				try
+				{
+					book.UserID = request.UserID;
+					book.UserNum = user.UserNum;
+					_bookService.Add(book);
+					response.Imported++;
+				}
+				catch (Exception ex)
+				{
+					response.Failed++;
+				}
+			}
 
-            var user = await _userManager.FindByIdAsync(request.UserID);
-            if (!user.EnableImport)
-            {
-                response.Failed = request.Albums.Count;
-                response.Message = "Import is not enabled for this user";
+			response.Successful = true;
 
-                return response;
-            }
+			return response;
+		}
 
-            response.Successful = true;
-            return response;
-        }
-    }
+		private async Task<ImportResponse> CheckRequest(string userID, int count)
+		{
+			var response = new ImportResponse
+			{
+				NumRequested = count
+			};
+			if (string.IsNullOrWhiteSpace(userID))
+			{
+				response.Failed = count;
+				response.Message = "User ID Missing";
+
+				return response;
+			}
+
+			var user = await _userManager.FindByIdAsync(userID);
+			if (!user.EnableImport)
+			{
+				response.Failed = count;
+				response.Message = "Import is not enabled for this user";
+
+				return response;
+			}
+
+			response.Successful = true;
+			return response;
+		}
+	}
 }

@@ -257,3 +257,9 @@ a:hover {
 .nav-pills li > a {
   color: black;
   background-color: #007aac; }
+
+.centered {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center; }
+
