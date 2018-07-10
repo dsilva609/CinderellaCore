@@ -38,6 +38,7 @@ namespace CinderellaCore.Services.Services
 				catch (Exception ex)
 				{
 					response.Failed++;
+					response.Message += $"{album.Title}- {ex.Message} : {ex.InnerException?.Message} ,";
 				}
 			}
 
@@ -64,6 +65,7 @@ namespace CinderellaCore.Services.Services
 				catch (Exception ex)
 				{
 					response.Failed++;
+					response.Message += $"{book.Title} - {ex.Message} : {ex.InnerException?.Message}";
 				}
 			}
 
