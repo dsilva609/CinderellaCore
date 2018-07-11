@@ -8,46 +8,82 @@ using System.Threading.Tasks;
 
 namespace CinderellaCore.Web.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ImportController : CinderellaCoreBaseController
-	{
-		private readonly IImportService _importService;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ImportController : CinderellaCoreBaseController
+    {
+        private readonly IImportService _importService;
 
-		public ImportController(UserManager<ApplicationUser> userManager, IImportService importService) : base(userManager)
-		{
-			_importService = importService;
-		}
+        public ImportController(UserManager<ApplicationUser> userManager, IImportService importService) : base(userManager)
+        {
+            _importService = importService;
+        }
 
-		[Authorize(Policy = "Import")]
-		[Route("ImportAlbums")]
-		[HttpPost]
-		public async Task<IActionResult> ImportAlbums([FromBody] AlbumImportRequest request)
-		{
-			if (request == null) return BadRequest("Request missing");
+        [Authorize(Policy = "Import")]
+        [Route("ImportAlbums")]
+        [HttpPost]
+        public async Task<IActionResult> ImportAlbums([FromBody] AlbumImportRequest request)
+        {
+            if (request == null) return BadRequest("Request missing");
 
-			var result = await _importService.ImportAlbumsAsync(request);
+            var result = await _importService.ImportAlbumsAsync(request);
 
-			return Json(result);
-		}
+            return Json(result);
+        }
 
-		[Authorize(Policy = "Import")]
-		[Route("ImportBooks")]
-		[HttpPost]
-		public async Task<IActionResult> ImportBooks([FromBody] BookImportRequest request)
-		{
-			if (request == null) return BadRequest("Request missing");
+        [Authorize(Policy = "Import")]
+        [Route("ImportBooks")]
+        [HttpPost]
+        public async Task<IActionResult> ImportBooks([FromBody] BookImportRequest request)
+        {
+            if (request == null) return BadRequest("Request missing");
 
-			var result = await _importService.ImportBooksAsync(request);
+            var result = await _importService.ImportBooksAsync(request);
 
-			return Json(result);
-		}
+            return Json(result);
+        }
 
-		[Route("Test")]
-		[HttpGet]
-		public IActionResult Test()
-		{
-			return Ok("Whaaaaa");
-		}
-	}
+        [Authorize(Policy = "Import")]
+        [Route("ImportGames")]
+        [HttpPost]
+        public async Task<IActionResult> ImportGames([FromBody] GameImportRequest request)
+        {
+            if (request == null) return BadRequest("Request missing");
+
+            var result = await _importService.ImportGamesAsync(request);
+
+            return Json(result);
+        }
+
+        [Authorize(Policy = "Import")]
+        [Route("ImportMovies")]
+        [HttpPost]
+        public async Task<IActionResult> ImportMovies([FromBody] MovieImportRequest request)
+        {
+            if (request == null) return BadRequest("Request missing");
+
+            var result = await _importService.ImportMoviesAsync(request);
+
+            return Json(result);
+        }
+
+        [Authorize(Policy = "Import")]
+        [Route("ImportPops")]
+        [HttpPost]
+        public async Task<IActionResult> ImportPops([FromBody] PopImportRequest request)
+        {
+            if (request == null) return BadRequest("Request missing");
+
+            var result = await _importService.ImportPopsAsync(request);
+
+            return Json(result);
+        }
+
+        [Route("Test")]
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return Ok("Whaaaaa");
+        }
+    }
 }
