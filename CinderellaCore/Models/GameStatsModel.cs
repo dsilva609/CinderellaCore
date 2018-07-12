@@ -123,5 +123,6 @@ namespace CinderellaCore.Web.Models
         public int NumPSP { get; set; }
 
         public int NumPSVita { get; set; }
+        public int NumSwitch { get; set; }
     }
 }

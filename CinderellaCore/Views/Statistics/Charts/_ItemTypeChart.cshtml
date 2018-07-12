@@ -1,0 +1,24 @@
+﻿@using CinderellaCore.Web.Models
+@model CinderellaCore.Web.Models.ItemTypes
+
+<script>
+    c3.generate({
+        bindto: '#@Model.ID',
+        data: {
+            columns: [
+                ['Album', @Model.NumAlbums],
+                ['Book', @Model.NumBooks],
+                ['Movie/TV', @Model.NumMoviesAndShows],
+                ['Games', @Model.NumGames],
+                ['Pops', @Model.NumPops]
+            ],
+            type: 'donut'
+        },
+        donut: {
+            title: "@Model.Title",
+            label: {
+                format: function (value) { return value; }
+            }
+        }
+    });
+</script>

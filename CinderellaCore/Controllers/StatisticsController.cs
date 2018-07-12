@@ -350,6 +350,7 @@ namespace CinderellaCore.Web.Controllers
                             NumNintendo3DS = _gameStatisticService.NumNintendo3DS(),
                             NumPSP = _gameStatisticService.NumPSP(),
                             NumPSVita = _gameStatisticService.NumPSVita(),
+                            NumSwitch = _gameStatisticService.NumNintendoSwitch(),
                             Title = "Global Handhelds",
                             ID = "global-handhelds"
                         }

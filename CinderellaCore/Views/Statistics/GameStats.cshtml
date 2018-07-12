@@ -1,0 +1,126 @@
+﻿@using CinderellaCore.Web.Models
+@model CinderellaCore.Web.Models.GameStatsViewModel
+
+<link rel="stylesheet" type="text/css" href="~/css/c3.css" />
+<script src="~/js/d3.js"></script>
+<script src="~/js/c3.js"></script>
+
+<div data-toggle="collapse" data-parent="#accordion" href="#collection-info" style="padding-top: 1em;">
+    <div class="row panel panel-primary panel-collapse">
+        <div class="panel-heading">
+            <h4>
+                Game Stats
+                <span class="fa fa-chevron-circle-down"></span>
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div id="collection-info" class="collapse in">
+    <div class="panel-body row">
+        <div class="panel-heading row">
+            <h4 class="col-md-6">
+                Global
+                <span class="fa fa-globe"></span>
+            </h4>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <h4 class="col-md-6">
+                    User
+                    <span class="fa fa-user"></span>
+                </h4>
+            }
+        </div>
+        <div class="col-md-6">@await Html.PartialAsync("~/Views/Statistics/_GameStatsTable.cshtml", Model.Global)</div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-md-6">@await Html.PartialAsync("~/Views/Statistics/_GameStatsTable.cshtml", Model.User)</div>
+        }
+    </div>
+</div>
+
+<div data-toggle="collapse" data-parent="#accordion" href="#global-charts">
+    <div class="row panel panel-primary panel-collapse">
+        <div class="panel-heading">
+            <h4>
+                Charts
+                <span class="fa fa-chevron-circle-down"></span>
+            </h4>
+        </div>
+    </div>
+</div>
+<div id="global-charts" class="collapse in charts">
+    <div class="panel-body">
+        <div class="table">
+            <div class="row">
+                <div id="global-game-types" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div id="user-game-types" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                }
+            </div>
+            <div class="row">
+                <div id="global-game-ratings" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div id="user-game-ratings" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                }
+            </div>
+            <div class="row">
+                <div id="global-current-generation" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div id="user-current-generation" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                }
+            </div>
+
+            <div class="row">
+                <div id="global-sony" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div id="user-sony" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                }
+            </div>
+            <div class="row">
+                <div id="global-microsoft" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div id="user-microsoft" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                }
+            </div>
+            <div class="row">
+                <div id="global-nintendo" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div id="user-nintendo" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                }
+            </div>
+            <div class="row">
+                <div id="global-handhelds" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div id="user-handhelds" class="col-md-6" style="width: 500px; height: 500px;"></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Views/Statistics/Charts/_GameTypeChart.cshtml", Model.Global.Types)
+@await Html.PartialAsync("~/Views/Statistics/Charts/_GameRatingChart.cshtml", Model.Global.Ratings)
+@await Html.PartialAsync("~/Views/Statistics/Charts/_CurrentGeneration.cshtml", Model.Global.Platforms.CurrentGeneration)
+@await Html.PartialAsync("~/Views/Statistics/Charts/_PlayStationChart.cshtml", Model.Global.Platforms.Sony)
+@await Html.PartialAsync("~/Views/Statistics/Charts/_XboxChart.cshtml", Model.Global.Platforms.Microsoft)
+@await Html.PartialAsync("~/Views/Statistics/Charts/_NintendoChart.cshtml", Model.Global.Platforms.Nintendo)
+@await Html.PartialAsync("~/Views/Statistics/Charts/_HandheldChart.cshtml", Model.Global.Platforms.Handhelds)
+
+@if (User.Identity.IsAuthenticated)
+{
+    @await Html.PartialAsync("~/Views/Statistics/Charts/_GameTypeChart.cshtml", Model.User.Types)
+    @await Html.PartialAsync("~/Views/Statistics/Charts/_GameRatingChart.cshtml", Model.User.Ratings)
+    @await Html.PartialAsync("~/Views/Statistics/Charts/_CurrentGeneration.cshtml", Model.User.Platforms.CurrentGeneration)
+    @await Html.PartialAsync("~/Views/Statistics/Charts/_PlayStationChart.cshtml", Model.User.Platforms.Sony)
+    @await Html.PartialAsync("~/Views/Statistics/Charts/_XboxChart.cshtml", Model.User.Platforms.Microsoft)
+    @await Html.PartialAsync("~/Views/Statistics/Charts/_NintendoChart.cshtml", Model.User.Platforms.Nintendo)
+    @await Html.PartialAsync("~/Views/Statistics/Charts/_HandheldChart.cshtml", Model.User.Platforms.Handhelds)
+}
