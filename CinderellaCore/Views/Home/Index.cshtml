@@ -11,7 +11,7 @@
 }
 
 <script>
-    $("#main-body").removeClass("container");
+	$("#main-body").removeClass("container");
 </script>
 
 <div class="jumbotron img-fluid">
@@ -81,7 +81,6 @@
 	{*@
 
 @* } *@
-
 <div class="row text-center">
 	<h2>
 		Time until <a href="http://recordstoreday.com" target="_blank">Record Store Day</a> @Model.RecordStoreDayTimer.Year
@@ -111,7 +110,7 @@
 				<li>Happy hunting!</li>
 			</ul>
 			<ul class="col-sm-6">
-				<li class="h3">See what's been collected so far: <a href="@Url.Action("Index","Statistics")"><span class="fa fa-trophy"></span> Stats</a></li>
+				<li class="h3">See what's been collected so far: <a href="@Url.Action("Index", "Statistics")"><span class="fa fa-trophy"></span> Stats</a></li>
 			</ul>
 			@if (User.Identity.IsAuthenticated)
 			{
@@ -120,7 +119,7 @@
 				</ul>
 			}
 			<ul class="col-sm-6">
-				<li class="h3">View the <a href="@Url.Action("Index", "Showcase", new {id=User.Identity.IsAuthenticated ?(await UserManager.GetUserAsync(User)).UserNum :  1})"><span class="fa fa-certificate"></span> Showcase</a></li>
+				<li class="h3">View the <a href="@Url.Action("Index", "Showcase", new { id = User.Identity.IsAuthenticated ? (await UserManager.GetUserAsync(User)).UserNum : 1 })"><span class="fa fa-certificate"></span> Showcase</a></li>
 			</ul>
 			<ul class="col-sm-6">
 				<li class="h3">View the <a href="@Url.Action("Index", "Queue")"><span class="fa fa-list"></span> Queue</a></li>
