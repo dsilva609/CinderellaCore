@@ -58,6 +58,16 @@ body {
                 left: 0;
                 right: 0;
             }
+
+            .album, .game {
+                height: 500px !important;
+                width: 500px !important;
+            }
+
+            .book, .movie {
+                height: 900px !important;
+                width: 500px !important;
+            }
         }
     }
 }
@@ -359,22 +369,24 @@ a:hover {
 }
 
 .nav-pills {
-	li.active:hover >a {
-		color: black;
-		background-color: white;
-	}
-	li.active > a {
-		color: black;
-		background-color: $completed-color !important;
-	}
-	li > a {
-		color: black;
-		background-color: $body-color;
-	}
+    li.active:hover > a {
+        color: black;
+        background-color: white;
+    }
+
+    li.active > a {
+        color: black;
+        background-color: $completed-color !important;
+    }
+
+    li > a {
+        color: black;
+        background-color: $body-color;
+    }
 }
 
 .centered {
-	margin: 0 auto;
-	display: flex;
-	justify-content: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }

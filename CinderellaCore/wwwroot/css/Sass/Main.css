@@ -35,6 +35,12 @@ body {
       position: relative;
       left: 0;
       right: 0; }
+    .jumbotron .carousel-inner .item .album, .jumbotron .carousel-inner .item .game {
+      height: 500px !important;
+      width: 500px !important; }
+    .jumbotron .carousel-inner .item .book, .jumbotron .carousel-inner .item .movie {
+      height: 900px !important;
+      width: 500px !important; }
 
 .jumbotronText {
   font-size: 30px;
