@@ -185,7 +185,7 @@ namespace CinderellaCore.Web.Controllers
 
             ShowStatusMessage(MessageTypeEnum.info, "Pop removed from showcase", "Showcase");
 
-            return RedirectToAction("Index", "Showcase");
+            return RedirectToAction("Index", "Showcase", new { id = _user.UserNum });
         }
     }
 }

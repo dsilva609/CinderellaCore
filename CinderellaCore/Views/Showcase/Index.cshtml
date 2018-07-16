@@ -40,7 +40,7 @@
                     <div class="detailsContainer">
                         <div class="background-image" style="background: url('@Model.Albums[0].ImageUrl');"></div>
                         <div class="contentContainer centered">
-                            <a href="@Url.Action("Details", "Album", new {id = Model.Albums[0].ID})">
+                            <a href="@Url.Action("Details", "Album", new {id = Model.Albums[0].ID})" style="height: 500px;width: 500px;">
                                 <img class="album d-block img-fluid" src="@Model.Albums[0].ImageUrl" alt="@(Model.Albums[0].Artist + "-" + Model.Albums[0].Title)" style="height: 100%; width: 100%;">
                             </a>
                         </div>
@@ -53,7 +53,7 @@
                         <div class="detailsContainer">
                             <div class="background-image" style="background: url('@Model.Albums[i].ImageUrl');"></div>
                             <div class="contentContainer centered">
-                                <a href="@Url.Action("Details", "Album", new {id = Model.Albums[i].ID})">
+                                <a href="@Url.Action("Details", "Album", new {id = Model.Albums[i].ID})" style="height: 500px;width: 500px;">
                                     <img class="album d-block img-fluid" src="@Model.Albums[i].ImageUrl" alt="@(Model.Albums[i].Artist + "-" + Model.Albums[i].Title)" style="height: 100%; width: 100%;">
                                 </a>
                             </div>
@@ -82,7 +82,7 @@
                     <div class="detailsContainer">
                         <div class="background-image" style="background: url('@Model.Albums[0].ImageUrl');"></div>
                         <div class="contentContainer centered">
-                            <a href="@Url.Action("Details", "Book", new {id = Model.Books[0].ID})">
+                            <a href="@Url.Action("Details", "Book", new {id = Model.Books[0].ID})" style="height: 900px;width: 500px;">
                                 <img class="book d-block img-fluid" src="@Model.Books[0].ImageUrl" alt="@(Model.Books[0].Author + "-" + Model.Books[0].Title)" style="height: 100%; width: 100%;">
                             </a>
                         </div>
@@ -95,7 +95,7 @@
                         <div class="detailsContainer">
                             <div class="background-image" style="background: url('@Model.Albums[0].ImageUrl');"></div>
                             <div class="contentContainer centered">
-                                <a href="@Url.Action("Details", "Book", new {id = Model.Books[0].ID})">
+                                <a href="@Url.Action("Details", "Book", new {id = Model.Books[0].ID})" style="height: 900px;width: 500px;">
                                     <img class="book d-block img-fluid" src="@Model.Books[i].ImageUrl" alt="@(Model.Books[i].Author + "-" + Model.Books[i].Title)" style="height: 100%; width: 100%;">
                                 </a>
                                 1
@@ -125,7 +125,7 @@
                     <div class="detailsContainer">
                         <div class="background-image" style="background: url('@Model.Games[0].ImageUrl');"></div>
                         <div class="contentContainer centered">
-                            <a class="game" href="@Url.Action("Details", "Game", new {id = Model.Games[0].ID})" style="height: 500px !important;width: 500px !important;">
+                            <a class="game" href="@Url.Action("Details", "Game", new {id = Model.Games[0].ID})" style="height: 500px;width: 500px;">
                                 <img class="d-block img-fluid" src="@Model.Games[0].ImageUrl" alt="@Model.Games[0].Title" style="height: 100%; width: 100%;">
                             </a>
                         </div>
@@ -138,7 +138,7 @@
                         <div class="detailsContainer">
                             <div class="background-image" style="background: url('@Model.Games[0].ImageUrl');"></div>
                             <div class="contentContainer centered">
-                                <a class="game" href="@Url.Action("Details", "Game", new {id = Model.Games[0].ID})" style="height: 500px !important;width: 500px !important;">
+                                <a class="game" href="@Url.Action("Details", "Game", new {id = Model.Games[0].ID})" style="height: 500px;width: 500px;">
                                     <img class="d-block img-fluid" src="@Model.Games[i].ImageUrl" alt="@Model.Games[i].Title" style="height: 100%; width: 100%;">
                                 </a>
                             </div>
@@ -167,7 +167,7 @@
                     <div class="detailsContainer">
                         <div class="background-image" style="background: url('@Model.Movies[0].ImageUrl');"></div>
                         <div class="contentContainer centered">
-                            <a href="@Url.Action("Details", "Movie", new {id = Model.Movies[0].ID})">
+                            <a href="@Url.Action("Details", "Movie", new {id = Model.Movies[0].ID})" style="height: 900px;width: 500px;">
                                 <img class="movie d-block img-fluid" src="@Model.Movies[0].ImageUrl" alt="@Model.Movies[0].Title" style="height: 100%; width: 100%;">
                             </a>
                         </div>
@@ -180,7 +180,7 @@
                         <div class="detailsContainer">
                             <div class="background-image" style="background: url('@Model.Movies[0].ImageUrl');"></div>
                             <div class="contentContainer centered">
-                                <a href="@Url.Action("Details", "Movie", new {id = Model.Movies[i].ID})">
+                                <a href="@Url.Action("Details", "Movie", new {id = Model.Movies[i].ID})" style="height: 900px;width: 500px;">
                                     <img class="movie d-block img-fluid" src="@Model.Movies[i].ImageUrl" alt="@Model.Movies[i].Title" style="height: 100%; width: 100%;">
                                 </a>
                             </div>
@@ -207,9 +207,9 @@
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
                     <div class="detailsContainer">
-                        <div class="background-image" style="background: url('@Model.Movies[0].ImageUrl');"></div>
+                        <div class="background-image" style="background: url('@Model.Pops[0].ImageUrl');"></div>
                         <div class="contentContainer centered">
-                            <a href="@Url.Action("Details", "Pop", new {id = Model.Pops[0].ID})">
+                            <a href="@Url.Action("Details", "Pop", new {id = Model.Pops[0].ID})" style="height: 500px;width: 500px;">
                                 <img class="d-block img-fluid" src="@Model.Pops[0].ImageUrl" alt="@(Model.Pops[0].Title + "-" + Model.Pops[0].Series)">
                             </a>
                         </div>
@@ -220,9 +220,9 @@
                 {
                     <div class="item">
                         <div class="detailsContainer">
-                            <div class="background-image" style="background: url('@Model.Movies[0].ImageUrl');"></div>
+                            <div class="background-image" style="background: url('@Model.Pops[0].ImageUrl');"></div>
                             <div class="contentContainer centered">
-                                <a href="@Url.Action("Details", "Pop", new {id = Model.Pops[0].ID})">
+                                <a href="@Url.Action("Details", "Pop", new {id = Model.Pops[0].ID})" style="height: 500px;width: 500px;">
                                     <img class="d-block img-fluid" src="@Model.Pops[i].ImageUrl" alt="@(Model.Pops[i].Title + "-" + Model.Pops[i].Series)">
                                 </a>
                             </div>
