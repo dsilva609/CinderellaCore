@@ -47,7 +47,7 @@ namespace CinderellaCore.Web.Controllers
 
         public void SetSessionString(string key, object value) => HttpContext.Session.SetString(key, JsonConvert.SerializeObject(value));
 
-        public string GetStringFromSession(string key) => HttpContext.Session.GetString(key);
+        public string GetStringFromSession(string key) => HttpContext.Session.GetString(key).Replace("\"", string.Empty);
 
         public T GetFromSession<T>(string key)
         {

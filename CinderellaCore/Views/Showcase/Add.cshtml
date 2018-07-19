@@ -4,7 +4,7 @@
     Add To Showcase
 </h2>
 
-<div class="text-xs-center">
+<div class="text-xs-center centered">
     @using (Html.BeginForm("SearchItems", "Showcase", FormMethod.Get, new { @style = "display:inline-flex;" }))
     {
         @Html.TextBox("query", null, new { @class = "form-control", @placeholder = "Search" })
