@@ -173,7 +173,7 @@ namespace CinderellaCore.Web.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchModel.Author)) searchModel.Author = searchModel.Author.Trim();
             if (!string.IsNullOrWhiteSpace(searchModel.Title)) searchModel.Title = searchModel.Title.Trim();
-            if (SessionValueExists("book-query")) searchModel.Title = GetFromSession<string>("book-query");
+            if (SessionValueExists("book-query")) searchModel.Title = GetStringFromSession("book-query");
             if (SessionValueExists("wish")) searchModel.Title = GetFromSession<string>("wish");
 
             if (Request.Headers["Referrer"].Contains("/Book/Search") && string.IsNullOrWhiteSpace(searchModel.Author) &&

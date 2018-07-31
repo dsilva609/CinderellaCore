@@ -179,7 +179,7 @@ namespace CinderellaCore.Web.Controllers
         public IActionResult Search(GameSearchModel searchModel)
         {
             if (!string.IsNullOrWhiteSpace(searchModel.Title)) searchModel.Title = searchModel.Title.Trim();
-            if (SessionValueExists("game-query")) searchModel.Title = GetFromSession<string>("game-query");
+            if (SessionValueExists("game-query")) searchModel.Title = GetStringFromSession("game-query");
             if (SessionValueExists("wish")) searchModel.Title = GetFromSession<string>("wish");
 
             if (Request.Headers["Referrer"].Contains("/Game/Search") && string.IsNullOrWhiteSpace(searchModel.Title))

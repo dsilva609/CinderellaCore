@@ -96,7 +96,7 @@ namespace CinderellaCore.Web.Controllers
                     ShowStatusMessage(MessageTypeEnum.error, e.Message, "Duplicate Album");
                     return View(model);
                 }
-                SetSessionString("album-query", null);
+                RemoveFromSession("album-query");
 
                 if (SessionValueExists("wish"))
                 {
@@ -217,7 +217,7 @@ namespace CinderellaCore.Web.Controllers
         {
             if (!string.IsNullOrWhiteSpace(searchModel.Artist)) searchModel.Artist = searchModel.Artist.Trim();
             if (!string.IsNullOrWhiteSpace(searchModel.AlbumName)) searchModel.AlbumName = searchModel.AlbumName.Trim();
-            if (SessionValueExists("album-query")) searchModel.AlbumName = GetFromSession<string>("album-query");
+            if (SessionValueExists("album-query")) searchModel.AlbumName = GetStringFromSession("album-query");
             if (SessionValueExists("wish")) searchModel.AlbumName = GetFromSession<string>("wish");
 
             if (Request.Headers["Referer"].Contains("/Album/Search") && string.IsNullOrWhiteSpace(searchModel.Artist) &&

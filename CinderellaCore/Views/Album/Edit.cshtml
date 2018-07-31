@@ -2,7 +2,7 @@
 @model CinderellaCore.Model.Models.Album
 
 <h2>@ViewBag.Title</h2>
-@Html.ActionLink("Update", "Update", "Album", Model.ID, new { @class = "btn btn-default" })
+@Html.ActionLink("Update", "Update", "Album", new { @id = Model.ID }, new { @class = "btn btn-default" })
 
 @using (Html.BeginForm("Edit", "Album", Model.ID, FormMethod.Post))
 {
