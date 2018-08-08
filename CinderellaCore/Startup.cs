@@ -55,12 +55,7 @@ namespace CinderellaCore.Web
             services.AddDetection();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSession();
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => false;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+
             IntegrateSimpleInjector(services);
             services.AddAuthorization(x => x.AddPolicy("Import", policy => policy.Requirements.Add(new ImportRequirement())));
         }

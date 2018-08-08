@@ -1,4 +1,5 @@
 ﻿using CinderellaCore.Services.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Linq;
@@ -16,7 +17,8 @@ namespace CinderellaCore.Api.Controllers
             _albumService = albumService;
         }
 
-        [Route("getshowcaseditems/{id}")]
+        [Route("GetShowcasedItems/{id}")]
+        [Authorize(Policy = "Api")]
         [HttpGet]
         public IActionResult GetShowcasedItems(int id)
         {

@@ -1,9 +1,11 @@
-﻿using CinderellaCore.Data.Repositories;
+﻿using CinderellaCore.Api.Authorization;
+using CinderellaCore.Data.Repositories;
 using CinderellaCore.Model.Models;
 using CinderellaCore.Services.Services;
 using CinderellaCore.Services.Services.Interfaces;
 using CinderellaCore.Services.Services.Statistics;
 using Google.Apis.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,8 +35,19 @@ namespace CinderellaCore.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             IntegrateSimpleInjector(services);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAuthorization(x => x.AddPolicy("Api", policy =>
+            {
+                policy.Requirements.Add(new ApiRequirement());
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +64,9 @@ namespace CinderellaCore.Api
                 app.UseHsts();
             }
 
+            app.UseCookiePolicy();
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
 
@@ -61,7 +76,7 @@ namespace CinderellaCore.Api
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
             services.AddSingleton<IViewComponentActivator>(new SimpleInjectorViewComponentActivator(_container));
-            //services.AddSingleton<IAuthorizationHandler>(new ImportAuthorizationHandler(Configuration.GetSection("GlobalSettings").Get<GlobalSettings>()));
+            services.AddSingleton<IAuthorizationHandler>(new ApiAuthorizationHandler(Configuration.GetSection("GlobalSettings").Get<GlobalSettings>()));
             services.EnableSimpleInjectorCrossWiring(_container);
             services.UseSimpleInjectorAspNetRequestScoping(_container);
         }
