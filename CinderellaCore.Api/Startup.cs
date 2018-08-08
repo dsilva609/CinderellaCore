@@ -20,102 +20,101 @@ using SimpleInjector.Lifestyles;
 
 namespace CinderellaCore.Api
 {
-    public class Startup
-    {
-        private readonly Container _container;
+	public class Startup
+	{
+		private readonly Container _container;
 
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-            _container = new Container();
-        }
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+			_container = new Container();
+		}
 
-        public IConfiguration Configuration { get; }
+		public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-            IntegrateSimpleInjector(services);
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.Configure<CookiePolicyOptions>(options =>
+			{
+				// This lambda determines whether user consent for non-essential cookies is needed for a given request.
+				options.CheckConsentNeeded = context => true;
+				options.MinimumSameSitePolicy = SameSiteMode.None;
+			});
+			IntegrateSimpleInjector(services);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddAuthorization(x => x.AddPolicy("Api", policy =>
-            {
-                policy.Requirements.Add(new ApiRequirement());
-            }));
-        }
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddAuthorization(x => x.AddPolicy("Api", policy => { policy.Requirements.Add(new ApiRequirement()); }));
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            InitializeContainer(app);
-            _container.Verify();
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		{
+			InitializeContainer(app);
+			_container.Verify();
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseHsts();
+			}
 
-            app.UseCookiePolicy();
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
-            app.UseMvc();
-        }
+			app.UseCookiePolicy();
+			app.UseHttpsRedirection();
+			app.UseAuthentication();
+			app.UseMvc();
+		}
 
-        private void IntegrateSimpleInjector(IServiceCollection services)
-        {
-            _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
-            services.AddSingleton<IViewComponentActivator>(new SimpleInjectorViewComponentActivator(_container));
-            services.AddSingleton<IAuthorizationHandler>(new ApiAuthorizationHandler(Configuration.GetSection("GlobalSettings").Get<GlobalSettings>()));
-            services.EnableSimpleInjectorCrossWiring(_container);
-            services.UseSimpleInjectorAspNetRequestScoping(_container);
-        }
+		private void IntegrateSimpleInjector(IServiceCollection services)
+		{
+			_container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
+			services.AddSingleton<IViewComponentActivator>(new SimpleInjectorViewComponentActivator(_container));
+			services.AddSingleton<IAuthorizationHandler>(new ApiAuthorizationHandler(Configuration.GetSection("GlobalSettings").Get<GlobalSettings>()));
+			services.EnableSimpleInjectorCrossWiring(_container);
+			services.UseSimpleInjectorAspNetRequestScoping(_container);
+		}
 
-        private void InitializeContainer(IApplicationBuilder app)
-        {
-            // Add application presentation components:
-            _container.RegisterMvcControllers(app);
-            _container.RegisterMvcViewComponents(app);
+		private void InitializeContainer(IApplicationBuilder app)
+		{
+			// Add application presentation components:
+			_container.RegisterMvcControllers(app);
+			_container.RegisterMvcViewComponents(app);
 
-            //   _container.Register(GetAspNetServiceProvider<UserManager<ApplicationUser>>(app), Lifestyle.Scoped);
-            //   _container.Register(GetAspNetServiceProvider<SignInManager<ApplicationUser>>(app), Lifestyle.Scoped);
+			//   _container.Register(GetAspNetServiceProvider<UserManager<ApplicationUser>>(app), Lifestyle.Scoped);
+			//   _container.Register(GetAspNetServiceProvider<SignInManager<ApplicationUser>>(app), Lifestyle.Scoped);
 
-            // Add application services. For instance:
-            _container.Register<GlobalSettings>(() => Configuration.GetSection("GlobalSettings").Get<GlobalSettings>(), Lifestyle.Singleton);
-            _container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Singleton);
-            _container.Register<IAlbumService>(() => new AlbumService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
-            _container.Register<IBookService>(() => new BookService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
-            _container.Register<IMovieService>(() => new MovieService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
-            _container.Register<IGameService>(() => new GameService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
-            _container.Register<IPopService>(() => new PopService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
-            _container.Register<IWishService>(() => new WishService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
-            _container.Register<IDiscogsService, DiscogsService>(Lifestyle.Scoped);
-            _container.Register<IClientService>(() => new Google.Apis.Books.v1.BooksService(), Lifestyle.Scoped);
-            _container.Register<IGoogleBookService>(() => new GoogleBookService(_container.GetInstance<IClientService>()), Lifestyle.Scoped);
-            _container.Register<ITMDBService, TMDBService>(Lifestyle.Scoped);
-            _container.Register<IBGGService, BGGService>(Lifestyle.Scoped);
-            _container.Register<IComicVineService, ComicVineService>(Lifestyle.Scoped);
-            _container.Register<IGiantBombService, GiantBombService>(Lifestyle.Scoped);
-            _container.Register<IStatisticService>(() => new StatisticService(_container.GetInstance<IAlbumService>(), _container.GetInstance<IBookService>(), _container.GetInstance<IGameService>(), _container.GetInstance<IMovieService>(), _container.GetInstance<IPopService>(), _container.GetInstance<IWishService>()), Lifestyle.Scoped);
-            _container.Register<IAlbumStatisticService, AlbumStatisticService>(Lifestyle.Scoped);
-            _container.Register<IBookStatisticService, BookStatisticService>(Lifestyle.Scoped);
-            _container.Register<IMovieStatisticService, MovieStatisticService>(Lifestyle.Scoped);
-            _container.Register<IGameStatisticService, GameStatisticService>(Lifestyle.Scoped);
-            _container.Register<IPopStatisticService, PopStatisticService>(Lifestyle.Scoped);
-            //      _container.Register<IImportService, ImportService>(Lifestyle.Scoped);
+			// Add application services. For instance:
+			_container.Register<GlobalSettings>(() => Configuration.GetSection("GlobalSettings").Get<GlobalSettings>(), Lifestyle.Singleton);
+			_container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
+			_container.Register<IAlbumService>(() => new AlbumService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+			_container.Register<IBookService>(() => new BookService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+			_container.Register<IMovieService>(() => new MovieService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+			_container.Register<IGameService>(() => new GameService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+			_container.Register<IPopService>(() => new PopService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+			_container.Register<IWishService>(() => new WishService(_container.GetInstance<IUnitOfWork>(), _container.GetInstance<ApplicationUser>()), Lifestyle.Scoped);
+			_container.Register<IDiscogsService, DiscogsService>(Lifestyle.Scoped);
+			_container.Register<IClientService>(() => new Google.Apis.Books.v1.BooksService(), Lifestyle.Scoped);
+			_container.Register<IGoogleBookService>(() => new GoogleBookService(_container.GetInstance<IClientService>()), Lifestyle.Scoped);
+			_container.Register<ITMDBService, TMDBService>(Lifestyle.Scoped);
+			_container.Register<IBGGService, BGGService>(Lifestyle.Scoped);
+			_container.Register<IComicVineService, ComicVineService>(Lifestyle.Scoped);
+			_container.Register<IGiantBombService, GiantBombService>(Lifestyle.Scoped);
+			_container.Register<IStatisticService>(
+				() => new StatisticService(_container.GetInstance<IAlbumService>(), _container.GetInstance<IBookService>(), _container.GetInstance<IGameService>(),
+					_container.GetInstance<IMovieService>(), _container.GetInstance<IPopService>(), _container.GetInstance<IWishService>()), Lifestyle.Scoped);
+			_container.Register<IAlbumStatisticService, AlbumStatisticService>(Lifestyle.Scoped);
+			_container.Register<IBookStatisticService, BookStatisticService>(Lifestyle.Scoped);
+			_container.Register<IMovieStatisticService, MovieStatisticService>(Lifestyle.Scoped);
+			_container.Register<IGameStatisticService, GameStatisticService>(Lifestyle.Scoped);
+			_container.Register<IPopStatisticService, PopStatisticService>(Lifestyle.Scoped);
+			//      _container.Register<IImportService, ImportService>(Lifestyle.Scoped);
 
-            // Allow Simple Injector to resolve services from ASP.NET Core.
-            _container.AutoCrossWireAspNetComponents(app);
-        }
-    }
+			// Allow Simple Injector to resolve services from ASP.NET Core.
+			_container.AutoCrossWireAspNetComponents(app);
+		}
+	}
 }
