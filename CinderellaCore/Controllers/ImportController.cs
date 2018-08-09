@@ -19,7 +19,7 @@ namespace CinderellaCore.Web.Controllers
             _importService = importService;
         }
 
-        [Authorize(Policy = "Import")]
+        [Authorize(Policy = "Api")]
         [Route("ImportAlbums")]
         [HttpPost]
         public async Task<IActionResult> ImportAlbums([FromBody] AlbumImportRequest request)
@@ -31,7 +31,7 @@ namespace CinderellaCore.Web.Controllers
             return Json(result);
         }
 
-        [Authorize(Policy = "Import")]
+        [Authorize(Policy = "Api")]
         [Route("ImportBooks")]
         [HttpPost]
         public async Task<IActionResult> ImportBooks([FromBody] BookImportRequest request)
@@ -43,7 +43,7 @@ namespace CinderellaCore.Web.Controllers
             return Json(result);
         }
 
-        [Authorize(Policy = "Import")]
+        [Authorize(Policy = "Api")]
         [Route("ImportGames")]
         [HttpPost]
         public async Task<IActionResult> ImportGames([FromBody] GameImportRequest request)
@@ -55,7 +55,7 @@ namespace CinderellaCore.Web.Controllers
             return Json(result);
         }
 
-        [Authorize(Policy = "Import")]
+        [Authorize(Policy = "Api")]
         [Route("ImportMovies")]
         [HttpPost]
         public async Task<IActionResult> ImportMovies([FromBody] MovieImportRequest request)
@@ -67,7 +67,7 @@ namespace CinderellaCore.Web.Controllers
             return Json(result);
         }
 
-        [Authorize(Policy = "Import")]
+        [Authorize(Policy = "Api")]
         [Route("ImportPops")]
         [HttpPost]
         public async Task<IActionResult> ImportPops([FromBody] PopImportRequest request)

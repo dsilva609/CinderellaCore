@@ -11,6 +11,6 @@ namespace CinderellaCore.Model.Models
         public string TMDBKey { get; set; }
         public DateTime RecordStoreDayDate { get; set; }
         public DateTime FreeComicBookDayDate { get; set; }
-        public string ImportKey { get; set; }
+        public string ApiKey { get; set; }
     }
 }

@@ -57,7 +57,7 @@ namespace CinderellaCore.Web
             services.AddSession();
 
             IntegrateSimpleInjector(services);
-            services.AddAuthorization(x => x.AddPolicy("Import", policy => policy.Requirements.Add(new ImportRequirement())));
+            services.AddAuthorization(x => x.AddPolicy("Api", policy => policy.Requirements.Add(new ApiRequirement())));
         }
 
         private void IntegrateSimpleInjector(IServiceCollection services)
@@ -66,7 +66,7 @@ namespace CinderellaCore.Web
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
             services.AddSingleton<IViewComponentActivator>(new SimpleInjectorViewComponentActivator(_container));
-            services.AddSingleton<IAuthorizationHandler>(new ImportAuthorizationHandler(Configuration.GetSection("GlobalSettings").Get<GlobalSettings>()));
+            services.AddSingleton<IAuthorizationHandler>(new ApiAuthorizationHandler(Configuration.GetSection("GlobalSettings").Get<GlobalSettings>()));
             services.EnableSimpleInjectorCrossWiring(_container);
             services.UseSimpleInjectorAspNetRequestScoping(_container);
         }

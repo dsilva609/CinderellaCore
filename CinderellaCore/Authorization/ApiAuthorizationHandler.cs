@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
 
-namespace CinderellaCore.Api.Authorization
+namespace CinderellaCore.Web.Authorization
 {
     public class ApiAuthorizationHandler : AuthorizationHandler<ApiRequirement>
     {

@@ -2,7 +2,7 @@
 
 namespace CinderellaCore.Web.Authorization
 {
-    public class ImportRequirement : IAuthorizationRequirement
+    public class ApiRequirement : IAuthorizationRequirement
     {
     }
 }
