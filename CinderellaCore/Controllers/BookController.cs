@@ -53,7 +53,7 @@ namespace CinderellaCore.Web.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var model = _service.GetByID(id, _user.Id);
+            var model = _service.GetByID(id, _user?.Id);
             ViewBag.Title = $"Details - {model.Title}";
 
             return View(model);

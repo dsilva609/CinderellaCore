@@ -52,9 +52,9 @@ namespace CinderellaCore.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddSession();
             services.AddDetection();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSession();
 
             IntegrateSimpleInjector(services);
             services.AddAuthorization(x => x.AddPolicy("Api", policy => policy.Requirements.Add(new ApiRequirement())));
@@ -89,7 +89,6 @@ namespace CinderellaCore.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
 
             app.UseAuthentication();
             app.UseSession();
@@ -99,6 +98,7 @@ namespace CinderellaCore.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            app.UseCookiePolicy();
         }
 
         private void InitializeContainer(IApplicationBuilder app)

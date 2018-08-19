@@ -18,7 +18,7 @@
                 <div class="back">
                     <img src="~/images/Game.jpg" alt="Game" />
                     <div class="info fh5co-desc @Model.CompletionStatus.ToString()" data-id="@Model.ID">
-                        <a href="@(User.Identity.IsAuthenticated && Model.UserNum == (await  UserManager.GetUserAsync(User)).UserNum ? Url.Action("Edit", "Game",new {id=Model.ID}):Url.Action("Details", "Game", new {id="Model.ID"}))">
+                        <a href="@(User.Identity.IsAuthenticated && Model.UserNum == (await  UserManager.GetUserAsync(User)).UserNum ? Url.Action("Edit", "Game",new {id=Model.ID}):Url.Action("Details", "Game", new {id=Model.ID}))">
                             <div class="row">
                                 @Html.DisplayFor(modelItem => Model.Title)
                             </div>

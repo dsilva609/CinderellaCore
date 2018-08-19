@@ -52,7 +52,7 @@ namespace CinderellaCore.Web.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var movie = _service.GetByID(id, _user.Id);
+            var movie = _service.GetByID(id, _user?.Id);
             ViewBag.Title = $"Details - {movie.Title}";
 
             return View(movie);
