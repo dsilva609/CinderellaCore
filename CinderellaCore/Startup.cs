@@ -1,10 +1,10 @@
-﻿using CinderellaCore.Data.Repositories;
+﻿using CinderellaCore.Data.Context;
+using CinderellaCore.Data.Repositories;
 using CinderellaCore.Model.Models;
 using CinderellaCore.Services.Services;
 using CinderellaCore.Services.Services.Interfaces;
 using CinderellaCore.Services.Services.Statistics;
 using CinderellaCore.Web.Authorization;
-using CinderellaCore.Web.Data;
 using Google.Apis.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -46,10 +46,10 @@ namespace CinderellaCore.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<CinderellaCoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<CinderellaCoreContext>()
                 .AddDefaultTokenProviders();
 
             services.AddSession();

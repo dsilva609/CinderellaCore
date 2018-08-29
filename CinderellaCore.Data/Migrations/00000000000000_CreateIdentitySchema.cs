@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace CinderellaCore.Web.Data.Migrations
+namespace CinderellaCore.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {
