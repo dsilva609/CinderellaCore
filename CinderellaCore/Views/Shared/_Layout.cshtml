@@ -24,37 +24,6 @@
 	<meta property="og:image" content="https://cinderellacore.azurewebsites.net/images/Turntable.jpg" />
 	<meta property="og:description" content="Always know what's playing in your collection." />
 
-	@*<environment include="Development">
-			<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-			<link rel="stylesheet" href="~/css/site.css" />
-		</environment>
-		<environment exclude="Development">
-			<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-				  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-				  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-			<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-		</environment>
-
-		<environment include="Development">
-			<script src="~/lib/jquery/dist/jquery.js"></script>
-			<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-			<script src="~/js/site.js" asp-append-version="true"></script>
-		</environment>
-		<environment exclude="Development">
-			<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-					asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-					asp-fallback-test="window.jQuery"
-					crossorigin="anonymous"
-					integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-			</script>
-			<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-					asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-					asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-					crossorigin="anonymous"
-					integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-			</script>
-			<script src="~/js/site.min.js" asp-append-version="true"></script>
-		</environment>*@
 	<script src="~/lib/jquery/dist/jquery.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 	@*<link rel="stylesheet" href="~/css/site.css" />*@
@@ -92,9 +61,15 @@
 		OneSignal.push(function () {
 			OneSignal.init({
 				appId: "c14ceac6-51a9-4c29-a94d-585af09e2f9c",
+				safari_web_id: "web.onesignal.auto.0654afc0-ce06-4b31-9757-37165e976417",
 				autoRegister: false,
 				notifyButton: {
 					enable: true
+				},
+				welcomeNotification: {
+					"title": "Welcome",
+					"message": "Welcome to Project Cinderella! Thanks for subscribing!",
+					// "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
 				}
 			});
 		});
