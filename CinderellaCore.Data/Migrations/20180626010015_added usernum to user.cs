@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CinderellaCore.Web.Data.Migrations
+namespace CinderellaCore.Data.Migrations
 {
     public partial class addedusernumtouser : Migration
     {
