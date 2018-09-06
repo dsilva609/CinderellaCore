@@ -54,26 +54,74 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
 	<script src="~/js/toastr.js"></script>
 
-	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
-	<link rel="manifest" href="~/manifest.json" />
-	<script>
-		var OneSignal = window.OneSignal || [];
-		OneSignal.push(function () {
-			OneSignal.init({
-				appId: "c14ceac6-51a9-4c29-a94d-585af09e2f9c",
-				safari_web_id: "web.onesignal.auto.0654afc0-ce06-4b31-9757-37165e976417",
-				autoRegister: false,
-				notifyButton: {
-					enable: true
-				},
-				welcomeNotification: {
-					"title": "Welcome",
-					"message": "Welcome to Project Cinderella! Thanks for subscribing!",
-					// "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
-				}
+	@*<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
+		<link rel="manifest" href="~/manifest.json" />
+		<script>
+			var OneSignal = window.OneSignal || [];
+			OneSignal.push(function () {
+				OneSignal.init({
+					appId: "c14ceac6-51a9-4c29-a94d-585af09e2f9c",
+					safari_web_id: "web.onesignal.auto.0654afc0-ce06-4b31-9757-37165e976417",
+					autoRegister: false,
+					notifyButton: {
+						enable: true
+					},
+					welcomeNotification: {
+						"title": "Welcome",
+						"message": "Welcome to Project Cinderella! Thanks for subscribing!",
+						// "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
+					}
+				});
 			});
+		</script>*@
+
+	<script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.4.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.4.2/firebase-messaging.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyD2hPRsVJUdq4MPQOCHwhRq5aocQq0i4Ss",
+			authDomain: "project-cinderella.firebaseapp.com",
+			databaseURL: "https://project-cinderella.firebaseio.com",
+			projectId: "project-cinderella",
+			storageBucket: "project-cinderella.appspot.com",
+			messagingSenderId: "180792182839"
+		};
+		firebase.initializeApp(config);
+		navigator.serviceWorker
+			.register('/firebase-sw.js')
+			.then((registration) => {
+				firebase.messaging().useServiceWorker(registration);
+			});
+		
+		firebase.messaging().onMessage(function (payload) {
+		
+			const notificationTitle = payload.notification.title;
+			const notificationOptions = {
+				body: payload.notification.body,
+				icon: payload.notification.icon,
+			};
+			
+			//window.location.href = "https://youtube.com";
+			if (!("Notification" in window)) {
+				console.log("This browser does not support system notifications");
+			}
+			
+			// Let's check whether notification permissions have already been granted
+			else if (Notification.permission === "granted") {
+				// If it's okay let's create a notification
+				var notification = new Notification(notificationTitle, notificationOptions);
+				notification.onclick = function(event) {
+					event.preventDefault(); // prevent the browser from focusing the Notification's tab
+					window.open(payload.notification.click_action, '_blank');
+					notification.close();
+				};
+			}
+			
 		});
 	</script>
+	<script src="~/js/site.js"></script>
 </head>
 @if (TempData.ContainsKey("Toastr"))
 {
@@ -82,6 +130,9 @@
 	;
 }
 <body>
+	<button id="sub">
+		Click for notifications
+	</button>
 	@*<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
@@ -446,6 +497,13 @@
 		</div>
 	</div>
 
+	<script>
+		$(function () {
+			$("#sub").click(function () {
+				askForPermissionToReceiveNotifications();
+			});
+		});
+	</script>
 	@RenderSection("Scripts", required: false)
 </body>
 </html>
