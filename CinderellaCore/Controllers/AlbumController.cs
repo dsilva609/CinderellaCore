@@ -355,6 +355,17 @@ namespace CinderellaCore.Web.Controllers
             return RedirectToAction("Index", "Queue");
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult ClearShowcase()
+        {
+            _service.ClearShowcase();
+
+            ShowStatusMessage(MessageTypeEnum.info, "Album showcase cleared", "Showcase");
+
+            return RedirectToAction("Index", "Showcase", new { id = _user.UserNum });
+        }
+
         private void UpdateGenreAndStatus(int id)
         {
             var album = _service.GetByID(id, _user.Id);

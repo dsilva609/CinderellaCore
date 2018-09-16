@@ -20,5 +20,7 @@ namespace CinderellaCore.Services.Services.Interfaces
         int GetHighestQueueRank(string userID);
 
         List<Album> GetRandomAlbums(string userID, int count);
+
+        void ClearShowcase();
     }
 }

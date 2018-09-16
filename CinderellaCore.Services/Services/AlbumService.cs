@@ -117,5 +117,17 @@ namespace CinderellaCore.Services.Services
         }
 
         public List<Album> GetRandomAlbums(string userID, int count) => GetAll(userID).GetRandom(count);
+
+        public void ClearShowcase()
+        {
+            var showcasedAlbums = _repository.GetAll().Where(x => x.IsShowcased).ToList();
+
+            foreach (var album in showcasedAlbums)
+            {
+                album.IsShowcased = false;
+                album.DateUpdated = DateTime.UtcNow;
+                Edit(album);
+            }
+        }
     }
 }

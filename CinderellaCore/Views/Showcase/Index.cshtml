@@ -31,6 +31,13 @@
         {
             <span>Albums</span>
         }
+
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <a class="btn btn-danger" href="@Url.Action("ClearShowcase", "Album")">
+                <span class="fa fa-undo"></span>
+            </a>
+        }
     </h2>
 
     <div style="padding-left: 0; padding-right: 0;">

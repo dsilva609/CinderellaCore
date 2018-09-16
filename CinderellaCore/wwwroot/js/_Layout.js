@@ -41,9 +41,15 @@
                 changeYear: true,
                 showButtonPanel: true
             });
-            $('[class~=deleteBtn]').on("click", function () {
-                deleteItem($(this));
-                return false;
+            //$('[class~=deleteBtn]').on("click", function () {
+            //    deleteItem($(this));
+            //    return false;
+            //});
+
+            $(".deleteBtn").on("click", function (e) {
+                var result = confirm("Are your sure you want to delete?");
+
+                if (!result) e.preventDefault();
             });
             $('.panel-collapse').on("click", function () {
                 return $(this).find("span").toggleClass("fa-chevron-circle-down fa-chevron-circle-up");
