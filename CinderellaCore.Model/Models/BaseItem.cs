@@ -65,7 +65,7 @@ namespace CinderellaCore.Model.Models
 
         public string Category { get; set; }
 
-        [DisplayName("Country Of Origin")]
+        [DisplayName("Country of Origin")]
         public string CountryOfOrigin { get; set; }
 
         [DisplayName("Country Purchased")]
