@@ -54,7 +54,8 @@ namespace CinderellaCore.Web
 
             services.AddSession();
             services.AddDetection();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddHttpContextAccessor();
 
             IntegrateSimpleInjector(services);
             services.AddAuthorization(x => x.AddPolicy("Api", policy => policy.Requirements.Add(new ApiRequirement())));

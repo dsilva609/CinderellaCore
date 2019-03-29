@@ -1,9 +1,13 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CinderellaCore.Web.Views.Account
+namespace CinderellaCore.Web.Models
 {
-    public class RegisterModel : PageModel
+    public class RegisterModel
     {
         public string Email { get; set; }
         public string Password { get; set; }
@@ -13,9 +17,5 @@ namespace CinderellaCore.Web.Views.Account
 
         [DisplayName("Display Name")]
         public string DisplayName { get; set; }
-
-        public void OnGet()
-        {
-        }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using CinderellaCore.Model.Models;
 using CinderellaCore.Web.Enums;
-using CinderellaCore.Web.Views.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using CinderellaCore.Web.Models;
 
 namespace CinderellaCore.Web.Controllers
 {
