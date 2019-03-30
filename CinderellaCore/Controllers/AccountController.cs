@@ -12,8 +12,8 @@ namespace CinderellaCore.Web.Controllers
 		private readonly SignInManager<ApplicationUser> _signInManager;
 
 		public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(userManager)
-		{
-			_signInManager = signInManager;
+        {
+            _signInManager = signInManager;
 		}
 
 		[HttpGet]
