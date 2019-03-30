@@ -1,8 +1,10 @@
-﻿using CinderellaCore.Model.Models;
+﻿using System.Linq;
+using CinderellaCore.Model.Models;
 using CinderellaCore.Model.Models.Discogs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
+using Microsoft.Extensions.Configuration;
 
 namespace CinderellaCore.Data.Context
 {
@@ -18,11 +20,14 @@ namespace CinderellaCore.Data.Context
 
         public CinderellaCoreContext(DbContextOptions<CinderellaCoreContext> options) : base(options)
         {
+            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            var sqlServerOptionsExtension = builder.Options.FindExtension<SqlServerOptionsExtension>();
+            
+            var sqlServerOptionsExtension =
+                (SqlServerOptionsExtension) builder.Options.Extensions.FirstOrDefault(x => x.GetType() == typeof(SqlServerOptionsExtension));
             if (sqlServerOptionsExtension != null)
             {
                 string connectionString = sqlServerOptionsExtension.ConnectionString;

@@ -54,7 +54,7 @@ namespace CinderellaCore.Web
 
             services.AddSession();
             services.AddDetection();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest).AddNewtonsoftJson();
             services.AddHttpContextAccessor();
 
             IntegrateSimpleInjector(services);
@@ -80,7 +80,7 @@ namespace CinderellaCore.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                //app.UseDatabaseErrorPage();
             }
             else
             {
