@@ -46,6 +46,8 @@ namespace CinderellaCore.Services.Services
                     .ToList();
             if (existingAlbum.Any())
                 throw new ApplicationException($"An existing album of {album.Artist}, {album.Title}, {album.MediaType} already exists.");
+
+            if (!string.IsNullOrWhiteSpace(album.ImageUrl) && !album.ImageUrl.Contains("https")) album.ImageUrl = album.ImageUrl.Replace("http", "https");
             _addEntityComponent.Execute(_repository, album);
         }
 
@@ -94,11 +96,11 @@ namespace CinderellaCore.Services.Services
             return albumList;
         }
 
-        public Album GetByID(int id, string userID) =>
-            _getEntityByIDComponent.Execute(_repository, id, userID);
+        public Album GetByID(int id, string userID) => _getEntityByIDComponent.Execute(_repository, id, userID);
 
         public void Edit(Album album)
         {
+            if (!string.IsNullOrWhiteSpace(album.ImageUrl) && !album.ImageUrl.Contains("https")) album.ImageUrl = album.ImageUrl.Replace("http", "https");
             _editEntityComponent.Execute(_repository, album);
             //if (album.Tracklist.Count > 0)
             //  _editEntityListComponent.Execute(_tracksRepository, album.Tracklist);

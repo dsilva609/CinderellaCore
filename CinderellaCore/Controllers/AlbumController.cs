@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using X.PagedList;
 using CompletionStatus = CinderellaCore.Model.CompletionStatus;
 
@@ -62,9 +63,9 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult CreateFromSearchResult(int releaseID)
+        public async Task<IActionResult> CreateFromSearchResult(int releaseID)
         {
-            var release = _discogsService.GetRelease(releaseID);
+            var release = await _discogsService.GetRelease(releaseID);
 
             release.UserID = _user.Id;
             release.UserNum = _user.UserNum;
@@ -125,7 +126,7 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
             var model = _service.GetByID(id, _user.Id);
             if (model.UserID != _user.Id) return RedirectToAction("Details", "Album", model.ID);
@@ -137,7 +138,7 @@ namespace CinderellaCore.Web.Controllers
                 return RedirectToAction("Edit", "Album", id);
             }
 
-            var release = _discogsService.GetRelease(model.DiscogsID);
+            var release = await _discogsService.GetRelease(model.DiscogsID);
 
             //TODO: does this have to be here?
             model.Artist = release.Artist;
@@ -213,7 +214,7 @@ namespace CinderellaCore.Web.Controllers
         //TODO: add tests and validation
         [Authorize]
         [HttpGet]
-        public IActionResult Search(DiscogsSearchModel searchModel)
+        public async Task<IActionResult> Search(DiscogsSearchModel searchModel)
         {
             if (!string.IsNullOrWhiteSpace(searchModel.Artist)) searchModel.Artist = searchModel.Artist.Trim();
             if (!string.IsNullOrWhiteSpace(searchModel.AlbumName)) searchModel.AlbumName = searchModel.AlbumName.Trim();
@@ -229,7 +230,7 @@ namespace CinderellaCore.Web.Controllers
 
             if (!string.IsNullOrWhiteSpace(searchModel.Artist) || !string.IsNullOrWhiteSpace(searchModel.AlbumName))
             {
-                searchModel.Results = _discogsService.Search(searchModel.Artist, searchModel.AlbumName);
+                searchModel.Results = await _discogsService.Search(searchModel.Artist, searchModel.AlbumName);
                 searchModel.Results = searchModel.Results.OrderByDescending(x => x.Year).ToList();
             }
             ViewBag.Title = "Album Search";
