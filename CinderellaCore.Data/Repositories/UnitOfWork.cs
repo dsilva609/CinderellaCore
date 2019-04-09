@@ -1,6 +1,6 @@
 ﻿using CinderellaCore.Data.Context;
-using CinderellaCore.Model.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +13,10 @@ namespace CinderellaCore.Data.Repositories
         private readonly Dictionary<Type, object> _repositories;
         private bool _disposed;
 
-        public UnitOfWork(GlobalSettings settings)
+        public UnitOfWork(IConfiguration settings)
         {
             var builder = new DbContextOptionsBuilder<CinderellaCoreContext>();
-            builder.UseSqlServer(settings.SQLConnectionString);
+            builder.UseSqlServer(settings.GetConnectionString("DefaultConnection"));
 
             _context = new CinderellaCoreContext(builder.Options);
             _repositories = new Dictionary<Type, object>();
