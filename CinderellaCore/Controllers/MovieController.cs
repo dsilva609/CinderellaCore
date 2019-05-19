@@ -32,7 +32,7 @@ namespace CinderellaCore.Web.Controllers
         {
             if (string.IsNullOrWhiteSpace(movieQuery) && SessionValueExists("movie-query"))
             {
-                movieQuery = GetFromSession<string>("movie-query");
+                movieQuery = GetStringFromSession("movie-query");
                 RemoveFromSession("movie-query");
             }
 

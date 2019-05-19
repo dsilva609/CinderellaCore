@@ -36,7 +36,7 @@ namespace CinderellaCore.Web.Controllers
         {
             if (string.IsNullOrWhiteSpace(bookQuery) && SessionValueExists("book-query"))
             {
-                bookQuery = GetFromSession<string>("book-query");
+                bookQuery = GetStringFromSession("book-query");
                 RemoveFromSession("book-query");
             }
             ViewBag.Filter = (string.IsNullOrWhiteSpace(bookQuery) ? filter : bookQuery)?.Trim();

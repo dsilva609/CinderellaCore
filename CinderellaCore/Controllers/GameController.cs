@@ -36,7 +36,7 @@ namespace CinderellaCore.Web.Controllers
         {
             if (string.IsNullOrWhiteSpace(gameQuery) && SessionValueExists("game-query"))
             {
-                gameQuery = GetFromSession<string>("game-query");
+                gameQuery = GetStringFromSession("game-query");
                 RemoveFromSession("game-query");
             }
 
