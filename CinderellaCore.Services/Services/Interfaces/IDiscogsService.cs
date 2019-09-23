@@ -1,13 +1,14 @@
 ﻿using CinderellaCore.Model.Models;
 using CinderellaCore.Model.Models.Discogs;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CinderellaCore.Services.Services.Interfaces
 {
     public interface IDiscogsService
     {
-        List<DiscogsResult> Search(string artist, string album);
+        Task<List<DiscogsResult>> Search(string artist, string album);
 
-        Album GetRelease(int releaseID);
+        Task<Album> GetRelease(int releaseID);
     }
 }

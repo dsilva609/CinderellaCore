@@ -29,7 +29,7 @@ namespace CinderellaCore.Web.Controllers
         {
             if (string.IsNullOrWhiteSpace(popQuery) && SessionValueExists("pop-Query"))
             {
-                popQuery = GetFromSession<string>("pop-Query");
+                popQuery = GetStringFromSession("pop-Query");
                 RemoveFromSession("pop-Query");
             }
             ViewBag.Filter = (string.IsNullOrWhiteSpace(popQuery) ? filter : popQuery)?.Trim();

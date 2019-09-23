@@ -14,10 +14,7 @@ namespace CinderellaCore.Services.Services
         //private readonly IClientService _googleClient;
         private readonly VolumesResource _service;
 
-        public GoogleBookService(IClientService client)
-        {
-            _service = new VolumesResource(client);
-        }
+        public GoogleBookService(IClientService client) => _service = new VolumesResource(client);
 
         public List<Book> Search(string author, string title)
         {
@@ -69,6 +66,8 @@ namespace CinderellaCore.Services.Services
                 CountryOfOrigin = volume.SaleInfo.Country,
                 PageCount = volume.VolumeInfo.PageCount.GetValueOrDefault()
             };
+
+            if (!string.IsNullOrWhiteSpace(book.ImageUrl) && !book.ImageUrl.Contains("https")) book.ImageUrl = book.ImageUrl.Replace("http", "https");
 
             return book;
         }

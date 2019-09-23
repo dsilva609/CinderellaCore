@@ -34,6 +34,7 @@ namespace CinderellaCore.Services.Services
             var existingBook = _repository.GetAll().Where(x => x.UserID == book.UserID && x.Title == book.Title && x.Author == book.Author).ToList();
             if (existingBook.Count > 0)
                 throw new ApplicationException($"An existing book of {book.Title}, {book.Author} already exists.");
+            if (!string.IsNullOrWhiteSpace(book.ImageUrl) && !book.ImageUrl.Contains("https")) book.ImageUrl = book.ImageUrl.Replace("http", "https");
             _addEntityComponent.Execute(_repository, book);
         }
 
@@ -63,7 +64,11 @@ namespace CinderellaCore.Services.Services
 
         public Book GetByID(int id, string userID) => _getEntityByIDComponent.Execute(_repository, id, userID);
 
-        public void Edit(Book book) => _editEntityComponent.Execute(_repository, book);
+        public void Edit(Book book)
+        {
+            if (!string.IsNullOrWhiteSpace(book.ImageUrl) && !book.ImageUrl.Contains("https")) book.ImageUrl = book.ImageUrl.Replace("http", "https");
+            _editEntityComponent.Execute(_repository, book);
+        }
 
         public void Delete(int id, string userID) => _deleteEntityComponent.Execute(_repository, id, userID);
 

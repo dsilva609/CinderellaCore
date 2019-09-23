@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using X.PagedList;
 using CompletionStatus = CinderellaCore.Model.CompletionStatus;
 
@@ -35,7 +36,7 @@ namespace CinderellaCore.Web.Controllers
         {
             if (string.IsNullOrWhiteSpace(bookQuery) && SessionValueExists("book-query"))
             {
-                bookQuery = GetFromSession<string>("book-query");
+                bookQuery = GetStringFromSession("book-query");
                 RemoveFromSession("book-query");
             }
             ViewBag.Filter = (string.IsNullOrWhiteSpace(bookQuery) ? filter : bookQuery)?.Trim();
@@ -169,7 +170,7 @@ namespace CinderellaCore.Web.Controllers
         //TODO: add tests and validation
         [Authorize]
         [HttpGet]
-        public IActionResult Search(BookSearchModel searchModel)
+        public async Task<IActionResult> Search(BookSearchModel searchModel)
         {
             if (!string.IsNullOrWhiteSpace(searchModel.Author)) searchModel.Author = searchModel.Author.Trim();
             if (!string.IsNullOrWhiteSpace(searchModel.Title)) searchModel.Title = searchModel.Title.Trim();
@@ -189,7 +190,7 @@ namespace CinderellaCore.Web.Controllers
 
             //TODO: add author to search
             if (!string.IsNullOrWhiteSpace(searchModel.Title))
-                searchModel.ComicsVineResult = _comicVineService.Search(searchModel.Title);
+                searchModel.ComicsVineResult = await _comicVineService.Search(searchModel.Title);
 
             ViewBag.Title = "Book Search";
 
@@ -198,10 +199,10 @@ namespace CinderellaCore.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult CreateFromSearchModel(string id, bool isComic)
+        public async Task<IActionResult> CreateFromSearchModel(string id, bool isComic)
         {
             ViewBag.Title = "Create";
-            var book = isComic ? _comicVineService.SearchByID(id) : _googleBookService.SearchByID(id);
+            var book = isComic ? await _comicVineService.SearchByID(id) : _googleBookService.SearchByID(id);
 
             book.UserID = _user.Id;
             book.UserNum = _user.UserNum;

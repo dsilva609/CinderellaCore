@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace CinderellaCore.Services.Services
 {
@@ -23,12 +24,12 @@ namespace CinderellaCore.Services.Services
             CreateClient();
         }
 
-        public List<DiscogsResult> Search(string artist, string album)
+        public async Task<List<DiscogsResult>> Search(string artist, string album)
         {
             if (string.IsNullOrWhiteSpace(artist) && string.IsNullOrWhiteSpace(album)) return new List<DiscogsResult>();
             var response = _client.GetAsync($"database/search?type=release&q={artist}+{album}");
 
-            var result = JObject.Parse(response.Result.Content.ReadAsStringAsync().Result);
+            var result = JObject.Parse(await response.Result.Content.ReadAsStringAsync());
 
             var resultList = JsonConvert.DeserializeObject<List<DiscogsResult>>(result["results"].ToString());
 
@@ -42,10 +43,10 @@ namespace CinderellaCore.Services.Services
             return resultList;
         }
 
-        public Album GetRelease(int releaseID)
+        public async Task<Album> GetRelease(int releaseID)
         {
             var response = _client.GetAsync($"releases/{releaseID}");
-            var result = response.Result.Content.ReadAsStringAsync().Result;
+            var result = await response.Result.Content.ReadAsStringAsync();
             var release = JsonConvert.DeserializeObject<DiscogsRelease>(result);
 
             release.LabelString = release.labels != null ? string.Join(", ", release.labels.Select(x => x.name).ToList()) : string.Empty;
@@ -70,17 +71,19 @@ namespace CinderellaCore.Services.Services
         {
             var album = new Album
             {
-                Artist = release.artists?.First().name,
+                Artist = release.artists?.FirstOrDefault()?.name,
                 Title = release.title,
                 YearReleased = release.year,
                 RecordLabel = release.LabelString,
                 Genre = release.GenreString,
                 Style = release.StylesString,
                 DiscogsID = release.id,
-                ImageUrl = release.images?.First().uri,
+                ImageUrl = release.images?.FirstOrDefault()?.uri,
                 //   Tracklist = release.tracklist,
                 CountryOfOrigin = release.country
             };
+
+            if (!string.IsNullOrWhiteSpace(album.ImageUrl) && !album.ImageUrl.Contains("https")) album.ImageUrl = album.ImageUrl.Replace("http", "https");
 
             return album;
         }
