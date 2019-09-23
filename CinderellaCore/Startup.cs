@@ -21,6 +21,7 @@ using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using System;
+using Microsoft.Extensions.Hosting;
 
 namespace CinderellaCore.Web
 {
@@ -56,6 +57,18 @@ namespace CinderellaCore.Web
             services.AddDetection();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest).AddNewtonsoftJson();
             services.AddHttpContextAccessor();
+            services.AddSimpleInjector(_container, options =>
+                {
+                    // AddAspNetCore() wraps web requests in a Simple Injector scope.
+                    options.AddAspNetCore()
+                        // Ensure activation of a specific framework type to be created by
+                        // Simple Injector instead of the built-in configuration system.
+                        .AddControllerActivation()
+                        .AddViewComponentActivation()
+                        .AddPageModelActivation()
+                        .AddTagHelperActivation();
+                }
+            );
 
             IntegrateSimpleInjector(services);
             services.AddAuthorization(x => x.AddPolicy("Api", policy => policy.Requirements.Add(new ApiRequirement())));
@@ -63,7 +76,7 @@ namespace CinderellaCore.Web
 
         private void IntegrateSimpleInjector(IServiceCollection services)
         {
-            _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+           // _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
             services.AddSingleton<IViewComponentActivator>(new SimpleInjectorViewComponentActivator(_container));
@@ -73,7 +86,7 @@ namespace CinderellaCore.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             InitializeContainer(app);
             _container.Verify();
@@ -90,24 +103,19 @@ namespace CinderellaCore.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseSession();
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
             app.UseCookiePolicy();
         }
 
         private void InitializeContainer(IApplicationBuilder app)
         {
-            // Add application presentation components:
-            _container.RegisterMvcControllers(app);
-            _container.RegisterMvcViewComponents(app);
-
             _container.Register(GetAspNetServiceProvider<UserManager<ApplicationUser>>(app), Lifestyle.Scoped);
             _container.Register(GetAspNetServiceProvider<SignInManager<ApplicationUser>>(app), Lifestyle.Scoped);
 
