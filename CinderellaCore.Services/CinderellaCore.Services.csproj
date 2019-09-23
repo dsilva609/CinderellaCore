@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Apis.Books.v1" Version="1.38.0.1441" />
+    <PackageReference Include="Google.Apis.Books.v1" Version="1.41.1.1441" />
   </ItemGroup>
 
   <ItemGroup>
