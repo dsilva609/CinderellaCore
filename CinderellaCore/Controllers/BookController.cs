@@ -186,11 +186,27 @@ namespace CinderellaCore.Web.Controllers
             }
 
             if (!string.IsNullOrWhiteSpace(searchModel.Author) || !string.IsNullOrWhiteSpace(searchModel.Title))
-                searchModel.Volumes = _googleBookService.Search(searchModel.Author, searchModel.Title);
+            {
+                try
+                {
+                    searchModel.Volumes = _googleBookService.Search(searchModel.Author, searchModel.Title);
+                }
+                catch (Exception e)
+                {
+                }
+            }
 
             //TODO: add author to search
             if (!string.IsNullOrWhiteSpace(searchModel.Title))
-                searchModel.ComicsVineResult = await _comicVineService.Search(searchModel.Title);
+            {
+                try
+                {
+                    searchModel.ComicsVineResult = await _comicVineService.Search(searchModel.Title);
+                }
+                catch (Exception e)
+                {
+                }
+            }
 
             ViewBag.Title = "Book Search";
 
