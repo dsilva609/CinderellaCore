@@ -67,6 +67,8 @@ namespace CinderellaCore.Web
                         .AddViewComponentActivation()
                         .AddPageModelActivation()
                         .AddTagHelperActivation();
+
+                    options.AutoCrossWireFrameworkComponents = true;
                 }
             );
 
@@ -76,12 +78,11 @@ namespace CinderellaCore.Web
 
         private void IntegrateSimpleInjector(IServiceCollection services)
         {
-           // _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+            // _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(_container));
             services.AddSingleton<IViewComponentActivator>(new SimpleInjectorViewComponentActivator(_container));
             services.AddSingleton<IAuthorizationHandler>(new ApiAuthorizationHandler(Configuration.GetSection("GlobalSettings").Get<GlobalSettings>()));
-            services.EnableSimpleInjectorCrossWiring(_container);
             services.UseSimpleInjectorAspNetRequestScoping(_container);
         }
 
@@ -89,6 +90,7 @@ namespace CinderellaCore.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             InitializeContainer(app);
+            app.UseSimpleInjector(_container);
             _container.Verify();
             if (env.IsDevelopment())
             {
@@ -112,6 +114,7 @@ namespace CinderellaCore.Web
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
             app.UseCookiePolicy();
+            app.UseSimpleInjector(_container);
         }
 
         private void InitializeContainer(IApplicationBuilder app)
@@ -142,9 +145,6 @@ namespace CinderellaCore.Web
             _container.Register<IGameStatisticService, GameStatisticService>(Lifestyle.Scoped);
             _container.Register<IPopStatisticService, PopStatisticService>(Lifestyle.Scoped);
             _container.Register<IImportService, ImportService>(Lifestyle.Scoped);
-
-            // Allow Simple Injector to resolve services from ASP.NET Core.
-            _container.AutoCrossWireAspNetComponents(app);
         }
 
         private Func<T> GetAspNetServiceProvider<T>(IApplicationBuilder app)
