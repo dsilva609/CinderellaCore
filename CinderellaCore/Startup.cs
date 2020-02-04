@@ -1,9 +1,14 @@
 ﻿using CinderellaCore.Data.Context;
 using CinderellaCore.Data.Repositories;
 using CinderellaCore.Model.Models;
-using CinderellaCore.Services.Services;
-using CinderellaCore.Services.Services.Interfaces;
-using CinderellaCore.Services.Services.Statistics;
+using CinderellaCore.Services.Features.Album;
+using CinderellaCore.Services.Features.Book;
+using CinderellaCore.Services.Features.Game;
+using CinderellaCore.Services.Features.Import;
+using CinderellaCore.Services.Features.Movie;
+using CinderellaCore.Services.Features.Pop;
+using CinderellaCore.Services.Features.Statistics;
+using CinderellaCore.Services.Features.Wish;
 using CinderellaCore.Web.Authorization;
 using Google.Apis.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -17,11 +22,10 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
-using SimpleInjector.Lifestyles;
 using System;
-using Microsoft.Extensions.Hosting;
 
 namespace CinderellaCore.Web
 {

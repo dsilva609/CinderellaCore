@@ -1,5 +1,6 @@
 ﻿using CinderellaCore.Model.Models;
-using CinderellaCore.Services.Services.Interfaces;
+using CinderellaCore.Services.Features.Book;
+using CinderellaCore.Services.Features.Statistics;
 using CinderellaCore.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

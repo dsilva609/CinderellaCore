@@ -1,6 +1,6 @@
 ﻿using CinderellaCore.Model.Enums;
 using CinderellaCore.Model.Models;
-using CinderellaCore.Services.Services.Interfaces;
+using CinderellaCore.Services.Features.Wish;
 using CinderellaCore.Web.Enums;
 using CinderellaCore.Web.Models;
 using Microsoft.AspNetCore.Authorization;

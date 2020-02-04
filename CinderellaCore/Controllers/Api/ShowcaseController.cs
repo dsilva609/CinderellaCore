@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using CinderellaCore.Services.Services.Interfaces;
+﻿using CinderellaCore.Services.Features.Album;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace CinderellaCore.Web.Controllers.Api
 {

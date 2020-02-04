@@ -1,5 +1,5 @@
 ﻿using CinderellaCore.Model.Models;
-using CinderellaCore.Services.Services.Interfaces;
+using CinderellaCore.Services.Features.Album;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
