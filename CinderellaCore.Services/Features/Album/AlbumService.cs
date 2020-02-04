@@ -2,7 +2,7 @@
 using CinderellaCore.Data.Repositories;
 using CinderellaCore.Model.Models;
 using CinderellaCore.Model.Models.Discogs;
-using CinderellaCore.Services.Helpers;
+using CinderellaCore.Services.Features.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

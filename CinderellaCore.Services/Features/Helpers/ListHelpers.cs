@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CinderellaCore.Services.Helpers
+namespace CinderellaCore.Services.Features.Helpers
 {
     public static class ListHelpers
     {
