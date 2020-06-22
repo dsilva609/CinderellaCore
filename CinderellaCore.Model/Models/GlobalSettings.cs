@@ -11,5 +11,7 @@ namespace CinderellaCore.Model.Models
         public DateTime RecordStoreDayDate { get; set; }
         public DateTime FreeComicBookDayDate { get; set; }
         public string ApiKey { get; set; }
+        public string JwtKey { get; set; }
+        public string Issuer { get; set; }
     }
 }

@@ -17,11 +17,10 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
-using SimpleInjector.Lifestyles;
 using System;
-using Microsoft.Extensions.Hosting;
 
 namespace CinderellaCore.Web
 {
@@ -53,6 +52,32 @@ namespace CinderellaCore.Web
                 .AddEntityFrameworkStores<CinderellaCoreContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()
+                        .Build());
+            });
+            //services.AddAuthentication(options =>
+            //    {
+            //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    })
+            //    .AddJwtBearer(options =>
+            //    {
+            //        options.Audience = Configuration["GlobalSettings:Issuer"];
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateIssuer = false,
+            //            ValidateAudience = false,
+            //            ValidateLifetime = false,
+            //            ValidateIssuerSigningKey = false,
+            //            ValidIssuer = Configuration["GlobalSettings:Issuer"],
+            //            ValidAudience = Configuration["GlobalSettings:Issuer"],
+            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["GlobalSettings:JwtKey"]))
+            //        };
+            //    });
+
             services.AddSession();
             services.AddDetection();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest).AddNewtonsoftJson();
@@ -73,7 +98,11 @@ namespace CinderellaCore.Web
             );
 
             IntegrateSimpleInjector(services);
-            services.AddAuthorization(x => x.AddPolicy("Api", policy => policy.Requirements.Add(new ApiRequirement())));
+
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy("Api", policy => policy.Requirements.Add(new ApiRequirement()));
+            });
         }
 
         private void IntegrateSimpleInjector(IServiceCollection services)
@@ -92,10 +121,10 @@ namespace CinderellaCore.Web
             InitializeContainer(app);
             app.UseSimpleInjector(_container);
             _container.Verify();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
             }
             else
             {
@@ -111,6 +140,7 @@ namespace CinderellaCore.Web
             app.UseSession();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
             app.UseCookiePolicy();
